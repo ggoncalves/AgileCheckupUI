@@ -1,19 +1,24 @@
-import React, { ReactNode } from 'react'
+'use client'
+
+import React, { ReactNode } from 'react';
+import Navbar from './Navbar';
+import Sidebar from './Sidebar';
 
 interface AdminLayoutProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
-export default function AdminLayout({ children }: AdminLayoutProps) {
+const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
   return (
     <>
-      {/* O sidebar e navbar serão implementados aqui posteriormente */}
-      
+      <Navbar />
+      <Sidebar />
+
       {/* Content */}
       <div className="content-wrapper">
         {children}
       </div>
-      
+
       {/* Footer */}
       <footer className="main-footer">
         <div className="float-right d-none d-sm-block">
@@ -21,6 +26,13 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         </div>
         <strong>AgileCheckup &copy; 2025</strong> All rights reserved.
       </footer>
+
+      {/* Control Sidebar */}
+      <aside className="control-sidebar control-sidebar-dark">
+        {/* Control sidebar content goes here */}
+      </aside>
     </>
-  )
-}
+  );
+};
+
+export default AdminLayout;

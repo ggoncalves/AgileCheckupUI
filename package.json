@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
+    "copy-scripts": "node scripts/copy-scripts.js",
+    "dev": "npm run copy-scripts && next dev",
+    "build": "npm run copy-scripts && next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -14,6 +15,7 @@
     "axios": "^1.9.0",
     "bootstrap": "^4.6.2",
     "husky": "^9.1.7",
+    "jquery": "^3.7.1",
     "next": "15.3.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -22,6 +24,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@types/bootstrap": "^5.2.10",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
