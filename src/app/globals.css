@@ -1,3 +1,37 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'admin-lte/dist/css/adminlte.min.css';
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+
+/* Text color fixes for better visibility */
+.content-wrapper {
+  background-color: #f4f6f9;
+  color: #212529;
+}
+
+.card {
+  color: #212529;
+}
+
+.card-header {
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+.card-title {
+  color: #212529;
+  font-weight: 600;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  color: #212529;
+}
+
+/* Additional fixes for any other light text issues */
+.content-header h1 {
+  color: #212529;
+  font-weight: 500;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
