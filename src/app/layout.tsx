@@ -14,10 +14,9 @@ export default function RootLayout({
   return (
     <html lang="en">
     <head>
-      {/* Use Next.js Script component for proper script loading */}
       <Script src="/jquery.min.js" strategy="beforeInteractive" />
       <Script src="/bootstrap.bundle.min.js" strategy="afterInteractive" />
-      <Script src="/adminlte.min.js" strategy="afterInteractive" /><title>Agile Checkup</title>
+      <Script src="/adminlte.min.js" strategy="afterInteractive"/>
     </head>
     <body className="hold-transition sidebar-mini layout-fixed">
     {children}

@@ -10,7 +10,7 @@ interface AdminLayoutProps {
 
 const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
   return (
-    <>
+    <div className="wrapper">
       <Navbar />
       <Sidebar />
 
@@ -31,7 +31,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
       <aside className="control-sidebar control-sidebar-dark">
         {/* Control sidebar content goes here */}
       </aside>
-    </>
+    </div>
   );
 };
 
