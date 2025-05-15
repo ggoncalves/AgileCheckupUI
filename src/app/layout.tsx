@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'admin-lte/dist/css/adminlte.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Script from 'next/script';
+import { TenantProvider } from '@/contexts/TenantContext';
 
 export default function RootLayout({
                                      children,
@@ -19,7 +20,9 @@ export default function RootLayout({
       <Script src="/adminlte.min.js" strategy="afterInteractive"/>
     </head>
     <body className="hold-transition sidebar-mini layout-fixed">
-    {children}
+    <TenantProvider>
+      {children}
+    </TenantProvider>
     </body>
     </html>
   );

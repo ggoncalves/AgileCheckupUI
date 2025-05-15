@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import TenantInfo from '../TenantInfo';
 
 const Navbar: React.FC = () => {
   return (
@@ -23,6 +24,9 @@ const Navbar: React.FC = () => {
 
       {/* Right navbar links */}
       <ul className="navbar-nav ml-auto">
+        {/* Tenant info */}
+        <TenantInfo />
+
         {/* Search form */}
         <li className="nav-item">
           <a className="nav-link" data-widget="navbar-search" href="#" role="button">
