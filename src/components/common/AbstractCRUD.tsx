@@ -191,6 +191,7 @@ function AbstractCRUD<T extends CrudItem>({
                   type="button"
                   className="btn btn-primary btn-sm"
                   onClick={handleAddNew}
+                  disabled={showForm}
                 >
                   <i className="fas fa-plus mr-1"></i> Add New {itemName}
                 </button>
@@ -266,12 +267,14 @@ function AbstractCRUD<T extends CrudItem>({
                           <button
                             className="btn btn-info btn-sm mr-2"
                             onClick={() => handleEdit(item)}
+                            disabled={showForm}
                           >
                             <i className="fas fa-edit"></i> Edit
                           </button>
                           <button
                             className="btn btn-danger btn-sm"
                             onClick={() => handleDelete(item.id)}
+                            disabled={showForm}
                           >
                             <i className="fas fa-trash"></i> Delete
                           </button>
