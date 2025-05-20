@@ -43,28 +43,34 @@ const Sidebar: React.FC = () => {
             </li>
 
             {/* Companies */}
+            {/*<li className="nav-item">*/}
+            {/*  <a href="#" className="nav-link">*/}
+            {/*    <i className="nav-icon fas fa-building"></i>*/}
+            {/*    <p>*/}
+            {/*      Companies*/}
+            {/*      <i className="fas fa-angle-left right"></i>*/}
+            {/*    </p>*/}
+            {/*  </a>*/}
+            {/*  <ul className="nav nav-treeview">*/}
+            {/*    <li className="nav-item">*/}
+            {/*      <Link href="/companies" className={`nav-link ${isActive('/companies')}`}>*/}
+            {/*        <i className="far fa-circle nav-icon"></i>*/}
+            {/*        <p>All Companies</p>*/}
+            {/*      </Link>*/}
+            {/*    </li>*/}
+            {/*    <li className="nav-item">*/}
+            {/*      <Link href="/companies/add" className={`nav-link ${isActive('/companies/add')}`}>*/}
+            {/*        <i className="far fa-circle nav-icon"></i>*/}
+            {/*        <p>Add Company</p>*/}
+            {/*      </Link>*/}
+            {/*    </li>*/}
+            {/*  </ul>*/}
+            {/*</li>*/}
             <li className="nav-item">
-              <a href="#" className="nav-link">
+              <Link href="/admin/companies" className="nav-link">
                 <i className="nav-icon fas fa-building"></i>
-                <p>
-                  Companies
-                  <i className="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul className="nav nav-treeview">
-                <li className="nav-item">
-                  <Link href="/companies" className={`nav-link ${isActive('/companies')}`}>
-                    <i className="far fa-circle nav-icon"></i>
-                    <p>All Companies</p>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link href="/companies/add" className={`nav-link ${isActive('/companies/add')}`}>
-                    <i className="far fa-circle nav-icon"></i>
-                    <p>Add Company</p>
-                  </Link>
-                </li>
-              </ul>
+                <p>Companies</p>
+              </Link>
             </li>
 
             {/* Departments */}
