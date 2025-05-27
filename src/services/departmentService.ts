@@ -8,6 +8,8 @@ export interface Department {
   companyId: string;
   createdDate: string;
   lastUpdatedDate: string;
+  // Index signature for CrudItem compatibility
+  [key: string]: unknown;
 }
 
 // Type for creating a new department
