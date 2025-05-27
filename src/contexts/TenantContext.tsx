@@ -1,11 +1,12 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, {createContext, ReactNode, useContext, useEffect, useState} from 'react';
 
 interface TenantContextType {
   tenantId: string | null;
   companyName: string | null;
-  setTenant: (tenantId: string, companyName: string) => void;
+  companyId: string | null;
+  setTenant: (tenantId: string, companyName: string, companyId: string) => void;
   clearTenant: () => void;
   isLoaded: boolean;
 }
@@ -14,6 +15,7 @@ interface TenantContextType {
 const TenantContext = createContext<TenantContextType>({
   tenantId: null,
   companyName: null,
+  companyId: null,
   setTenant: () => {},
   clearTenant: () => {},
   isLoaded: false,
@@ -23,12 +25,14 @@ const TenantContext = createContext<TenantContextType>({
 export const TenantProvider: React.FC<{children: ReactNode}> = ({ children }) => {
   const [tenantId, setTenantId] = useState<string | null>(null);
   const [companyName, setCompanyName] = useState<string | null>(null);
+  const [companyId, setCompanyId] = useState<string | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
   // Initialize state from localStorage on component mount
   useEffect(() => {
     const storedTenantId = localStorage.getItem('tenantId');
     const storedCompanyName = localStorage.getItem('companyName');
+    const storedCompanyId = localStorage.getItem('companyId');
 
     if (storedTenantId) {
       setTenantId(storedTenantId);
@@ -38,23 +42,31 @@ export const TenantProvider: React.FC<{children: ReactNode}> = ({ children }) =>
       setCompanyName(storedCompanyName);
     }
 
+    if (storedCompanyId) {
+      setCompanyId(storedCompanyId);
+    }
+
     setIsLoaded(true);
   }, []);
 
   // Method to set tenant info
-  const setTenant = (id: string, name: string) => {
-    setTenantId(id);
-    setCompanyName(name);
-    localStorage.setItem('tenantId', id);
-    localStorage.setItem('companyName', name);
+  const setTenant = (tenId: string, companyName: string, companyId: string) => {
+    setTenantId(tenId);
+    setCompanyName(companyName);
+    setCompanyId(companyId);
+    localStorage.setItem('tenantId', tenId);
+    localStorage.setItem('companyName', companyName);
+    localStorage.setItem('companyId', companyId);
   };
 
   // Method to clear tenant info
   const clearTenant = () => {
     setTenantId(null);
     setCompanyName(null);
+    setCompanyId(null);
     localStorage.removeItem('tenantId');
     localStorage.removeItem('companyName');
+    localStorage.removeItem('companyId');
   };
 
   return (
@@ -62,6 +74,7 @@ export const TenantProvider: React.FC<{children: ReactNode}> = ({ children }) =>
       value={{
         tenantId,
         companyName,
+        companyId,
         setTenant,
         clearTenant,
         isLoaded

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import {usePathname} from 'next/navigation';
 
 const Sidebar: React.FC = () => {
   const pathname = usePathname();
@@ -75,27 +75,10 @@ const Sidebar: React.FC = () => {
 
             {/* Departments */}
             <li className="nav-item">
-              <a href="#" className="nav-link">
+              <Link href="/departments" className="nav-link">
                 <i className="nav-icon fas fa-sitemap"></i>
-                <p>
-                  Departments
-                  <i className="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul className="nav nav-treeview">
-                <li className="nav-item">
-                  <Link href="/departments" className={`nav-link ${isActive('/departments')}`}>
-                    <i className="far fa-circle nav-icon"></i>
-                    <p>All Departments</p>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link href="/departments/add" className={`nav-link ${isActive('/departments/add')}`}>
-                    <i className="far fa-circle nav-icon"></i>
-                    <p>Add Department</p>
-                  </Link>
-                </li>
-              </ul>
+                <p>Departments</p>
+              </Link>
             </li>
 
             {/* Teams */}
