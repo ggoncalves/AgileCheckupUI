@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation'; // Change to next/navigation
+import React, {useEffect, useState} from 'react';
+import {useRouter} from 'next/navigation'; // Change to next/navigation
 import apiService from '@/services/apiService';
-import { useTenant } from '@/contexts/TenantContext';
+import {useTenant} from '@/contexts/TenantContext';
 
 // Define types for our company data
 interface Company {
@@ -54,7 +54,7 @@ const CompanySelector: React.FC = () => {
 
     if (selectedCompany) {
       // Update tenant context
-      setTenant(selectedCompany.tenantId, selectedCompany.name);
+      setTenant(selectedCompany.tenantId, selectedCompany.name, selectedCompany.id);
 
       // Redirect to the dashboard
       router.push('/dashboard');
