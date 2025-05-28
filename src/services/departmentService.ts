@@ -1,4 +1,4 @@
-import axios from 'axios';
+import apiService from './apiService';
 
 export interface Department {
   id: string;
@@ -20,51 +20,22 @@ export type UpdateDepartmentDTO = Partial<CreateDepartmentDTO>;
 
 export const departmentApi = {
   getAll: async (): Promise<Department[]> => {
-    try {
-      const response = await axios.get('/api/departments');
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching departments:', error);
-      throw error;
-    }
+    return apiService.get('/departments');
   },
 
   getById: async (id: string): Promise<Department> => {
-    try {
-      const response = await axios.get(`/api/departments/${id}`);
-      return response.data;
-    } catch (error) {
-      console.error(`Error fetching department ${id}:`, error);
-      throw error;
-    }
+    return apiService.get(`/departments/${id}`);
   },
 
   create: async (departmentData: CreateDepartmentDTO): Promise<Department> => {
-    try {
-      const response = await axios.post('/api/departments', departmentData);
-      return response.data;
-    } catch (error) {
-      console.error('Error creating department:', error);
-      throw error;
-    }
+    return apiService.post('/departments', departmentData);
   },
 
   update: async (id: string, departmentData: UpdateDepartmentDTO): Promise<Department> => {
-    try {
-      const response = await axios.put(`/api/departments/${id}`, departmentData);
-      return response.data;
-    } catch (error) {
-      console.error(`Error updating department ${id}:`, error);
-      throw error;
-    }
+    return apiService.put(`/departments/${id}`, departmentData);
   },
 
   delete: async (id: string): Promise<void> => {
-    try {
-      await axios.delete(`/api/departments/${id}`);
-    } catch (error) {
-      console.error(`Error deleting department ${id}:`, error);
-      throw error;
-    }
+    return apiService.delete(`/departments/${id}`);
   }
 };

@@ -30,21 +30,22 @@ const DepartmentsPage: React.FC = () => {
 
   // Define columns for department table
   const columns: CrudColumn<Department>[] = [
-    { key: 'name', label: 'Department Name', sortable: true },
-    { 
-      key: 'companyId', 
-      label: 'Company', 
+    {
+      key: 'companyId',
+      label: 'Company',
       sortable: true,
+      className: 'col-md-3',
       render: (department) => companies.get(department.companyId) || department.companyId
     },
-    { key: 'description', label: 'Description', sortable: true },
-    { key: 'tenantId', label: 'Tenant', sortable: true },
-    {
-      key: 'createdDate',
-      label: 'Created Date',
-      sortable: true,
-      render: (department) => new Date(department.createdDate).toLocaleDateString()
-    }
+    { key: 'name', label: 'Department Name', sortable: true, className: 'col-md-4' },
+    { key: 'description', label: 'Description', sortable: true, className: 'col-md-5' }
+    // { key: 'tenantId', label: 'Tenant', sortable: true },
+    // {
+    //   key: 'createdDate',
+    //   label: 'Created Date',
+    //   sortable: true,
+    //   render: (department) => new Date(department.createdDate).toLocaleDateString()
+    // }
   ];
 
   return (

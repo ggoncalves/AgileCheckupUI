@@ -63,7 +63,6 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
   const hasContactPerson = watch('contactPerson.name') || watch('contactPerson.email') || 
                           watch('contactPerson.documentNumber') || watch('contactPerson.phone') ||
                           watch('contactPerson.gender') || watch('contactPerson.genderPronoun');
-  const hasAddress = watch('address');
 
   const onFormSubmit = async (data: CompanyFormData) => {
     setIsSubmitting(true);
