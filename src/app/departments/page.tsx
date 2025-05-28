@@ -39,13 +39,6 @@ const DepartmentsPage: React.FC = () => {
     },
     { key: 'name', label: 'Department Name', sortable: true, className: 'col-md-4' },
     { key: 'description', label: 'Description', sortable: true, className: 'col-md-5' }
-    // { key: 'tenantId', label: 'Tenant', sortable: true },
-    // {
-    //   key: 'createdDate',
-    //   label: 'Created Date',
-    //   sortable: true,
-    //   render: (department) => new Date(department.createdDate).toLocaleDateString()
-    // }
   ];
 
   return (
