@@ -14,6 +14,7 @@ export interface CrudColumn<T extends CrudItem> {
   label: string;
   render?: (item: T) => ReactNode;
   sortable?: boolean;
+  className?: string;
 }
 
 export interface CrudApi<T extends CrudItem> {
@@ -224,6 +225,7 @@ function AbstractCRUD<T extends CrudItem>({
                     {columns.map((column) => (
                       <th
                         key={column.key.toString()}
+                        className={column.className || ''}
                         onClick={() => column.sortable ? handleSort(column.key as keyof T) : null}
                         style={{ cursor: column.sortable ? 'pointer' : 'default' }}
                       >
@@ -235,7 +237,7 @@ function AbstractCRUD<T extends CrudItem>({
                         )}
                       </th>
                     ))}
-                    <th>Actions</th>
+                    <th className="text-nowrap" style={{ minWidth: '140px' }}>Actions</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -257,13 +259,13 @@ function AbstractCRUD<T extends CrudItem>({
                     processedItems().map((item) => (
                       <tr key={item.id}>
                         {columns.map((column) => (
-                          <td key={`${item.id}-${column.key.toString()}`}>
+                          <td key={`${item.id}-${column.key.toString()}`} className={column.className || ''}>
                             {column.render
                               ? column.render(item)
                               : item[column.key as keyof T]?.toString() || '-'}
                           </td>
                         ))}
-                        <td>
+                        <td className="text-nowrap" style={{ minWidth: '140px' }}>
                           <button
                             className="btn btn-info btn-sm mr-2"
                             onClick={() => handleEdit(item)}

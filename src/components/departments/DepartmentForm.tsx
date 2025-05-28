@@ -128,19 +128,6 @@ const DepartmentForm: React.FC<DepartmentFormProps> = ({
           {...register('tenantId')}
         />
 
-        {/* Optional: Display the tenant ID as read-only text */}
-        <div className="col-md-6">
-          <div className="form-group">
-            <label htmlFor="tenantIdDisplay">Tenant</label>
-            <input
-              id="tenantIdDisplay"
-              type="text"
-              className="form-control"
-              value={tenantId || ''}
-              disabled
-            />
-          </div>
-        </div>
       </div>
 
       <div className="row">
@@ -150,48 +137,6 @@ const DepartmentForm: React.FC<DepartmentFormProps> = ({
           type="hidden"
           {...register('companyId')}
         />
-
-        {/* Optional: Display the companyName as read-only text */}
-        <div className="col-md-6">
-          <div className="form-group">
-            <label htmlFor="companyNameDisplay">Company Name</label>
-            <input
-              id="companyNameDisplay"
-              type="text"
-              className="form-control"
-              value={companyName || ''}
-              disabled
-            />
-          </div>
-        </div>
-
-
-        {/*<div className="col-md-12">*/}
-        {/*  <div className="form-group">*/}
-        {/*    <label htmlFor="companyId">Company <span className="text-danger">*</span></label>*/}
-        {/*    <select*/}
-        {/*      id="companyId"*/}
-        {/*      className={`form-control ${errors.companyId ? 'is-invalid' : ''}`}*/}
-        {/*      {...register('companyId', {*/}
-        {/*        required: 'Company is required'*/}
-        {/*      })}*/}
-        {/*    >*/}
-        {/*      <option value="">Select a company</option>*/}
-        {/*      {isLoadingCompanies ? (*/}
-        {/*        <option disabled>Loading companies...</option>*/}
-        {/*      ) : (*/}
-        {/*        companies.map(company => (*/}
-        {/*          <option key={company.id} value={company.id}>*/}
-        {/*            {company.name}*/}
-        {/*          </option>*/}
-        {/*        ))*/}
-        {/*      )}*/}
-        {/*    </select>*/}
-        {/*    {errors.companyId && (*/}
-        {/*      <div className="invalid-feedback">{errors.companyId.message}</div>*/}
-        {/*    )}*/}
-        {/*  </div>*/}
-        {/*</div>*/}
       </div>
 
       <div className="form-group">
