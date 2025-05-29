@@ -44,9 +44,9 @@ const apiService = {
   },
 
   // Generic GET request with tenantId automatically included
-  get: async (endpoint: string, params = {}) => {
+  get: async <T = any>(endpoint: string, config?: AxiosRequestConfig): Promise<T> => {
     try {
-      const response = await apiClient.get(endpoint, { params });
+      const response = await apiClient.get<T>(endpoint, config);
       return response.data;
     } catch (error) {
       console.error(`Error fetching from ${endpoint}:`, error);
@@ -55,10 +55,9 @@ const apiService = {
   },
 
   // Generic POST request with tenantId automatically included in query params
-  post: async (endpoint: string, data = {}, params = {}) => {
+  post: async <T = any>(endpoint: string, data: any = {}, config?: AxiosRequestConfig): Promise<T> => {
     try {
-      const config: AxiosRequestConfig = { params };
-      const response = await apiClient.post(endpoint, data, config);
+      const response = await apiClient.post<T>(endpoint, data, config);
       return response.data;
     } catch (error) {
       console.error(`Error posting to ${endpoint}:`, error);
@@ -67,10 +66,9 @@ const apiService = {
   },
 
   // Generic PUT request
-  put: async (endpoint: string, data = {}, params = {}) => {
+  put: async <T = any>(endpoint: string, data: any = {}, config?: AxiosRequestConfig): Promise<T> => {
     try {
-      const config: AxiosRequestConfig = { params };
-      const response = await apiClient.put(endpoint, data, config);
+      const response = await apiClient.put<T>(endpoint, data, config);
       return response.data;
     } catch (error) {
       console.error(`Error updating at ${endpoint}:`, error);
@@ -79,10 +77,9 @@ const apiService = {
   },
 
   // Generic DELETE request
-  delete: async (endpoint: string, params = {}) => {
+  delete: async <T = any>(endpoint: string, config?: AxiosRequestConfig): Promise<T> => {
     try {
-      const config: AxiosRequestConfig = { params };
-      const response = await apiClient.delete(endpoint, config);
+      const response = await apiClient.delete<T>(endpoint, config);
       return response.data;
     } catch (error) {
       console.error(`Error deleting at ${endpoint}:`, error);

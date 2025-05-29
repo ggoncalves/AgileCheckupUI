@@ -83,27 +83,10 @@ const Sidebar: React.FC = () => {
 
             {/* Teams */}
             <li className="nav-item">
-              <a href="#" className="nav-link">
+              <Link href="/teams" className="nav-link">
                 <i className="nav-icon fas fa-users"></i>
-                <p>
-                  Teams
-                  <i className="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul className="nav nav-treeview">
-                <li className="nav-item">
-                  <Link href="/teams" className={`nav-link ${isActive('/teams')}`}>
-                    <i className="far fa-circle nav-icon"></i>
-                    <p>All Teams</p>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link href="/teams/add" className={`nav-link ${isActive('/teams/add')}`}>
-                    <i className="far fa-circle nav-icon"></i>
-                    <p>Add Team</p>
-                  </Link>
-                </li>
-              </ul>
+                <p>Teams</p>
+              </Link>
             </li>
 
             {/* Performance Cycles */}
