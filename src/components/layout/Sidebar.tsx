@@ -91,27 +91,10 @@ const Sidebar: React.FC = () => {
 
             {/* Performance Cycles */}
             <li className="nav-item">
-              <a href="#" className="nav-link">
-                <i className="nav-icon fas fa-calendar-alt"></i>
-                <p>
-                  Performance Cycles
-                  <i className="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul className="nav nav-treeview">
-                <li className="nav-item">
-                  <Link href="/performance-cycles" className={`nav-link ${isActive('/performance-cycles')}`}>
-                    <i className="far fa-circle nav-icon"></i>
-                    <p>All Cycles</p>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link href="/performance-cycles/add" className={`nav-link ${isActive('/performance-cycles/add')}`}>
-                    <i className="far fa-circle nav-icon"></i>
-                    <p>Add Cycle</p>
-                  </Link>
-                </li>
-              </ul>
+              <Link href="/performancecycles" className="nav-link">
+                <i className="nav-icon fas fa-sync-alt"></i>
+                <p>Performance Cycles</p>
+              </Link>
             </li>
 
             {/* Assessment Matrices */}
