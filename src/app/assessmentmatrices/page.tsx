@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import AdminLayout from '@/components/layout/AdminLayout';
 import AssessmentMatrixForm from '../../components/assessmentmatrices/AssessmentMatrixForm';
+import AssessmentMatrixStructureModal from '../../components/assessmentmatrices/AssessmentMatrixStructureModal';
 import { assessmentMatrixService, AssessmentMatrix, Pillar } from '@/services/assessmentMatrixService';
 import { performanceCycleService, PerformanceCycle } from '@/services/performanceCycleService';
 import { useTenant } from '@/contexts/TenantContext';
@@ -21,6 +22,8 @@ const AssessmentMatrixPage: React.FC = () => {
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
+  const [selectedMatrixForStructure, setSelectedMatrixForStructure] = useState<AssessmentMatrix | null>(null);
+  const [showStructureModal, setShowStructureModal] = useState(false);
 
   // Load assessment matrices
   const loadMatrices = useCallback(async () => {
@@ -98,6 +101,16 @@ const AssessmentMatrixPage: React.FC = () => {
   const handleCancel = () => {
     setShowForm(false);
     setEditingItem(undefined);
+  };
+
+  const handleShowStructure = (matrix: AssessmentMatrix) => {
+    setSelectedMatrixForStructure(matrix);
+    setShowStructureModal(true);
+  };
+
+  const handleCloseStructureModal = () => {
+    setShowStructureModal(false);
+    setSelectedMatrixForStructure(null);
   };
 
   // Filter items based on search term and selected performance cycle
@@ -316,7 +329,18 @@ const AssessmentMatrixPage: React.FC = () => {
                             <td>{matrix.name}</td>
                             <td>{matrix.description || '-'}</td>
                             <td>{getPerformanceCycleName(matrix.performanceCycleId)}</td>
-                            <td>{formatPillarMap(matrix.pillarMap)}</td>
+                            <td>
+                              <div className="d-flex justify-content-between align-items-center">
+                                <span>{formatPillarMap(matrix.pillarMap)}</span>
+                                <button
+                                  className="btn btn-sm btn-outline-info ml-2"
+                                  onClick={() => handleShowStructure(matrix)}
+                                  title="View structure details"
+                                >
+                                  <i className="fas fa-eye"></i>
+                                </button>
+                              </div>
+                            </td>
                             <td>{matrix.questionCount || 0}</td>
                             <td>
                               <button
@@ -385,6 +409,14 @@ const AssessmentMatrixPage: React.FC = () => {
           )}
         </div>
       </section>
+
+      {selectedMatrixForStructure && (
+        <AssessmentMatrixStructureModal
+          matrix={selectedMatrixForStructure}
+          isOpen={showStructureModal}
+          onClose={handleCloseStructureModal}
+        />
+      )}
     </AdminLayout>
   );
 };

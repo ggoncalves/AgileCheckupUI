@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { AssessmentMatrix, AssessmentMatrixCreateDto, Pillar, Category } from '@/services/assessmentMatrixService';
 import { performanceCycleService, PerformanceCycle } from '@/services/performanceCycleService';
 import { useTenant } from '@/contexts/TenantContext';
+import ConfirmationDialog from '@/components/common/ConfirmationDialog';
 
 interface AssessmentMatrixFormProps {
   matrix?: AssessmentMatrix;
@@ -28,6 +29,17 @@ const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
   });
   const [performanceCycles, setPerformanceCycles] = useState<PerformanceCycle[]>([]);
   const [loading, setLoading] = useState(false);
+  const [confirmDialog, setConfirmDialog] = useState<{
+    isOpen: boolean;
+    title: string;
+    message: string;
+    onConfirm: () => void;
+  }>({
+    isOpen: false,
+    title: '',
+    message: '',
+    onConfirm: () => {}
+  });
 
   useEffect(() => {
     if (matrix) {
@@ -161,10 +173,20 @@ const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
   };
 
   const deletePillar = (pillarId: string) => {
-    setFormData(prev => {
-      const newPillarMap = { ...prev.pillarMap };
-      delete newPillarMap[pillarId];
-      return { ...prev, pillarMap: newPillarMap };
+    const pillar = formData.pillarMap[pillarId];
+    
+    setConfirmDialog({
+      isOpen: true,
+      title: 'Delete Pillar',
+      message: `Are you sure you want to delete the pillar "${pillar.name}"? This will also delete all its categories.`,
+      onConfirm: () => {
+        setFormData(prev => {
+          const newPillarMap = { ...prev.pillarMap };
+          delete newPillarMap[pillarId];
+          return { ...prev, pillarMap: newPillarMap };
+        });
+        setConfirmDialog(prev => ({ ...prev, isOpen: false }));
+      }
     });
   };
 
@@ -210,28 +232,37 @@ const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
   };
 
   const deleteCategory = (pillarId: string, categoryId: string) => {
-    setFormData(prev => {
-      const pillar = prev.pillarMap[pillarId];
-      const categoryCount = Object.keys(pillar.categoryMap).length;
-      
-      // Don't allow deleting the last category
-      if (categoryCount <= 1) {
-        alert('A pillar must have at least one category.');
-        return prev;
+    const pillar = formData.pillarMap[pillarId];
+    const category = pillar.categoryMap[categoryId];
+    const categoryCount = Object.keys(pillar.categoryMap).length;
+    
+    // Don't allow deleting the last category
+    if (categoryCount <= 1) {
+      alert('A pillar must have at least one category.');
+      return;
+    }
+    
+    setConfirmDialog({
+      isOpen: true,
+      title: 'Delete Category',
+      message: `Are you sure you want to delete the category "${category.name}"?`,
+      onConfirm: () => {
+        setFormData(prev => {
+          const newCategoryMap = { ...prev.pillarMap[pillarId].categoryMap };
+          delete newCategoryMap[categoryId];
+          return {
+            ...prev,
+            pillarMap: {
+              ...prev.pillarMap,
+              [pillarId]: {
+                ...prev.pillarMap[pillarId],
+                categoryMap: newCategoryMap
+              }
+            }
+          };
+        });
+        setConfirmDialog(prev => ({ ...prev, isOpen: false }));
       }
-      
-      const newCategoryMap = { ...pillar.categoryMap };
-      delete newCategoryMap[categoryId];
-      return {
-        ...prev,
-        pillarMap: {
-          ...prev.pillarMap,
-          [pillarId]: {
-            ...prev.pillarMap[pillarId],
-            categoryMap: newCategoryMap
-          }
-        }
-      };
     });
   };
 
@@ -408,6 +439,16 @@ const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
           </button>
         </div>
       </div>
+
+      <ConfirmationDialog
+        isOpen={confirmDialog.isOpen}
+        title={confirmDialog.title}
+        message={confirmDialog.message}
+        onConfirm={confirmDialog.onConfirm}
+        onCancel={() => setConfirmDialog(prev => ({ ...prev, isOpen: false }))}
+        confirmText="Delete"
+        type="danger"
+      />
     </form>
   );
 };
