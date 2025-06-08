@@ -83,27 +83,10 @@ const Sidebar: React.FC = () => {
 
             {/* Questions */}
             <li className="nav-item">
-              <a href="#" className="nav-link">
+              <Link href="/questions" className={`nav-link ${isActive('/questions')}`}>
                 <i className="nav-icon fas fa-question-circle"></i>
-                <p>
-                  Questions
-                  <i className="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul className="nav nav-treeview">
-                <li className="nav-item">
-                  <Link href="/questions" className={`nav-link ${isActive('/questions')}`}>
-                    <i className="far fa-circle nav-icon"></i>
-                    <p>All Questions</p>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link href="/questions/add" className={`nav-link ${isActive('/questions/add')}`}>
-                    <i className="far fa-circle nav-icon"></i>
-                    <p>Add Question</p>
-                  </Link>
-                </li>
-              </ul>
+                <p>Questions</p>
+              </Link>
             </li>
 
             {/* Employee Assessments */}

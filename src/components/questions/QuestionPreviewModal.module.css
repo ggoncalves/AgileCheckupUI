@@ -1,0 +1,26 @@
+.questionPreview {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.starRating i {
+  transition: color 0.2s;
+}
+
+.numberScale button {
+  transition: all 0.2s;
+}
+
+.numberScale button:hover {
+  transform: scale(1.1);
+}
+
+.technicalDetails {
+  font-size: 0.9rem;
+}
+
+.pointsTable {
+  max-height: 300px;
+  overflow-y: auto;
+}
