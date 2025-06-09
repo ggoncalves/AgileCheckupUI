@@ -1,0 +1,26 @@
+.questionItem {
+  transition: background-color 0.2s;
+}
+
+.questionItem:hover {
+  background-color: #f8f9fa;
+}
+
+.questionNumber {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.questionText {
+  color: #343a40;
+  margin-bottom: 0.5rem;
+}
+
+.extraDescription {
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.questionMeta .badge {
+  font-size: 0.85rem;
+}
