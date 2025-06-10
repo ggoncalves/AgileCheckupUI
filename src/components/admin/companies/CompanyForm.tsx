@@ -61,8 +61,7 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
   });
 
   const hasContactPerson = watch('contactPerson.name') || watch('contactPerson.email') || 
-                          watch('contactPerson.documentNumber') || watch('contactPerson.phone') ||
-                          watch('contactPerson.gender') || watch('contactPerson.genderPronoun');
+                          watch('contactPerson.documentNumber') || watch('contactPerson.phone');
 
   const onFormSubmit = async (data: CompanyFormData) => {
     setIsSubmitting(true);
@@ -505,13 +504,11 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
           <div className="row">
             <div className="col-md-6">
               <div className="form-group">
-                <label htmlFor="contactPerson.gender">Gender <span className="text-danger">*</span></label>
+                <label htmlFor="contactPerson.gender">Gender</label>
                 <select
                   id="contactPerson.gender"
                   className={`form-control ${errors.contactPerson?.gender ? 'is-invalid' : ''}`}
-                  {...register('contactPerson.gender', {
-                    required: hasContactPerson ? 'Contact person gender is required' : false
-                  })}
+                  {...register('contactPerson.gender')}
                 >
                   <option value="">Select gender...</option>
                   {Object.values(Gender).map((gender) => (
@@ -528,13 +525,11 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
 
             <div className="col-md-6">
               <div className="form-group">
-                <label htmlFor="contactPerson.genderPronoun">Pronouns <span className="text-danger">*</span></label>
+                <label htmlFor="contactPerson.genderPronoun">Pronouns</label>
                 <select
                   id="contactPerson.genderPronoun"
                   className={`form-control ${errors.contactPerson?.genderPronoun ? 'is-invalid' : ''}`}
-                  {...register('contactPerson.genderPronoun', {
-                    required: hasContactPerson ? 'Contact person pronouns are required' : false
-                  })}
+                  {...register('contactPerson.genderPronoun')}
                 >
                   <option value="">Select pronouns...</option>
                   {Object.values(GenderPronoun).map((pronoun) => (
