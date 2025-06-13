@@ -33,8 +33,11 @@ interface AbstractCRUDProps<T extends CrudItem> {
     item?: T;
     onSubmit: (data: Omit<T, 'id'>) => Promise<void>;
     onCancel: () => void;
+    existingItems?: T[];
   }>;
   itemName: string;
+  canEdit?: (item: T) => boolean;
+  canDelete?: (item: T) => boolean;
 }
 
 function AbstractCRUD<T extends CrudItem>({
@@ -42,7 +45,9 @@ function AbstractCRUD<T extends CrudItem>({
                                             columns,
                                             api,
                                             FormComponent,
-                                            itemName
+                                            itemName,
+                                            canEdit,
+                                            canDelete
                                           }: AbstractCRUDProps<T>) {
   const [items, setItems] = useState<T[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -101,12 +106,15 @@ function AbstractCRUD<T extends CrudItem>({
     try {
       if (editingItem) {
         await api.update(editingItem.id, data);
+        await loadItems();
+        setShowForm(false);
+        setEditingItem(undefined);
       } else {
         await api.create(data);
+        await loadItems();
+        // For create operations, don't close the form to allow adding more items
+        // The form component will handle the success state and reset
       }
-      await loadItems();
-      setShowForm(false);
-      setEditingItem(undefined);
     } catch (err) {
       console.error(err);
       throw err; // Let the form component handle the error
@@ -266,20 +274,24 @@ function AbstractCRUD<T extends CrudItem>({
                           </td>
                         ))}
                         <td className="text-nowrap" style={{ minWidth: '140px' }}>
-                          <button
-                            className="btn btn-info btn-sm mr-2"
-                            onClick={() => handleEdit(item)}
-                            disabled={showForm}
-                          >
-                            <i className="fas fa-edit"></i> Edit
-                          </button>
-                          <button
-                            className="btn btn-danger btn-sm"
-                            onClick={() => handleDelete(item.id)}
-                            disabled={showForm}
-                          >
-                            <i className="fas fa-trash"></i> Delete
-                          </button>
+                          {(!canEdit || canEdit(item)) && (
+                            <button
+                              className="btn btn-info btn-sm mr-2"
+                              onClick={() => handleEdit(item)}
+                              disabled={showForm}
+                            >
+                              <i className="fas fa-edit"></i> Edit
+                            </button>
+                          )}
+                          {(!canDelete || canDelete(item)) && (
+                            <button
+                              className="btn btn-danger btn-sm"
+                              onClick={() => handleDelete(item.id)}
+                              disabled={showForm}
+                            >
+                              <i className="fas fa-trash"></i> Delete
+                            </button>
+                          )}
                         </td>
                       </tr>
                     ))
@@ -340,6 +352,7 @@ function AbstractCRUD<T extends CrudItem>({
                   item={editingItem}
                   onSubmit={handleFormSubmit}
                   onCancel={handleFormCancel}
+                  existingItems={items}
                 />
               </div>
             </div>

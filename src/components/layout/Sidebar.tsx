@@ -91,27 +91,10 @@ const Sidebar: React.FC = () => {
 
             {/* Employee Assessments */}
             <li className="nav-item">
-              <a href="#" className="nav-link">
+              <Link href="/employeeassessments" className={`nav-link ${isActive('/employeeassessments')}`}>
                 <i className="nav-icon fas fa-user-check"></i>
-                <p>
-                  Employee Assessments
-                  <i className="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul className="nav nav-treeview">
-                <li className="nav-item">
-                  <Link href="/assessments" className={`nav-link ${isActive('/assessments')}`}>
-                    <i className="far fa-circle nav-icon"></i>
-                    <p>All Assessments</p>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link href="/assessments/add" className={`nav-link ${isActive('/assessments/add')}`}>
-                    <i className="far fa-circle nav-icon"></i>
-                    <p>Add Assessment</p>
-                  </Link>
-                </li>
-              </ul>
+                <p>Employee Assessments</p>
+              </Link>
             </li>
 
             {/* Reports */}
