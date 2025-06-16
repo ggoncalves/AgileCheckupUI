@@ -26,6 +26,7 @@ const EmployeeAssessmentPage: React.FC = () => {
   const [allTeams, setAllTeams] = useState<Team[]>([]);
   const [employeeCount, setEmployeeCount] = useState<number>(0);
   const [copySuccess, setCopySuccess] = useState<boolean>(false);
+  const [showLinkModal, setShowLinkModal] = useState<boolean>(false);
 
   // Load initial data
   useEffect(() => {
@@ -411,17 +412,35 @@ const EmployeeAssessmentPage: React.FC = () => {
             <div className="d-flex align-items-center justify-content-end">
               <div className="mr-3">
                 <small className="text-muted d-block">Send this link to all employees:</small>
-                <small className="text-muted font-weight-bold">
-                  {generatedToken 
-                    ? generateInvitationLink(generatedToken)
-                    : 'Click "Copy Invitation Link" to generate secure link'
-                  }
-                </small>
+                <div className="d-flex align-items-center">
+                  {generatedToken ? (
+                    <div className="d-flex align-items-center">
+                      <span className="badge badge-success mr-2">
+                        <i className="fas fa-check mr-1"></i>
+                        Link Generated
+                      </span>
+                      <button 
+                        className="btn btn-sm btn-outline-info"
+                        onClick={() => setShowLinkModal(true)}
+                        title="View full invitation link"
+                      >
+                        <i className="fas fa-eye"></i>
+                      </button>
+                    </div>
+                  ) : (
+                    <small className="text-muted font-italic">
+                      Click &quot;Copy Invitation Link&quot; to generate secure link
+                    </small>
+                  )}
+                </div>
               </div>
               <button
                 className={`btn ${copySuccess ? 'btn-success' : 'btn-primary'}`}
                 onClick={copyInvitationLink}
-                title={`Copy invitation link for ${getSelectedMatrixName()}`}
+                title={generatedToken ? 
+                  `Copy invitation link for ${getSelectedMatrixName()}` : 
+                  `Generate and copy invitation link for ${getSelectedMatrixName()}`
+                }
                 disabled={copySuccess || isGeneratingToken}
               >
                 {copySuccess ? (
@@ -450,6 +469,65 @@ const EmployeeAssessmentPage: React.FC = () => {
               <i className="fas fa-info-circle mr-1"></i>
               Employees will enter their email address on this page to access their assessment
             </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderLinkModal = () => (
+    <div className={`modal fade ${showLinkModal ? 'show d-block' : ''}`} tabIndex={-1} style={{backgroundColor: showLinkModal ? 'rgba(0,0,0,0.5)' : 'transparent'}}>
+      <div className="modal-dialog modal-lg">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title">
+              <i className="fas fa-link mr-2"></i>
+              Invitation Link for {getSelectedMatrixName()}
+            </h5>
+            <button type="button" className="close" onClick={() => setShowLinkModal(false)}>
+              <span>&times;</span>
+            </button>
+          </div>
+          <div className="modal-body">
+            <div className="form-group">
+              <label className="font-weight-bold">Full Invitation Link:</label>
+              <div className="input-group">
+                <input 
+                  type="text" 
+                  className="form-control" 
+                  value={generatedToken ? generateInvitationLink(generatedToken) : ''}
+                  readOnly
+                />
+                <div className="input-group-append">
+                  <button 
+                    className="btn btn-primary" 
+                    onClick={copyInvitationLink}
+                    disabled={copySuccess}
+                  >
+                    {copySuccess ? (
+                      <>
+                        <i className="fas fa-check mr-1"></i>
+                        Copied!
+                      </>
+                    ) : (
+                      <>
+                        <i className="fas fa-copy mr-1"></i>
+                        Copy
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="alert alert-info">
+              <i className="fas fa-info-circle mr-2"></i>
+              Share this link with all employees who need to complete the assessment. They will enter their email address to access their specific assessment.
+            </div>
+          </div>
+          <div className="modal-footer">
+            <button type="button" className="btn btn-secondary" onClick={() => setShowLinkModal(false)}>
+              Close
+            </button>
           </div>
         </div>
       </div>
@@ -502,6 +580,7 @@ const EmployeeAssessmentPage: React.FC = () => {
             )}
           </div>
         </section>
+        {renderLinkModal()}
       </AdminLayout>
     </TenantProtected>
   );

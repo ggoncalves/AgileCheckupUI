@@ -159,8 +159,8 @@ const InvitationPage: React.FC = () => {
           {assessmentMatrix && (
             <div className="alert alert-info">
               <h5 className="alert-heading">
-                <i className="fas fa-info-circle mr-2"></i>
-                {assessmentMatrix.name}
+                <i className="fas fa-clipboard-check mr-2"></i>
+                Assessment: {assessmentMatrix.name}
               </h5>
               <p className="mb-0">{assessmentMatrix.description}</p>
             </div>
