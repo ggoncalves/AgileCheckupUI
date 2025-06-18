@@ -39,3 +39,5 @@ export const departmentApi = {
     return apiService.delete<void>(`/departments/${id}`);
   }
 };
+
+export const departmentService = departmentApi;

@@ -15,6 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
     <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
       <Script src="/jquery.min.js" strategy="beforeInteractive" />
       <Script src="/bootstrap.bundle.min.js" strategy="afterInteractive" />
       <Script src="/adminlte.min.js" strategy="afterInteractive"/>
