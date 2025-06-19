@@ -7,7 +7,7 @@ import { PerformanceCycleForm } from '@/components/performancecycles/Performance
 import { useTenant } from '@/contexts/TenantContext';
 
 const PerformanceCyclesPage: React.FC = () => {
-  const { tenantId, companyId } = useTenant();
+  const { tenantId } = useTenant();
   const [cycles, setCycles] = useState<PerformanceCycle[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

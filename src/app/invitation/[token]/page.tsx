@@ -191,8 +191,8 @@ const InvitationPage: React.FC = () => {
   };
 
   const handleStartAssessment = () => {
-    // TODO: Implement assessment start logic
-    alert('Assessment start functionality will be implemented next!');
+    // Navigate to the assessment taking page
+    window.location.href = `/assessment/${token}`;
   };
 
   if (isValidatingToken) {
@@ -273,8 +273,8 @@ const InvitationPage: React.FC = () => {
                 onClick={handleStartAssessment}
                 className="btn btn-success btn-lg"
               >
-                <i className="fas fa-play mr-2"></i>
-                Start Assessment
+                <i className={`fas ${validationResponse.assessmentStatus === 'IN_PROGRESS' ? 'fa-play-circle' : 'fa-play'} mr-2`}></i>
+                {validationResponse.assessmentStatus === 'IN_PROGRESS' ? 'Continue Assessment' : 'Start Assessment'}
               </button>
             </div>
 
