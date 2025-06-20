@@ -176,9 +176,6 @@ const QuestionRenderer: React.FC<QuestionRendererProps> = ({ question, value, on
               />
               <label className="form-check-label" htmlFor={`option-${option.id}`}>
                 {option.text}
-                {option.points > 0 && (
-                  <span className="badge badge-info ml-2">{option.points} pts</span>
-                )}
               </label>
             </div>
           ))}
@@ -203,9 +200,6 @@ const QuestionRenderer: React.FC<QuestionRendererProps> = ({ question, value, on
               />
               <label className="form-check-label" htmlFor={`option-${option.id}`}>
                 {option.text}
-                {option.points > 0 && (
-                  <span className="badge badge-info ml-2">{option.points} pts</span>
-                )}
               </label>
             </div>
           ))}
