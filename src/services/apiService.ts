@@ -44,7 +44,7 @@ const apiService = {
   },
 
   // Generic GET request with tenantId automatically included
-  get: async <T = any>(endpoint: string, config?: AxiosRequestConfig): Promise<T> => {
+  get: async <T = unknown>(endpoint: string, config?: AxiosRequestConfig): Promise<T> => {
     try {
       const response = await apiClient.get<T>(endpoint, config);
       return response.data;
@@ -55,7 +55,7 @@ const apiService = {
   },
 
   // Generic POST request with tenantId automatically included in query params
-  post: async <T = any>(endpoint: string, data: any = {}, config?: AxiosRequestConfig): Promise<T> => {
+  post: async <T = unknown>(endpoint: string, data: unknown = {}, config?: AxiosRequestConfig): Promise<T> => {
     try {
       const response = await apiClient.post<T>(endpoint, data, config);
       return response.data;
@@ -66,7 +66,7 @@ const apiService = {
   },
 
   // Generic PUT request
-  put: async <T = any>(endpoint: string, data: any = {}, config?: AxiosRequestConfig): Promise<T> => {
+  put: async <T = unknown>(endpoint: string, data: unknown = {}, config?: AxiosRequestConfig): Promise<T> => {
     try {
       const response = await apiClient.put<T>(endpoint, data, config);
       return response.data;
@@ -77,7 +77,7 @@ const apiService = {
   },
 
   // Generic DELETE request
-  delete: async <T = any>(endpoint: string, config?: AxiosRequestConfig): Promise<T> => {
+  delete: async <T = unknown>(endpoint: string, config?: AxiosRequestConfig): Promise<T> => {
     try {
       const response = await apiClient.delete<T>(endpoint, config);
       return response.data;

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import AdminLayout from '@/components/layout/AdminLayout';
 import { teamService, Team } from '@/services/teamService';
 import { departmentApi, Department } from '@/services/departmentService';
@@ -8,7 +8,7 @@ import { TeamForm } from '@/components/teams/TeamForm';
 import { useTenant } from '@/contexts/TenantContext';
 
 const TeamsPage: React.FC = () => {
-  const { tenantId, companyId } = useTenant();
+  const { tenantId } = useTenant();
   const [teams, setTeams] = useState<Team[]>([]);
   const [departments, setDepartments] = useState<Department[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -58,13 +58,13 @@ const TeamsPage: React.FC = () => {
   }, [tenantId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Create department lookup map
-  const departmentMap = useMemo(() => {
-    const map = new Map<string, string>();
-    departments.forEach(dept => {
-      map.set(dept.id, dept.name);
-    });
-    return map;
-  }, [departments]);
+  // const _departmentMap = useMemo(() => {
+  //   const map = new Map<string, string>();
+  //   departments.forEach(dept => {
+  //     map.set(dept.id, dept.name);
+  //   });
+  //   return map;
+  // }, [departments]);
 
   const handleAddNew = () => {
     setEditingItem(undefined);
@@ -137,8 +137,8 @@ const TeamsPage: React.FC = () => {
     if (!sortField) return teams;
 
     return [...teams].sort((a, b) => {
-      let aValue: any;
-      let bValue: any;
+      let aValue: string | number;
+      let bValue: string | number;
 
       // Special handling for department sorting
       if (sortField === 'department') {

@@ -100,9 +100,9 @@ function AbstractCRUD<T extends CrudItem>({
     }
   };
 
-  // Using any here because this function handles both create and update operations
+  // Using unknown here because this function handles both create and update operations
   // which require different data types (Omit<T, 'id'> for create and Partial<T> for update)
-  const handleFormSubmit = async (data: any) => {
+  const handleFormSubmit = async (data: unknown) => {
     try {
       if (editingItem) {
         await api.update(editingItem.id, data);

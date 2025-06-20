@@ -1,0 +1,96 @@
+/* Star Rating Styles */
+.starRating .btn-link {
+  text-decoration: none;
+  padding: 0.25rem;
+  margin: 0 0.1rem;
+  border: none;
+  background: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.starRating .btn-link:hover {
+  transform: scale(1.1);
+}
+
+.starRating .btn-link:focus {
+  box-shadow: none;
+}
+
+/* Numeric Scale Styles */
+.numericScale .btn {
+  transition: all 0.2s ease-in-out;
+  margin: 0.25rem;
+}
+
+.numericScale .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Button Group Styles */
+.buttonGroup .btn {
+  transition: all 0.2s ease-in-out;
+}
+
+.buttonGroup .btn:hover {
+  transform: translateY(-1px);
+}
+
+/* Custom Options Styles */
+.customOptions .form-check {
+  transition: background-color 0.2s ease-in-out;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.customOptions .form-check:hover {
+  background-color: #f8f9fa;
+}
+
+.customOptions .form-check-input:checked + .form-check-label {
+  font-weight: 500;
+}
+
+/* Open Answer Styles */
+.openAnswer textarea {
+  transition: border-color 0.2s ease-in-out;
+}
+
+.openAnswer textarea:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Progress Animation */
+.progressBar {
+  transition: width 0.8s ease-in-out;
+}
+
+/* Question Card Animation */
+.questionCard {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .numericScale .btn {
+    min-width: 35px;
+    margin: 0.15rem;
+    font-size: 0.875rem;
+  }
+  
+  .starRating .btn-link {
+    font-size: 1.5rem;
+  }
+}
