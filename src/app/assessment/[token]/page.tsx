@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import AssessmentTaking from '../../../components/assessment/AssessmentTaking';
 import AssessmentComplete from '../../../components/assessment/AssessmentComplete';
 
@@ -26,7 +26,6 @@ interface AssessmentMatrix {
 
 const AssessmentPage: React.FC = () => {
   const params = useParams();
-  const router = useRouter();
   const token = params.token as string;
   
   const [isValidating, setIsValidating] = useState(true);
@@ -128,9 +127,6 @@ const AssessmentPage: React.FC = () => {
     setError(errorMessage);
   };
 
-  const handleReturnToInvitation = () => {
-    router.push(`/invitation/${token}`);
-  };
 
   if (isValidating) {
     return (
@@ -162,13 +158,6 @@ const AssessmentPage: React.FC = () => {
                 <i className="fas fa-redo mr-2"></i>
                 Try Again
               </button>
-              <button 
-                onClick={handleReturnToInvitation}
-                className="btn btn-outline-secondary"
-              >
-                <i className="fas fa-arrow-left mr-2"></i>
-                Back to Invitation
-              </button>
             </div>
           </div>
         </div>
@@ -181,7 +170,6 @@ const AssessmentPage: React.FC = () => {
       <AssessmentComplete
         employeeName={employeeName || undefined}
         assessmentName={assessmentMatrix?.name}
-        onReturnToInvitation={handleReturnToInvitation}
       />
     );
   }
@@ -205,7 +193,7 @@ const AssessmentPage: React.FC = () => {
           <h4>Assessment Not Ready</h4>
           <p className="text-muted mb-4">We couldn&apos;t prepare your assessment. Please try again.</p>
           <button 
-            onClick={handleReturnToInvitation}
+            onClick={() => window.location.href = `/invitation/${token}`}
             className="btn btn-primary"
           >
             <i className="fas fa-arrow-left mr-2"></i>

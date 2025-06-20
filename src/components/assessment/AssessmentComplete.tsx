@@ -5,13 +5,11 @@ import React from 'react';
 interface AssessmentCompleteProps {
   employeeName?: string;
   assessmentName?: string;
-  onReturnToInvitation?: () => void;
 }
 
 const AssessmentComplete: React.FC<AssessmentCompleteProps> = ({
   employeeName,
-  assessmentName,
-  onReturnToInvitation
+  assessmentName
 }) => {
   return (
     <div className="min-vh-100 d-flex align-items-center justify-content-center bg-light">
@@ -65,21 +63,11 @@ const AssessmentComplete: React.FC<AssessmentCompleteProps> = ({
             </p>
           </div>
 
-          {/* Action Buttons */}
-          <div className="d-flex flex-column flex-sm-row justify-content-center gap-3">
-            {onReturnToInvitation && (
-              <button
-                onClick={onReturnToInvitation}
-                className="btn btn-outline-primary"
-              >
-                <i className="fas fa-arrow-left mr-2"></i>
-                Return to Invitation
-              </button>
-            )}
-            
+          {/* Action Button */}
+          <div className="d-flex justify-content-center">
             <button
               onClick={() => window.close()}
-              className="btn btn-success"
+              className="btn btn-success btn-lg"
             >
               <i className="fas fa-times mr-2"></i>
               Close Window
