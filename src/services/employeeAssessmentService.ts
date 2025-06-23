@@ -12,7 +12,7 @@ export interface NaturalPerson {
 
 export interface EmployeeAssessmentScore {
   score: number;
-  pillarIdToPillarScoreMap?: any;
+  pillarIdToPillarScoreMap?: Record<string, number>;
 }
 
 export interface EmployeeAssessment {

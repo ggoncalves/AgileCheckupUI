@@ -22,9 +22,9 @@ const DepartmentForm: React.FC<DepartmentFormProps> = ({
                                                        }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [companies, setCompanies] = useState<Company[]>([]);
-  const [isLoadingCompanies, setIsLoadingCompanies] = useState(false);
-  const { tenantId, companyName, companyId } = useTenant();
+  const [, setCompanies] = useState<Company[]>([]);
+  const [, setIsLoadingCompanies] = useState(false);
+  const { tenantId } = useTenant();
 
   const {
     register,
@@ -53,10 +53,7 @@ const DepartmentForm: React.FC<DepartmentFormProps> = ({
     if (tenantId) {
       setValue('tenantId', tenantId);
     }
-    if (companyId) {
-      setValue('companyId', companyId)
-    }
-  }, [tenantId, companyId, setValue]);
+  }, [tenantId, setValue]);
 
   // Fetch companies for dropdown
   useEffect(() => {
