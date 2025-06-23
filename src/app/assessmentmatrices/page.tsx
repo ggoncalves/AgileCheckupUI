@@ -4,7 +4,9 @@ import React, { useState, useEffect, useCallback } from 'react';
 import AdminLayout from '@/components/layout/AdminLayout';
 import AssessmentMatrixForm from '../../components/assessmentmatrices/AssessmentMatrixForm';
 import AssessmentMatrixStructureModal from '../../components/assessmentmatrices/AssessmentMatrixStructureModal';
-import { assessmentMatrixService, AssessmentMatrix, Pillar } from '@/services/assessmentMatrixService';
+import TeamStatusTable from '../../components/assessmentmatrices/TeamStatusTable';
+import EmployeeStatusTable from '../../components/assessmentmatrices/EmployeeStatusTable';
+import { assessmentMatrixService, AssessmentMatrix, Pillar, getDashboard, DashboardResponse } from '@/services/assessmentMatrixService';
 import { performanceCycleService, PerformanceCycle } from '@/services/performanceCycleService';
 import { useTenant } from '@/contexts/TenantContext';
 
@@ -24,6 +26,14 @@ const AssessmentMatrixPage: React.FC = () => {
   const [itemsPerPage] = useState(10);
   const [selectedMatrixForStructure, setSelectedMatrixForStructure] = useState<AssessmentMatrix | null>(null);
   const [showStructureModal, setShowStructureModal] = useState(false);
+
+  // Dashboard state
+  const [selectedMatrixForDashboard, setSelectedMatrixForDashboard] = useState<AssessmentMatrix | null>(null);
+  const [dashboardData, setDashboardData] = useState<DashboardResponse | null>(null);
+  const [isDashboardLoading, setIsDashboardLoading] = useState(false);
+  const [selectedTeam, setSelectedTeam] = useState<{ teamId: string; teamName: string } | null>(null);
+  const [employeePage, setEmployeePage] = useState(1);
+  const [employeePageSize] = useState(20);
 
   // Load assessment matrices
   const loadMatrices = useCallback(async () => {
@@ -111,6 +121,72 @@ const AssessmentMatrixPage: React.FC = () => {
   const handleCloseStructureModal = () => {
     setShowStructureModal(false);
     setSelectedMatrixForStructure(null);
+  };
+
+  // Dashboard functions
+  const handleShowDashboard = async (matrix: AssessmentMatrix) => {
+    setSelectedMatrixForDashboard(matrix);
+    setSelectedTeam(null);
+    setEmployeePage(1);
+    await loadDashboardData(matrix.id, 1, employeePageSize);
+    
+    // Smooth scroll to dashboard section
+    setTimeout(() => {
+      const dashboardElement = document.getElementById('dashboard-section');
+      if (dashboardElement) {
+        dashboardElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
+  };
+
+  const loadDashboardData = async (matrixId: string, page: number = 1, pageSize: number = employeePageSize) => {
+    setIsDashboardLoading(true);
+    try {
+      const data = await getDashboard(matrixId, page, pageSize);
+      setDashboardData(data);
+    } catch (error) {
+      console.error('Error loading dashboard data:', error);
+      setError('Failed to load dashboard data. Please try again.');
+    } finally {
+      setIsDashboardLoading(false);
+    }
+  };
+
+  const handleTeamClick = async (teamId: string, teamName: string) => {
+    setSelectedTeam({ teamId, teamName });
+    setEmployeePage(1);
+    
+    if (selectedMatrixForDashboard) {
+      await loadDashboardData(selectedMatrixForDashboard.id, 1, employeePageSize);
+    }
+    
+    // Smooth scroll to employee section
+    setTimeout(() => {
+      const employeeElement = document.getElementById('employee-section');
+      if (employeeElement) {
+        employeeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
+  };
+
+  const handleEmployeePageChange = async (page: number) => {
+    setEmployeePage(page);
+    if (selectedMatrixForDashboard) {
+      await loadDashboardData(selectedMatrixForDashboard.id, page, employeePageSize);
+    }
+  };
+
+  const handleRefreshDashboard = async () => {
+    if (selectedMatrixForDashboard) {
+      await loadDashboardData(selectedMatrixForDashboard.id, employeePage, employeePageSize);
+    }
+  };
+
+  const closeDashboard = () => {
+    setSelectedMatrixForDashboard(null);
+    setDashboardData(null);
+    setSelectedTeam(null);
+    setEmployeePage(1);
   };
 
   // Filter items based on search term and selected performance cycle
@@ -337,12 +413,27 @@ const AssessmentMatrixPage: React.FC = () => {
                                   onClick={() => handleShowStructure(matrix)}
                                   title="View structure details"
                                 >
-                                  <i className="fas fa-eye"></i>
+                                  <i className="fas fa-sitemap"></i>
                                 </button>
                               </div>
                             </td>
                             <td>{matrix.questionCount || 0}</td>
                             <td>
+                              <button
+                                className="btn btn-sm btn-primary mr-1"
+                                onClick={() => handleShowDashboard(matrix)}
+                                disabled={isDashboardLoading && selectedMatrixForDashboard?.id === matrix.id}
+                                title="View assessment dashboard"
+                              >
+                                {isDashboardLoading && selectedMatrixForDashboard?.id === matrix.id ? (
+                                  <>
+                                    <i className="fas fa-spinner fa-spin"></i>
+                                    <span className="d-none d-sm-inline ml-1">Loading...</span>
+                                  </>
+                                ) : (
+                                  <i className="fas fa-chart-bar"></i>
+                                )}
+                              </button>
                               <button
                                 className="btn btn-sm btn-info mr-1"
                                 onClick={() => handleEdit(matrix)}
@@ -408,6 +499,74 @@ const AssessmentMatrixPage: React.FC = () => {
             </div>
           )}
         </div>
+
+        {/* Dashboard Section */}
+        {selectedMatrixForDashboard && (
+          <div id="dashboard-section">
+            {isDashboardLoading && !dashboardData ? (
+              <div className="row mt-4">
+                <div className="col-12">
+                  <div className="card">
+                    <div className="card-body text-center py-5">
+                      <div className="spinner-border text-primary mb-3" role="status" style={{ width: '3rem', height: '3rem' }}>
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                      <h5 className="text-muted">Loading Assessment Dashboard</h5>
+                      <p className="text-muted">Please wait while we fetch the data for "{selectedMatrixForDashboard.name}"...</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : dashboardData ? (
+              <TeamStatusTable
+                teamSummaries={dashboardData.teamSummaries}
+                matrixName={dashboardData.matrixName}
+                totalEmployees={dashboardData.totalEmployees}
+                completedAssessments={dashboardData.completedAssessments}
+                onTeamClick={handleTeamClick}
+                onRefresh={handleRefreshDashboard}
+                isLoading={isDashboardLoading}
+              />
+            ) : null}
+          </div>
+        )}
+
+        {/* Employee Details Section */}
+        {selectedMatrixForDashboard && dashboardData && selectedTeam && (
+          <div id="employee-section">
+            <EmployeeStatusTable
+              employeeData={{
+                ...dashboardData.employees,
+                content: dashboardData.employees.content.filter(emp => 
+                  emp.teamId === selectedTeam.teamId
+                ),
+                totalCount: dashboardData.employees.content.filter(emp => 
+                  emp.teamId === selectedTeam.teamId
+                ).length
+              }}
+              teamName={selectedTeam.teamName}
+              matrixName={dashboardData.matrixName}
+              onPageChange={handleEmployeePageChange}
+              onRefresh={handleRefreshDashboard}
+              isLoading={isDashboardLoading}
+            />
+          </div>
+        )}
+
+        {/* Close Dashboard Button */}
+        {selectedMatrixForDashboard && (
+          <div className="row mt-3">
+            <div className="col-12 text-center">
+              <button
+                className="btn btn-outline-secondary"
+                onClick={closeDashboard}
+              >
+                <i className="fas fa-times mr-1"></i>
+                Close Dashboard
+              </button>
+            </div>
+          </div>
+        )}
       </section>
 
       {selectedMatrixForStructure && (
