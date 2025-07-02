@@ -512,7 +512,7 @@ const AssessmentMatrixPage: React.FC = () => {
                         <span className="sr-only">Loading...</span>
                       </div>
                       <h5 className="text-muted">Loading Assessment Dashboard</h5>
-                      <p className="text-muted">Please wait while we fetch the data for "{selectedMatrixForDashboard.name}"...</p>
+                      <p className="text-muted">Please wait while we fetch the data for &quot;{selectedMatrixForDashboard.name}&quot;...</p>
                     </div>
                   </div>
                 </div>

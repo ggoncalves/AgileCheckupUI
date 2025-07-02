@@ -1,10 +1,9 @@
 import React from 'react';
-import { EmployeeAssessmentDetail, EmployeePageResponse } from '@/services/assessmentMatrixService';
+import { EmployeePageResponse } from '@/services/assessmentMatrixService';
 
 interface EmployeeStatusTableProps {
   employeeData: EmployeePageResponse;
   teamName: string;
-  matrixName: string;
   onPageChange: (page: number) => void;
   onRefresh: () => void;
   isLoading?: boolean;
@@ -13,7 +12,6 @@ interface EmployeeStatusTableProps {
 const EmployeeStatusTable: React.FC<EmployeeStatusTableProps> = ({
   employeeData,
   teamName,
-  matrixName,
   onPageChange,
   onRefresh,
   isLoading = false
