@@ -27,6 +27,44 @@ export interface AssessmentMatrix {
   lastUpdatedDate?: string;
 }
 
+// Dashboard Types
+export interface TeamSummary {
+  teamId: string;
+  teamName: string;
+  totalEmployees: number;
+  completedAssessments: number;
+  completionPercentage: number;
+  averageScore?: number;
+}
+
+export interface EmployeeAssessmentDetail {
+  employeeAssessmentId: string;
+  employeeName: string;
+  employeeEmail: string;
+  teamId?: string;
+  status: string;
+  currentScore?: number;
+  answeredQuestions: number;
+  lastActivityDate?: string;
+}
+
+export interface EmployeePageResponse {
+  content: EmployeeAssessmentDetail[];
+  totalCount: number;
+  page: number;
+  pageSize: number;
+}
+
+export interface DashboardResponse {
+  matrixId: string;
+  matrixName: string;
+  potentialScore?: unknown;
+  teamSummaries: TeamSummary[];
+  employees: EmployeePageResponse;
+  totalEmployees: number;
+  completedAssessments: number;
+}
+
 export type AssessmentMatrixCreateDto = Omit<AssessmentMatrix, 'id' | 'createdDate' | 'lastUpdatedDate' | 'questionCount' | 'potentialScore'>;
 export type AssessmentMatrixUpdateDto = Partial<AssessmentMatrixCreateDto>;
 
@@ -50,4 +88,12 @@ export const assessmentMatrixService: CrudApi<AssessmentMatrix> = {
   delete: async (id: string) => {
     await apiService.delete<void>(`/assessmentmatrices/${id}`);
   },
+};
+
+// Dashboard API
+export const getDashboard = async (matrixId: string, page: number = 1, pageSize: number = 50): Promise<DashboardResponse> => {
+  return await apiService.get<DashboardResponse>(`/assessmentmatrices/${matrixId}/dashboard`, {
+    page: page.toString(),
+    pageSize: pageSize.toString()
+  });
 };
