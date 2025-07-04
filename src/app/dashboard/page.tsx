@@ -15,7 +15,7 @@ import { getMatrixCardColor } from '@/styles/dashboardColors';
 const Dashboard: React.FC = () => {
   // Hooks
   const router = useRouter();
-  const { tenantId, companyId, companyName } = useTenant();
+  const { tenantId, companyName } = useTenant();
   const [performanceCycles, setPerformanceCycles] = useState<PerformanceCycle[]>([]);
   const [assessmentMatrices, setAssessmentMatrices] = useState<AssessmentMatrix[]>([]);
   const [matrixDashboards, setMatrixDashboards] = useState<Map<string, DashboardResponse>>(new Map());

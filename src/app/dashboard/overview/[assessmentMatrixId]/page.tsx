@@ -1,16 +1,18 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import TenantProtected from '@/components/TenantProtected';
 import AdminLayout from '@/components/layout/AdminLayout';
 import { useTenant } from '@/contexts/TenantContext';
 import dashboardAnalyticsService, { DashboardAnalyticsOverviewResponse } from '@/services/dashboardAnalyticsService';
+import TeamRadarChart, { transformToRadarData } from '@/components/charts/TeamRadarChart';
+import { DASHBOARD_COLORS } from '@/styles/dashboardColors';
 
 const DashboardOverview: React.FC = () => {
   const params = useParams();
   const assessmentMatrixId = params.assessmentMatrixId as string;
-  const { companyName } = useTenant();
+  const { } = useTenant();
   
   // Get matrix name from sessionStorage
   const [matrixName, setMatrixName] = useState<string>('');
@@ -18,18 +20,7 @@ const DashboardOverview: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   
-  useEffect(() => {
-    // Get matrix name from sessionStorage
-    const storedName = sessionStorage.getItem(`matrix_${assessmentMatrixId}_name`);
-    if (storedName) {
-      setMatrixName(storedName);
-    }
-    
-    // Load overview data
-    loadOverviewData();
-  }, [assessmentMatrixId]);
-  
-  const loadOverviewData = async () => {
+  const loadOverviewData = useCallback(async () => {
     setLoading(true);
     setError(null);
     
@@ -42,7 +33,18 @@ const DashboardOverview: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [assessmentMatrixId]);
+  
+  useEffect(() => {
+    // Get matrix name from sessionStorage
+    const storedName = sessionStorage.getItem(`matrix_${assessmentMatrixId}_name`);
+    if (storedName) {
+      setMatrixName(storedName);
+    }
+    
+    // Load overview data
+    loadOverviewData();
+  }, [assessmentMatrixId, loadOverviewData]);
 
   return (
     <TenantProtected>
@@ -120,6 +122,37 @@ const DashboardOverview: React.FC = () => {
                             </div>
                           </div>
                           
+                          {/* Overall Comparison Chart */}
+                          {overviewData.teams && overviewData.teams.length > 1 && (
+                            <div className="row mb-4">
+                              <div className="col-12">
+                                <div className="card">
+                                  <div className="card-header">
+                                    <h5 className="card-title mb-0">
+                                      <i className="fas fa-chart-radar mr-2"></i>
+                                      Team Comparison Overview
+                                    </h5>
+                                  </div>
+                                  <div className="card-body">
+                                    <TeamRadarChart
+                                      teams={overviewData.teams
+                                        .filter(team => team.pillarScores && Object.keys(team.pillarScores).length > 0)
+                                        .map((team, index) => ({
+                                          teamId: team.teamId,
+                                          teamName: team.teamName,
+                                          data: transformToRadarData(team.pillarScores),
+                                          color: DASHBOARD_COLORS.radar.primary[index % DASHBOARD_COLORS.radar.primary.length]
+                                        }))}
+                                      height={400}
+                                      showLegend={true}
+                                      animate={true}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                          
                           {/* Team Cards Grid */}
                           <div className="row">
                             {overviewData.teams && overviewData.teams.length > 0 ? (
@@ -130,20 +163,70 @@ const DashboardOverview: React.FC = () => {
                                       <h5 className="card-title mb-0">{team.teamName}</h5>
                                     </div>
                                     <div className="card-body">
-                                      <div className="text-center">
-                                        <p className="text-muted">Radar graph will be displayed here</p>
-                                        <div className="mt-3">
-                                          <div className="row text-center">
-                                            <div className="col-6">
-                                              <div className="small text-muted">Employees</div>
-                                              <div className="font-weight-bold">{team.employeeCount}</div>
+                                      {/* Radar Chart */}
+                                      {team.pillarScores && Object.keys(team.pillarScores).length > 0 ? (
+                                        <TeamRadarChart
+                                          teams={[{
+                                            teamId: team.teamId,
+                                            teamName: team.teamName,
+                                            data: transformToRadarData(team.pillarScores),
+                                            color: DASHBOARD_COLORS.radar.primary[index % DASHBOARD_COLORS.radar.primary.length]
+                                          }]}
+                                          height={250}
+                                          showLegend={false}
+                                          animate={true}
+                                        />
+                                      ) : (
+                                        <div className="text-center py-4">
+                                          <i className="fas fa-chart-radar text-muted mb-2" style={{ fontSize: '2rem' }}></i>
+                                          <p className="text-muted mb-1">No pillar analysis available</p>
+                                          <small className="text-muted">
+                                            {team.pillarScores ? 
+                                              `Found ${Object.keys(team.pillarScores).length} pillars` : 
+                                              'No pillar data structure found'
+                                            }
+                                          </small>
+                                          <div className="mt-3">
+                                            <div className="progress" style={{ height: '8px' }}>
+                                              <div 
+                                                className="progress-bar bg-info" 
+                                                style={{ width: `${team.completionPercentage}%` }}
+                                              ></div>
                                             </div>
-                                            <div className="col-6">
-                                              <div className="small text-muted">Score</div>
-                                              <div className="font-weight-bold">{team.totalScore}%</div>
-                                            </div>
+                                            <small className="text-muted mt-1 d-block">
+                                              Assessment Progress: {team.completionPercentage}%
+                                            </small>
                                           </div>
                                         </div>
+                                      )}
+                                      
+                                      {/* Team Statistics */}
+                                      <div className="mt-3">
+                                        <div className="row text-center">
+                                          <div className="col-4">
+                                            <div className="small text-muted">Employees</div>
+                                            <div className="font-weight-bold">{team.employeeCount}</div>
+                                          </div>
+                                          <div className="col-4">
+                                            <div className="small text-muted">Score</div>
+                                            <div className="font-weight-bold">{team.totalScore}%</div>
+                                          </div>
+                                          <div className="col-4">
+                                            <div className="small text-muted">Completion</div>
+                                            <div className="font-weight-bold">{team.completionPercentage}%</div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      
+                                      {/* View Details Button */}
+                                      <div className="mt-3 text-center">
+                                        <a 
+                                          href={`/dashboard/team/${assessmentMatrixId}/${team.teamId}`}
+                                          className="btn btn-sm btn-outline-primary"
+                                        >
+                                          <i className="fas fa-chart-line mr-1"></i>
+                                          View Details
+                                        </a>
                                       </div>
                                     </div>
                                   </div>

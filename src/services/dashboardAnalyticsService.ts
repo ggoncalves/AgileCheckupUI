@@ -5,8 +5,7 @@ import apiService from './apiService';
 // ==============================
 
 // Import interfaces from the correct services
-import { PerformanceCycle } from './performanceCycleService';
-import { AssessmentMatrix } from './assessmentMatrixService';
+// Note: These are imported for type consistency but not exported from this service
 
 // Dashboard Response Interfaces
 export interface TeamSummary {
