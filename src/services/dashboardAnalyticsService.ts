@@ -4,30 +4,9 @@ import apiService from './apiService';
 // TypeScript Interfaces
 // ==============================
 
-// Performance Cycle Interfaces
-export interface PerformanceCycle {
-  id: string;
-  name: string;
-  description?: string;
-  tenantId: string;
-  startDate?: string;
-  endDate?: string;
-  status?: string;
-  createdAt?: string;
-  lastModifiedAt?: string;
-}
-
-// Assessment Matrix Interfaces
-export interface AssessmentMatrix {
-  id: string;
-  name: string;
-  description?: string;
-  tenantId: string;
-  performanceCycleId: string;
-  questionCount?: number;
-  createdAt?: string;
-  lastModifiedAt?: string;
-}
+// Import interfaces from the correct services
+import { PerformanceCycle } from './performanceCycleService';
+import { AssessmentMatrix } from './assessmentMatrixService';
 
 // Dashboard Response Interfaces
 export interface TeamSummary {
@@ -160,41 +139,7 @@ export interface DashboardAnalyticsTeamResponse {
 // ==============================
 
 export const dashboardAnalyticsService = {
-  /**
-   * Get all Performance Cycles for a company
-   * @param companyId - The company/tenant ID
-   * @returns Promise<PerformanceCycle[]>
-   */
-  getPerformanceCycles: async (companyId: string): Promise<PerformanceCycle[]> => {
-    try {
-      const response = await apiService.get<PerformanceCycle[]>(
-        '/performancecycles', 
-        { params: { tenantId: companyId } }
-      );
-      return response;
-    } catch (error) {
-      console.error('Error fetching performance cycles:', error);
-      throw error;
-    }
-  },
 
-  /**
-   * Get all Assessment Matrices for a company
-   * @param companyId - The company/tenant ID
-   * @returns Promise<AssessmentMatrix[]>
-   */
-  getAssessmentMatrices: async (companyId: string): Promise<AssessmentMatrix[]> => {
-    try {
-      const response = await apiService.get<AssessmentMatrix[]>(
-        '/assessmentmatrices', 
-        { params: { tenantId: companyId } }
-      );
-      return response;
-    } catch (error) {
-      console.error('Error fetching assessment matrices:', error);
-      throw error;
-    }
-  },
 
   /**
    * Get dashboard data for a specific Assessment Matrix

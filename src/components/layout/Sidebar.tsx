@@ -34,11 +34,11 @@ const Sidebar: React.FC = () => {
         {/* Sidebar Menu */}
         <nav className="mt-2">
           <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            {/* Dashboard */}
+            {/* Home */}
             <li className="nav-item">
-              <Link href="/" className={`nav-link ${isActive('/')}`}>
-                <i className="nav-icon fas fa-tachometer-alt"></i>
-                <p>Dashboard</p>
+              <Link href="/home" className={`nav-link ${isActive('/home')}`}>
+                <i className="nav-icon fas fa-home"></i>
+                <p>Home</p>
               </Link>
             </li>
 
@@ -97,11 +97,11 @@ const Sidebar: React.FC = () => {
               </Link>
             </li>
 
-            {/* Reports */}
+            {/* Dashboard */}
             <li className="nav-item">
-              <Link href="/reports" className={`nav-link ${isActive('/reports')}`}>
+              <Link href="/dashboard" className={`nav-link ${isActive('/dashboard')}`}>
                 <i className="nav-icon fas fa-chart-pie"></i>
-                <p>Reports & Analytics</p>
+                <p>Dashboard</p>
               </Link>
             </li>
 
