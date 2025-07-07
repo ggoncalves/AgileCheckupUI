@@ -1,16 +1,18 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import TenantProtected from '@/components/TenantProtected';
 import AdminLayout from '@/components/layout/AdminLayout';
 import { useTenant } from '@/contexts/TenantContext';
 import dashboardAnalyticsService, { DashboardAnalyticsOverviewResponse } from '@/services/dashboardAnalyticsService';
-import TeamRadarChart, { transformToRadarData } from '@/components/charts/TeamRadarChart';
+import RadarChart from '@/components/charts/RadarChart';
+import { transformPillarScoresToChartData } from '@/utils/chartUtils';
 import { DASHBOARD_COLORS } from '@/styles/dashboardColors';
 
 const DashboardOverview: React.FC = () => {
   const params = useParams();
+  const router = useRouter();
   const assessmentMatrixId = params.assessmentMatrixId as string;
   const { } = useTenant();
   
@@ -134,13 +136,13 @@ const DashboardOverview: React.FC = () => {
                                     </h5>
                                   </div>
                                   <div className="card-body">
-                                    <TeamRadarChart
-                                      teams={overviewData.teams
+                                    <RadarChart
+                                      entities={overviewData.teams
                                         .filter(team => team.pillarScores && Object.keys(team.pillarScores).length > 0)
                                         .map((team, index) => ({
-                                          teamId: team.teamId,
-                                          teamName: team.teamName,
-                                          data: transformToRadarData(team.pillarScores),
+                                          entityId: team.teamId,
+                                          entityName: team.teamName,
+                                          data: transformPillarScoresToChartData(team.pillarScores),
                                           color: DASHBOARD_COLORS.radar.primary[index % DASHBOARD_COLORS.radar.primary.length]
                                         }))}
                                       height={400}
@@ -165,11 +167,11 @@ const DashboardOverview: React.FC = () => {
                                     <div className="card-body">
                                       {/* Radar Chart */}
                                       {team.pillarScores && Object.keys(team.pillarScores).length > 0 ? (
-                                        <TeamRadarChart
-                                          teams={[{
-                                            teamId: team.teamId,
-                                            teamName: team.teamName,
-                                            data: transformToRadarData(team.pillarScores),
+                                        <RadarChart
+                                          entities={[{
+                                            entityId: team.teamId,
+                                            entityName: team.teamName,
+                                            data: transformPillarScoresToChartData(team.pillarScores),
                                             color: DASHBOARD_COLORS.radar.primary[index % DASHBOARD_COLORS.radar.primary.length]
                                           }]}
                                           height={250}
@@ -220,13 +222,18 @@ const DashboardOverview: React.FC = () => {
                                       
                                       {/* View Details Button */}
                                       <div className="mt-3 text-center">
-                                        <a 
-                                          href={`/dashboard/team/${assessmentMatrixId}/${team.teamId}`}
+                                        <button 
                                           className="btn btn-sm btn-outline-primary"
+                                          onClick={() => {
+                                            // Store team name for breadcrumb
+                                            sessionStorage.setItem(`team_${team.teamId}_name`, team.teamName);
+                                            // Navigate to team detail
+                                            router.push(`/dashboard/team/${assessmentMatrixId}/${team.teamId}`);
+                                          }}
                                         >
                                           <i className="fas fa-chart-line mr-1"></i>
                                           View Details
-                                        </a>
+                                        </button>
                                       </div>
                                     </div>
                                   </div>

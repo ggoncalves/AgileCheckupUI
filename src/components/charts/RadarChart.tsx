@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   Radar,
   RadarChart,
@@ -12,23 +12,18 @@ import {
   Legend
 } from 'recharts';
 import { DASHBOARD_COLORS } from '@/styles/dashboardColors';
+import { ChartDataPoint } from '@/utils/chartUtils';
 
 // TypeScript Interfaces
-export interface PillarData {
-  pillar: string;
-  score: number;
-  fullMark: 100;
-}
-
-export interface TeamRadarData {
-  teamId: string;
-  teamName: string;
-  data: PillarData[];
+export interface RadarChartData {
+  entityId: string;
+  entityName: string;
+  data: ChartDataPoint[];
   color?: string;
 }
 
-interface TeamRadarChartProps {
-  teams: TeamRadarData[];
+interface RadarChartProps {
+  entities: RadarChartData[];
   width?: number | string;
   height?: number | string;
   showLegend?: boolean;
@@ -63,16 +58,20 @@ const CustomTooltip: React.FC<TooltipProps> = ({ active, payload, label }) => {
   return null;
 };
 
-const TeamRadarChart: React.FC<TeamRadarChartProps> = ({
-  teams,
+const RadarChart: React.FC<RadarChartProps> = ({
+  entities,
   width = '100%',
   height = 300,
   showLegend = true,
   animate = true,
   className = ''
 }) => {
-  // Check if we have valid data
-  if (!teams || teams.length === 0 || teams[0].data.length === 0) {
+  // Memoize the validation to prevent unnecessary re-renders
+  const hasValidData = useMemo(() => {
+    return entities && entities.length > 0 && entities[0] && entities[0].data && entities[0].data.length > 0;
+  }, [entities]);
+
+  if (!hasValidData) {
     return (
       <div className={className} style={{ height }}>
         <div className="d-flex align-items-center justify-content-center h-100">
@@ -85,54 +84,54 @@ const TeamRadarChart: React.FC<TeamRadarChartProps> = ({
     );
   }
 
-  // For radar charts to look good, we need at least 3 pillars
+  // For radar charts to look good, we need at least 3 data points
   // If we have less, we'll create a simple bar-like visualization
-  const pillarCount = teams[0].data.length;
+  const dataPointCount = entities[0].data.length;
   
-  // Merge all team data for multi-team comparison
-  const mergedData = teams[0].data.map((pillarItem, index) => {
+  // Merge all entity data for multi-entity comparison
+  const mergedData = entities[0].data.map((dataItem, index) => {
     const merged: Record<string, number | string> = {
-      pillar: pillarItem.pillar,
-      fullMark: 100
+      name: dataItem.name,
+      fullMark: dataItem.maxValue
     };
     
-    teams.forEach((team) => {
-      merged[team.teamName] = team.data[index]?.score || 0;
+    entities.forEach((entity) => {
+      merged[entity.entityName] = entity.data[index]?.value || 0;
     });
     
     return merged;
   });
 
-  // Get colors for teams
-  const getTeamColor = (index: number): string => {
-    const teamColors = DASHBOARD_COLORS.radar.primary;
-    return teamColors[index % teamColors.length];
+  // Get colors for entities
+  const getEntityColor = (index: number): string => {
+    const colors = DASHBOARD_COLORS.radar.primary;
+    return colors[index % colors.length];
   };
   
-  // For 2 or fewer pillars, show a different visualization message
-  if (pillarCount < 3) {
+  // For 2 or fewer data points, show a different visualization message
+  if (dataPointCount < 3) {
     return (
       <div className={className} style={{ height }}>
         <div className="d-flex align-items-center justify-content-center h-100">
           <div className="text-center">
             <i className="fas fa-exclamation-triangle text-warning mb-2" style={{ fontSize: '2rem' }}></i>
-            <p className="text-muted mb-2">Radar chart needs 3+ pillars</p>
+            <p className="text-muted mb-2">Radar chart needs 3+ data points</p>
             <small className="text-muted">
-              Currently {pillarCount} pillar{pillarCount !== 1 ? 's' : ''} available
+              Currently {dataPointCount} data point{dataPointCount !== 1 ? 's' : ''} available
             </small>
             <div className="mt-3">
-              {teams[0].data.map((pillar, idx) => (
+              {entities[0].data.map((dataPoint, idx) => (
                 <div key={idx} className="mb-2">
                   <div className="d-flex justify-content-between align-items-center mb-1">
-                    <small className="text-muted">{pillar.pillar}</small>
-                    <small className="font-weight-bold">{pillar.score}%</small>
+                    <small className="text-muted">{dataPoint.name}</small>
+                    <small className="font-weight-bold">{dataPoint.value}%</small>
                   </div>
                   <div className="progress" style={{ height: '6px' }}>
                     <div 
                       className="progress-bar" 
                       style={{ 
-                        width: `${pillar.score}%`,
-                        backgroundColor: getTeamColor(0)
+                        width: `${dataPoint.value}%`,
+                        backgroundColor: getEntityColor(0)
                       }}
                     ></div>
                   </div>
@@ -154,24 +153,24 @@ const TeamRadarChart: React.FC<TeamRadarChartProps> = ({
             radialLines={true}
           />
           <PolarAngleAxis 
-            dataKey="pillar"
+            dataKey="name"
             tick={{ fontSize: 12 }}
             className="text-muted"
           />
           <PolarRadiusAxis
             angle={90}
-            domain={[0, 100]}
+            domain={[0, entities[0]?.data[0]?.maxValue || 100]}
             tickCount={6}
             tick={{ fontSize: 10 }}
           />
           
-          {teams.map((team, index) => (
+          {entities.map((entity, index) => (
             <Radar
-              key={team.teamId}
-              name={team.teamName}
-              dataKey={team.teamName}
-              stroke={team.color || getTeamColor(index)}
-              fill={team.color || getTeamColor(index)}
+              key={entity.entityId}
+              name={entity.entityName}
+              dataKey={entity.entityName}
+              stroke={entity.color || getEntityColor(index)}
+              fill={entity.color || getEntityColor(index)}
               fillOpacity={0.3}
               strokeWidth={2}
               animationDuration={animate ? 1000 : 0}
@@ -183,7 +182,7 @@ const TeamRadarChart: React.FC<TeamRadarChartProps> = ({
             wrapperStyle={{ zIndex: 1000 }}
           />
           
-          {showLegend && teams.length > 1 && (
+          {showLegend && entities.length > 1 && (
             <Legend 
               verticalAlign="bottom"
               align="center"
@@ -199,15 +198,5 @@ const TeamRadarChart: React.FC<TeamRadarChartProps> = ({
   );
 };
 
-export default TeamRadarChart;
+export default RadarChart;
 
-// Helper function to transform API data to radar format
-export const transformToRadarData = (
-  pillarScores: Record<string, { name: string; score: number; actualScore: number; potentialScore: number }>
-): PillarData[] => {
-  return Object.entries(pillarScores).map(([, pillar]) => ({
-    pillar: pillar.name,
-    score: Math.round(pillar.score), // Already a percentage
-    fullMark: 100
-  }));
-};
