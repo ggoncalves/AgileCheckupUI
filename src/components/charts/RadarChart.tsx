@@ -3,7 +3,7 @@
 import React, { useMemo } from 'react';
 import {
   Radar,
-  RadarChart,
+  RadarChart as RechartsRadarChart,
   PolarGrid,
   PolarAngleAxis,
   PolarRadiusAxis,
@@ -147,7 +147,7 @@ const RadarChart: React.FC<RadarChartProps> = ({
   return (
     <div className={className}>
       <ResponsiveContainer width={width} height={height}>
-        <RadarChart data={mergedData}>
+        <RechartsRadarChart data={mergedData}>
           <PolarGrid 
             gridType="polygon"
             radialLines={true}
@@ -192,7 +192,7 @@ const RadarChart: React.FC<RadarChartProps> = ({
               }}
             />
           )}
-        </RadarChart>
+        </RechartsRadarChart>
       </ResponsiveContainer>
     </div>
   );
