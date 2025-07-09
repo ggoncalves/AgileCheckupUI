@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { AdminLayout } from '@/infrastructure/layouts';
 import { teamService, Team } from '@/services/teamService';
 import { departmentApi, Department } from '@/services/departmentService';
@@ -8,6 +9,7 @@ import { TeamForm } from '@/components/teams/TeamForm';
 import { useTenant } from '@/infrastructure/auth';
 
 const TeamsPage: React.FC = () => {
+  const { t } = useTranslation();
   const { tenantId } = useTenant();
   const [teams, setTeams] = useState<Team[]>([]);
   const [departments, setDepartments] = useState<Department[]>([]);
@@ -46,7 +48,7 @@ const TeamsPage: React.FC = () => {
       setTeams(data);
       setError(null);
     } catch (err) {
-      setError('Failed to load teams. Please try again.');
+      setError(t('team.errors.loadFailed'));
       console.error(err);
     } finally {
       setIsLoading(false);
@@ -77,12 +79,12 @@ const TeamsPage: React.FC = () => {
   };
 
   const handleDelete = async (id: string) => {
-    if (window.confirm('Are you sure you want to delete this team?')) {
+    if (window.confirm(t('common.messages.confirmDelete'))) {
       try {
         await teamService.delete(id);
         setTeams(teams.filter(item => item.id !== id));
       } catch (err) {
-        setError('Failed to delete team. Please try again.');
+        setError(t('team.errors.deleteFailed'));
         console.error(err);
       }
     }
@@ -173,7 +175,7 @@ const TeamsPage: React.FC = () => {
             <div className="col-sm-6">
               <h1 className="m-0">
                 <i className="fas fa-users mr-2"></i>
-                Team Management
+                {t('team.title')}
               </h1>
             </div>
           </div>
@@ -184,7 +186,7 @@ const TeamsPage: React.FC = () => {
         <div className="container-fluid">
           <div className="card">
             <div className="card-header">
-              <h3 className="card-title">Team List</h3>
+              <h3 className="card-title">{t('common.labels.list')} {t('team.plural')}</h3>
               <div className="card-tools">
                 <button
                   type="button"
@@ -192,7 +194,7 @@ const TeamsPage: React.FC = () => {
                   onClick={handleAddNew}
                   disabled={showForm}
                 >
-                  <i className="fas fa-plus mr-1"></i> Add New Team
+                  <i className="fas fa-plus mr-1"></i> {t('common.actions.addNew')} {t('team.singular')}
                 </button>
               </div>
             </div>
@@ -214,7 +216,7 @@ const TeamsPage: React.FC = () => {
                       value={selectedDepartmentId}
                       onChange={(e) => setSelectedDepartmentId(e.target.value)}
                     >
-                      <option value="all">All Departments</option>
+                      <option value="all">{t('team.filters.allDepartments')}</option>
                       {departments.map(dept => (
                         <option key={dept.id} value={dept.id}>
                           {dept.name}
@@ -228,7 +230,7 @@ const TeamsPage: React.FC = () => {
                     <input
                       type="text"
                       className="form-control"
-                      placeholder="Search teams..."
+                      placeholder={t('team.search.placeholder')}
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />
@@ -249,26 +251,26 @@ const TeamsPage: React.FC = () => {
                         onClick={() => handleSort('name')}
                         style={{ cursor: 'pointer' }}
                       >
-                        Team Name
+                        {t('team.columns.name')}
                         {sortField === 'name' && (
                           <i
                             className={`ml-1 fas fa-sort-${sortDirection === 'asc' ? 'up' : 'down'}`}
                           ></i>
                         )}
                       </th>
-                      <th>Description</th>
+                      <th>{t('team.columns.description')}</th>
                       <th
                         onClick={() => handleSort('department')}
                         style={{ cursor: 'pointer' }}
                       >
-                        Department
+                        {t('team.columns.department')}
                         {sortField === 'department' && (
                           <i
                             className={`ml-1 fas fa-sort-${sortDirection === 'asc' ? 'up' : 'down'}`}
                           ></i>
                         )}
                       </th>
-                      <th className="text-nowrap" style={{ minWidth: '140px' }}>Actions</th>
+                      <th className="text-nowrap" style={{ minWidth: '140px' }}>{t('common.labels.actions')}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -276,24 +278,24 @@ const TeamsPage: React.FC = () => {
                       <tr>
                         <td colSpan={4} className="text-center">
                           <div className="spinner-border text-primary" role="status">
-                            <span className="sr-only">Loading...</span>
+                            <span className="sr-only">{t('common.status.loading')}</span>
                           </div>
                         </td>
                       </tr>
                     ) : processedTeams.length === 0 ? (
                       <tr>
                         <td colSpan={4} className="text-center">
-                          No teams found
+                          {t('team.messages.noTeamsFound')}
                         </td>
                       </tr>
                     ) : (
                       processedTeams.map((team) => (
                         <tr key={team.id}>
                           <td>{team.name}</td>
-                          <td>{team.description || <em className="text-muted">No description</em>}</td>
+                          <td>{team.description || <em className="text-muted">{t('team.messages.noDescription')}</em>}</td>
                           <td>
                             <span className="badge badge-info">
-                              {team.department?.name || 'No Department'}
+                              {team.department?.name || t('team.messages.noDepartment')}
                             </span>
                           </td>
                           <td className="text-nowrap">
@@ -302,14 +304,14 @@ const TeamsPage: React.FC = () => {
                               onClick={() => handleEdit(team)}
                               disabled={showForm}
                             >
-                              <i className="fas fa-edit"></i> Edit
+                              <i className="fas fa-edit"></i> {t('common.actions.edit')}
                             </button>
                             <button
                               className="btn btn-danger btn-sm"
                               onClick={() => handleDelete(team.id)}
                               disabled={showForm}
                             >
-                              <i className="fas fa-trash"></i> Delete
+                              <i className="fas fa-trash"></i> {t('common.actions.delete')}
                             </button>
                           </td>
                         </tr>

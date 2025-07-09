@@ -96,6 +96,55 @@
       }
     }
   },
+  "team": {
+    "title": "Team Management",
+    "singular": "Team",
+    "plural": "Teams",
+    "columns": {
+      "name": "Team Name",
+      "description": "Description",
+      "department": "Department"
+    },
+    "form": {
+      "newTitle": "New Team",
+      "editTitle": "Edit Team",
+      "fields": {
+        "department": "Department",
+        "name": "Team Name",
+        "description": "Description"
+      },
+      "placeholders": {
+        "selectDepartment": "Select a department...",
+        "teamName": "Enter team name",
+        "description": "Enter team description (optional)"
+      },
+      "validation": {
+        "departmentRequired": "Department is required",
+        "nameRequired": "Team name is required"
+      },
+      "buttons": {
+        "create": "Create",
+        "update": "Update",
+        "creating": "Creating...",
+        "updating": "Updating..."
+      }
+    },
+    "filters": {
+      "allDepartments": "All Departments"
+    },
+    "search": {
+      "placeholder": "Search teams..."
+    },
+    "messages": {
+      "noTeamsFound": "No teams found",
+      "noDescription": "No description",
+      "noDepartment": "No Department"
+    },
+    "errors": {
+      "loadFailed": "Failed to load teams. Please try again.",
+      "deleteFailed": "Failed to delete team. Please try again."
+    }
+  },
   "navigation": {
     "home": "Home",
     "dashboard": "Dashboard",

@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { Team, TeamCreateDto } from '../../services/teamService';
 import { Department } from '../../services/departmentService';
 import { departmentApi } from '../../services/departmentService';
@@ -14,6 +15,7 @@ interface TeamFormProps {
 }
 
 export const TeamForm: React.FC<TeamFormProps> = ({ item, onSubmit, onCancel }) => {
+  const { t } = useTranslation();
   const { tenantId, companyId } = useTenant();
   const [departments, setDepartments] = useState<Department[]>([]);
   const [loadingDepartments, setLoadingDepartments] = useState(true);
@@ -78,7 +80,7 @@ export const TeamForm: React.FC<TeamFormProps> = ({ item, onSubmit, onCancel }) 
       <div className="card-header">
         <h3 className="card-title">
           <i className="fas fa-users mr-2"></i>
-          {item ? 'Edit Team' : 'New Team'}
+          {item ? t('team.form.editTitle') : t('team.form.newTitle')}
         </h3>
       </div>
       <form onSubmit={handleSubmit(onFormSubmit)}>
@@ -91,15 +93,15 @@ export const TeamForm: React.FC<TeamFormProps> = ({ item, onSubmit, onCancel }) 
             <div className="col-md-6">
               <div className="form-group">
                 <label htmlFor="departmentId">
-                  Department <span className="text-danger">*</span>
+                  {t('team.form.fields.department')} <span className="text-danger">*</span>
                 </label>
                 <select
                   className={`form-control ${errors.departmentId ? 'is-invalid' : ''}`}
                   id="departmentId"
-                  {...register('departmentId', { required: 'Department is required' })}
+                  {...register('departmentId', { required: t('team.form.validation.departmentRequired') })}
                   disabled={loadingDepartments}
                 >
-                  <option value="">Select a department...</option>
+                  <option value="">{t('team.form.placeholders.selectDepartment')}</option>
                   {departments.map(dept => (
                     <option key={dept.id} value={dept.id}>
                       {dept.name}
@@ -115,14 +117,14 @@ export const TeamForm: React.FC<TeamFormProps> = ({ item, onSubmit, onCancel }) 
             <div className="col-md-6">
               <div className="form-group">
                 <label htmlFor="name">
-                  Team Name <span className="text-danger">*</span>
+                  {t('team.form.fields.name')} <span className="text-danger">*</span>
                 </label>
                 <input
                   type="text"
                   className={`form-control ${errors.name ? 'is-invalid' : ''}`}
                   id="name"
-                  placeholder="Enter team name"
-                  {...register('name', { required: 'Team name is required' })}
+                  placeholder={t('team.form.placeholders.teamName')}
+                  {...register('name', { required: t('team.form.validation.nameRequired') })}
                 />
                 {errors.name && (
                   <div className="invalid-feedback">{errors.name.message}</div>
@@ -132,12 +134,12 @@ export const TeamForm: React.FC<TeamFormProps> = ({ item, onSubmit, onCancel }) 
           </div>
 
           <div className="form-group">
-            <label htmlFor="description">Description</label>
+            <label htmlFor="description">{t('team.form.fields.description')}</label>
             <textarea
               className="form-control"
               id="description"
               rows={3}
-              placeholder="Enter team description (optional)"
+              placeholder={t('team.form.placeholders.description')}
               {...register('description')}
             />
           </div>
@@ -150,7 +152,7 @@ export const TeamForm: React.FC<TeamFormProps> = ({ item, onSubmit, onCancel }) 
             onClick={onCancel}
             disabled={isSubmitting}
           >
-            Cancel
+            {t('common.actions.cancel')}
           </button>
           <button
             type="submit"
@@ -160,10 +162,10 @@ export const TeamForm: React.FC<TeamFormProps> = ({ item, onSubmit, onCancel }) 
             {isSubmitting ? (
               <>
                 <span className="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>
-                {item ? 'Updating...' : 'Creating...'}
+                {item ? t('team.form.buttons.updating') : t('team.form.buttons.creating')}
               </>
             ) : (
-              <>{item ? 'Update' : 'Create'} Team</>
+              <>{item ? t('team.form.buttons.update') : t('team.form.buttons.create')} {t('team.singular')}</>
             )}
           </button>
         </div>

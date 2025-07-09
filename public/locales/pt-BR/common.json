@@ -96,12 +96,61 @@
       }
     }
   },
+  "team": {
+    "title": "Gerenciamento de Times",
+    "singular": "Time",
+    "plural": "Times",
+    "columns": {
+      "name": "Nome do Time",
+      "description": "Descrição",
+      "department": "Departamento"
+    },
+    "form": {
+      "newTitle": "Novo Time",
+      "editTitle": "Editar Time",
+      "fields": {
+        "department": "Departamento",
+        "name": "Nome do Time",
+        "description": "Descrição"
+      },
+      "placeholders": {
+        "selectDepartment": "Selecione um departamento...",
+        "teamName": "Digite o nome do time",
+        "description": "Digite a descrição do time (opcional)"
+      },
+      "validation": {
+        "departmentRequired": "Departamento é obrigatório",
+        "nameRequired": "Nome do time é obrigatório"
+      },
+      "buttons": {
+        "create": "Criar",
+        "update": "Atualizar",
+        "creating": "Criando...",
+        "updating": "Atualizando..."
+      }
+    },
+    "filters": {
+      "allDepartments": "Todos os Departamentos"
+    },
+    "search": {
+      "placeholder": "Buscar times..."
+    },
+    "messages": {
+      "noTeamsFound": "Nenhum time encontrado",
+      "noDescription": "Sem descrição",
+      "noDepartment": "Sem Departamento"
+    },
+    "errors": {
+      "loadFailed": "Falha ao carregar times. Por favor, tente novamente.",
+      "deleteFailed": "Falha ao excluir time. Por favor, tente novamente."
+    }
+  },
   "navigation": {
     "home": "Início",
     "dashboard": "Painel",
     "companies": "Empresas",
     "departments": "Departamentos",
-    "teams": "Equipes",
+    "teams": "Times",
     "performanceCycles": "Ciclos de Performance",
     "assessmentMatrices": "Matrizes de Avaliação",
     "questions": "Perguntas",
