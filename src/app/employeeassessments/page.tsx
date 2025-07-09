@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { AdminLayout } from '@/infrastructure/layouts';
 import { TenantProtected } from '@/infrastructure/auth';
 import AbstractCRUD, { CrudColumn } from '@/components/common/AbstractCRUD';
@@ -13,6 +14,7 @@ import { teamService, Team } from '@/services/teamService';
 import { useTenant } from '@/infrastructure/auth';
 
 const EmployeeAssessmentPage: React.FC = () => {
+  const { t } = useTranslation();
   const { tenantId } = useTenant();
   const [selectedPerformanceCycle, setSelectedPerformanceCycle] = useState<string>('');
   const [selectedAssessmentMatrix, setSelectedAssessmentMatrix] = useState<string>('');
@@ -160,19 +162,19 @@ const EmployeeAssessmentPage: React.FC = () => {
   const columns: CrudColumn<EmployeeAssessment>[] = useMemo(() => [
     { 
       key: 'employee.name', 
-      label: 'Name',
+      label: t('employeeAssessment.columns.name'),
       sortable: true,
       render: (item: EmployeeAssessment) => item.employee.name
     },
     { 
       key: 'employee.email', 
-      label: 'Email',
+      label: t('employeeAssessment.columns.email'),
       sortable: true,
       render: (item: EmployeeAssessment) => item.employee.email 
     },
     { 
       key: 'assessmentStatus', 
-      label: 'Status',
+      label: t('employeeAssessment.columns.status'),
       sortable: true,
       render: (item: EmployeeAssessment) => (
         <span className={`badge badge-${getStatusBadgeClass(item.assessmentStatus || 'INVITED')}`}>
@@ -182,7 +184,7 @@ const EmployeeAssessmentPage: React.FC = () => {
     },
     { 
       key: 'teamId', 
-      label: 'Team',
+      label: t('employeeAssessment.columns.team'),
       sortable: true,
       className: 'col-2',
       render: (item: EmployeeAssessment) => {
@@ -192,12 +194,12 @@ const EmployeeAssessmentPage: React.FC = () => {
     },
     { 
       key: 'answeredQuestionCount', 
-      label: 'Answered Questions',
+      label: t('employeeAssessment.columns.answeredQuestions'),
       sortable: true,
       className: 'col-1',
       render: (item: EmployeeAssessment) => item.answeredQuestionCount || 0
     },
-  ], [allTeams]);
+  ], [allTeams, t]);
 
   const getStatusBadgeClass = (status: string) => {
     switch (status) {
@@ -301,20 +303,20 @@ const EmployeeAssessmentPage: React.FC = () => {
       <div className="card-header">
         <h3 className="card-title">
           <i className="fas fa-filter mr-2"></i>
-          Filters
+          {t('employeeAssessment.filters.title')}
         </h3>
       </div>
       <div className="card-body">
         <div className="row">
           <div className="col-md-3">
             <div className="form-group">
-              <label>Performance Cycle *</label>
+              <label>{t('employeeAssessment.filters.performanceCycle')} *</label>
               <select
                 className="form-control"
                 value={selectedPerformanceCycle}
                 onChange={(e) => setSelectedPerformanceCycle(e.target.value)}
               >
-                <option value="">Select Performance Cycle</option>
+                <option value="">{t('employeeAssessment.filters.selectPerformanceCycle')}</option>
                 {performanceCycles.map((cycle) => (
                   <option key={cycle.id} value={cycle.id}>
                     {cycle.name}
@@ -326,14 +328,14 @@ const EmployeeAssessmentPage: React.FC = () => {
 
           <div className="col-md-3">
             <div className="form-group">
-              <label>Assessment Matrix *</label>
+              <label>{t('employeeAssessment.filters.assessmentMatrix')} *</label>
               <select
                 className="form-control"
                 value={selectedAssessmentMatrix}
                 onChange={(e) => setSelectedAssessmentMatrix(e.target.value)}
                 disabled={!selectedPerformanceCycle}
               >
-                <option value="">Select Assessment Matrix</option>
+                <option value="">{t('employeeAssessment.filters.selectAssessmentMatrix')}</option>
                 {assessmentMatrices.map((matrix) => (
                   <option key={matrix.id} value={matrix.id}>
                     {matrix.name}
@@ -345,13 +347,13 @@ const EmployeeAssessmentPage: React.FC = () => {
 
           <div className="col-md-3">
             <div className="form-group">
-              <label>Department</label>
+              <label>{t('employeeAssessment.filters.department')}</label>
               <select
                 className="form-control"
                 value={selectedDepartment}
                 onChange={(e) => setSelectedDepartment(e.target.value)}
               >
-                <option value="">All Departments</option>
+                <option value="">{t('employeeAssessment.filters.allDepartments')}</option>
                 {departments.map((dept) => (
                   <option key={dept.id} value={dept.id}>
                     {dept.name}
@@ -363,13 +365,13 @@ const EmployeeAssessmentPage: React.FC = () => {
 
           <div className="col-md-3">
             <div className="form-group">
-              <label>Team</label>
+              <label>{t('employeeAssessment.filters.team')}</label>
               <select
                 className="form-control"
                 value={selectedTeam}
                 onChange={(e) => setSelectedTeam(e.target.value)}
               >
-                <option value="">All Teams</option>
+                <option value="">{t('employeeAssessment.filters.allTeams')}</option>
                 {teams.map((team) => (
                   <option key={team.id} value={team.id}>
                     {team.name}
@@ -396,12 +398,12 @@ const EmployeeAssessmentPage: React.FC = () => {
                 </h5>
                 <p className="text-muted mb-0">
                   <i className="fas fa-users mr-1"></i>
-                  {employeeCount} employee{employeeCount !== 1 ? 's' : ''} in this assessment
+                  {t('employeeAssessment.context.employeeCount', { count: employeeCount })}
                   {selectedTeam && (
                     <>
                       {' • '}
                       <i className="fas fa-filter mr-1"></i>
-                      Filtered by team
+                      {t('employeeAssessment.context.filteredByTeam')}
                     </>
                   )}
                 </p>
@@ -411,25 +413,25 @@ const EmployeeAssessmentPage: React.FC = () => {
           <div className="col-md-4 text-right">
             <div className="d-flex align-items-center justify-content-end">
               <div className="mr-3">
-                <small className="text-muted d-block">Send this link to all employees:</small>
+                <small className="text-muted d-block">{t('employeeAssessment.invitation.sendToEmployees')}</small>
                 <div className="d-flex align-items-center">
                   {generatedToken ? (
                     <div className="d-flex align-items-center">
                       <span className="badge badge-success mr-2">
                         <i className="fas fa-check mr-1"></i>
-                        Link Generated
+                        {t('employeeAssessment.invitation.linkGenerated')}
                       </span>
                       <button 
                         className="btn btn-sm btn-outline-info"
                         onClick={() => setShowLinkModal(true)}
-                        title="View full invitation link"
+                        title={t('employeeAssessment.invitation.viewFullLink')}
                       >
                         <i className="fas fa-eye"></i>
                       </button>
                     </div>
                   ) : (
                     <small className="text-muted font-italic">
-                      Click &quot;Copy Invitation Link&quot; to generate secure link
+                      {t('employeeAssessment.invitation.generateInstruction')}
                     </small>
                   )}
                 </div>
@@ -446,17 +448,17 @@ const EmployeeAssessmentPage: React.FC = () => {
                 {copySuccess ? (
                   <>
                     <i className="fas fa-check mr-2"></i>
-                    Copied!
+                    {t('employeeAssessment.invitation.copied')}
                   </>
                 ) : isGeneratingToken ? (
                   <>
                     <i className="fas fa-spinner fa-spin mr-2"></i>
-                    Generating...
+                    {t('employeeAssessment.invitation.generating')}
                   </>
                 ) : (
                   <>
                     <i className="fas fa-copy mr-2"></i>
-                    Copy Invitation Link
+                    {t('employeeAssessment.invitation.copyLink')}
                   </>
                 )}
               </button>
@@ -467,7 +469,7 @@ const EmployeeAssessmentPage: React.FC = () => {
           <div className="col-12">
             <small className="text-info">
               <i className="fas fa-info-circle mr-1"></i>
-              Employees will enter their email address on this page to access their assessment
+              {t('employeeAssessment.invitation.instructions')}
             </small>
           </div>
         </div>
@@ -482,7 +484,7 @@ const EmployeeAssessmentPage: React.FC = () => {
           <div className="modal-header">
             <h5 className="modal-title">
               <i className="fas fa-link mr-2"></i>
-              Invitation Link for {getSelectedMatrixName()}
+              {t('employeeAssessment.invitation.linkFor', { matrixName: getSelectedMatrixName() })}
             </h5>
             <button type="button" className="close" onClick={() => setShowLinkModal(false)}>
               <span>&times;</span>
@@ -490,7 +492,7 @@ const EmployeeAssessmentPage: React.FC = () => {
           </div>
           <div className="modal-body">
             <div className="form-group">
-              <label className="font-weight-bold">Full Invitation Link:</label>
+              <label className="font-weight-bold">{t('employeeAssessment.invitation.fullLink')}</label>
               <div className="input-group">
                 <input 
                   type="text" 
@@ -507,12 +509,12 @@ const EmployeeAssessmentPage: React.FC = () => {
                     {copySuccess ? (
                       <>
                         <i className="fas fa-check mr-1"></i>
-                        Copied!
+                        {t('employeeAssessment.invitation.copied')}
                       </>
                     ) : (
                       <>
                         <i className="fas fa-copy mr-1"></i>
-                        Copy
+                        {t('common.actions.copy')}
                       </>
                     )}
                   </button>
@@ -521,12 +523,12 @@ const EmployeeAssessmentPage: React.FC = () => {
             </div>
             <div className="alert alert-info">
               <i className="fas fa-info-circle mr-2"></i>
-              Share this link with all employees who need to complete the assessment. They will enter their email address to access their specific assessment.
+              {t('employeeAssessment.invitation.shareInstruction')}
             </div>
           </div>
           <div className="modal-footer">
             <button type="button" className="btn btn-secondary" onClick={() => setShowLinkModal(false)}>
-              Close
+              {t('common.actions.close')}
             </button>
           </div>
         </div>
@@ -543,7 +545,7 @@ const EmployeeAssessmentPage: React.FC = () => {
               <div className="col-sm-6">
                 <h1 className="m-0">
                   <i className="fas fa-users-cog mr-2"></i>
-                  Employee Assessments
+                  {t('employeeAssessment.title')}
                 </h1>
               </div>
             </div>
@@ -563,7 +565,7 @@ const EmployeeAssessmentPage: React.FC = () => {
                   columns={columns}
                   api={filteredEmployeeAssessmentApi}
                   FormComponent={EmployeeAssessmentForm}
-                  itemName="Employee Assessment"
+                  itemName={t('employeeAssessment.singular')}
                   canEdit={canEdit}
                   canDelete={canDelete}
                 />
@@ -573,7 +575,7 @@ const EmployeeAssessmentPage: React.FC = () => {
                 <div className="card-body text-center py-5">
                   <i className="fas fa-arrow-up fa-3x text-muted mb-3"></i>
                   <p className="text-muted">
-                    Please select a Performance Cycle and Assessment Matrix to manage employee assessments.
+                    {t('employeeAssessment.messages.selectFilters')}
                   </p>
                 </div>
               </div>

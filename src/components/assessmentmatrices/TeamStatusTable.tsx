@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { TeamSummary } from '@/services/assessmentMatrixService';
 
 interface TeamStatusTableProps {
@@ -20,6 +21,7 @@ const TeamStatusTable: React.FC<TeamStatusTableProps> = ({
   onRefresh,
   isLoading = false
 }) => {
+  const { t } = useTranslation();
   const completionRate = totalEmployees > 0 ? Math.round((completedAssessments / totalEmployees) * 100) : 0;
 
   return (
@@ -29,17 +31,17 @@ const TeamStatusTable: React.FC<TeamStatusTableProps> = ({
           <div className="card-header">
             <h3 className="card-title">
               <i className="fas fa-tachometer-alt mr-2"></i>
-              Assessment Dashboard - {matrixName}
+              {t('assessmentMatrix.dashboard.title')} - {matrixName}
             </h3>
             <div className="card-tools">
               <button
                 className="btn btn-sm btn-outline-primary"
                 onClick={onRefresh}
                 disabled={isLoading}
-                title="Refresh Dashboard"
+                title={t('assessmentMatrix.dashboard.refreshTitle')}
               >
                 <i className={`fas fa-sync-alt ${isLoading ? 'fa-spin' : ''}`}></i>
-                {isLoading ? ' Refreshing...' : ' Refresh'}
+                {isLoading ? ` ${t('assessmentMatrix.dashboard.refreshing')}` : ` ${t('assessmentMatrix.dashboard.refresh')}`}
               </button>
             </div>
           </div>
@@ -53,9 +55,9 @@ const TeamStatusTable: React.FC<TeamStatusTableProps> = ({
                     <i className="fas fa-users"></i>
                   </span>
                   <div className="info-box-content">
-                    <span className="info-box-text">Total Employees</span>
+                    <span className="info-box-text">{t('assessmentMatrix.dashboard.totalEmployees')}</span>
                     <span className="info-box-number">{totalEmployees}</span>
-                    <span className="info-box-more">Assigned to assessment</span>
+                    <span className="info-box-more">{t('assessmentMatrix.dashboard.assignedToAssessment')}</span>
                   </div>
                 </div>
               </div>
@@ -65,9 +67,9 @@ const TeamStatusTable: React.FC<TeamStatusTableProps> = ({
                     <i className="fas fa-check-circle"></i>
                   </span>
                   <div className="info-box-content">
-                    <span className="info-box-text">Completed</span>
+                    <span className="info-box-text">{t('assessmentMatrix.dashboard.completed')}</span>
                     <span className="info-box-number">{completedAssessments}</span>
-                    <span className="info-box-more">{completionRate}% completion rate</span>
+                    <span className="info-box-more">{t('assessmentMatrix.dashboard.completionRate', { rate: completionRate })}</span>
                   </div>
                 </div>
               </div>
@@ -77,9 +79,9 @@ const TeamStatusTable: React.FC<TeamStatusTableProps> = ({
                     <i className="fas fa-clock"></i>
                   </span>
                   <div className="info-box-content">
-                    <span className="info-box-text">In Progress</span>
+                    <span className="info-box-text">{t('assessmentMatrix.dashboard.inProgress')}</span>
                     <span className="info-box-number">{totalEmployees - completedAssessments}</span>
-                    <span className="info-box-more">{100 - completionRate}% remaining</span>
+                    <span className="info-box-more">{t('assessmentMatrix.dashboard.remaining', { percentage: 100 - completionRate })}</span>
                   </div>
                 </div>
               </div>
@@ -89,9 +91,9 @@ const TeamStatusTable: React.FC<TeamStatusTableProps> = ({
                     <i className="fas fa-users-cog"></i>
                   </span>
                   <div className="info-box-content">
-                    <span className="info-box-text">Teams</span>
+                    <span className="info-box-text">{t('assessmentMatrix.dashboard.teams')}</span>
                     <span className="info-box-number">{teamSummaries.length}</span>
-                    <span className="info-box-more">With assigned employees</span>
+                    <span className="info-box-more">{t('assessmentMatrix.dashboard.withAssignedEmployees')}</span>
                   </div>
                 </div>
               </div>
@@ -102,12 +104,12 @@ const TeamStatusTable: React.FC<TeamStatusTableProps> = ({
               <table className="table table-striped table-hover">
                 <thead>
                   <tr>
-                    <th>Team</th>
-                    <th>Total Employees</th>
-                    <th>Completed</th>
-                    <th>In Progress</th>
-                    <th>Progress</th>
-                    <th>Actions</th>
+                    <th>{t('assessmentMatrix.dashboard.columns.team')}</th>
+                    <th>{t('assessmentMatrix.dashboard.columns.totalEmployees')}</th>
+                    <th>{t('assessmentMatrix.dashboard.columns.completed')}</th>
+                    <th>{t('assessmentMatrix.dashboard.columns.inProgress')}</th>
+                    <th>{t('assessmentMatrix.dashboard.columns.progress')}</th>
+                    <th>{t('assessmentMatrix.dashboard.columns.actions')}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -115,9 +117,9 @@ const TeamStatusTable: React.FC<TeamStatusTableProps> = ({
                     <tr>
                       <td colSpan={6} className="text-center py-4">
                         <div className="spinner-border text-primary" role="status">
-                          <span className="sr-only">Loading...</span>
+                          <span className="sr-only">{t('common.status.loading')}</span>
                         </div>
-                        <div className="mt-2">Loading team data...</div>
+                        <div className="mt-2">{t('assessmentMatrix.dashboard.loadingTeamData')}</div>
                       </td>
                     </tr>
                   ) : teamSummaries.length === 0 ? (
@@ -125,7 +127,7 @@ const TeamStatusTable: React.FC<TeamStatusTableProps> = ({
                       <td colSpan={6} className="text-center py-4">
                         <div className="text-muted">
                           <i className="fas fa-users fa-2x mb-2"></i>
-                          <div>No team data available for this assessment matrix</div>
+                          <div>{t('assessmentMatrix.dashboard.noTeamData')}</div>
                         </div>
                       </td>
                     </tr>

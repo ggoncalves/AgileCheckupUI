@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { AdminLayout } from '@/infrastructure/layouts';
 import AssessmentMatrixForm from '../../components/assessmentmatrices/AssessmentMatrixForm';
 import AssessmentMatrixStructureModal from '../../components/assessmentmatrices/AssessmentMatrixStructureModal';
@@ -11,6 +12,7 @@ import { performanceCycleService, PerformanceCycle } from '@/services/performanc
 import { useTenant } from '@/infrastructure/auth';
 
 const AssessmentMatrixPage: React.FC = () => {
+  const { t } = useTranslation();
   const { tenantId } = useTenant();
   const [matrices, setMatrices] = useState<AssessmentMatrix[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -45,12 +47,12 @@ const AssessmentMatrixPage: React.FC = () => {
       setMatrices(data);
       setError(null);
     } catch (err) {
-      setError('Failed to load assessment matrices. Please try again.');
+      setError(t('assessmentMatrix.errors.loadFailed'));
       console.error(err);
     } finally {
       setIsLoading(false);
     }
-  }, [tenantId]);
+  }, [tenantId, t]);
 
   useEffect(() => {
     loadMatrices();
@@ -81,13 +83,13 @@ const AssessmentMatrixPage: React.FC = () => {
   };
 
   const handleDelete = async (id: string) => {
-    if (window.confirm('Are you sure you want to delete this assessment matrix?')) {
+    if (window.confirm(t('common.messages.confirmDelete'))) {
       try {
         await assessmentMatrixService.delete(id);
         await loadMatrices();
       } catch (err) {
         console.error('Error deleting assessment matrix:', err);
-        alert('Failed to delete assessment matrix. Please try again.');
+        alert(t('assessmentMatrix.errors.deleteFailed'));
       }
     }
   };
@@ -146,7 +148,7 @@ const AssessmentMatrixPage: React.FC = () => {
       setDashboardData(data);
     } catch (error) {
       console.error('Error loading dashboard data:', error);
-      setError('Failed to load dashboard data. Please try again.');
+      setError(t('assessmentMatrix.errors.dashboardLoadFailed'));
     } finally {
       setIsDashboardLoading(false);
     }
@@ -244,7 +246,7 @@ const AssessmentMatrixPage: React.FC = () => {
 
   const formatPillarMap = (pillarMap: { [key: string]: Pillar }) => {
     if (!pillarMap || Object.keys(pillarMap).length === 0) {
-      return 'No pillars defined';
+      return t('assessmentMatrix.messages.noPillarsDefined');
     }
     
     const pillarCount = Object.keys(pillarMap).length;
@@ -252,7 +254,7 @@ const AssessmentMatrixPage: React.FC = () => {
       return total + (pillar.categoryMap ? Object.keys(pillar.categoryMap).length : 0);
     }, 0);
     
-    return `${pillarCount} pillar${pillarCount !== 1 ? 's' : ''}, ${categoryCount} categor${categoryCount !== 1 ? 'ies' : 'y'}`;
+    return t('assessmentMatrix.structure.summary', { pillarCount, categoryCount });
   };
 
   const getPerformanceCycleName = (cycleId: string) => {
@@ -266,7 +268,7 @@ const AssessmentMatrixPage: React.FC = () => {
         <div className="container-fluid">
           <div className="row mb-2">
             <div className="col-sm-6">
-              <h1 className="m-0">Assessment Matrices</h1>
+              <h1 className="m-0">{t('assessmentMatrix.title')}</h1>
             </div>
           </div>
         </div>
@@ -284,14 +286,14 @@ const AssessmentMatrixPage: React.FC = () => {
           ) : (
             <div className="card">
               <div className="card-header">
-                <h3 className="card-title">Assessment Matrices</h3>
+                <h3 className="card-title">{t('assessmentMatrix.plural')}</h3>
                 <div className="card-tools">
                   <button
                     type="button"
                     className="btn btn-primary btn-sm"
                     onClick={handleAddNew}
                   >
-                    <i className="fas fa-plus mr-1"></i> Add New
+                    <i className="fas fa-plus mr-1"></i> {t('common.actions.addNew')}
                   </button>
                 </div>
               </div>
@@ -313,7 +315,7 @@ const AssessmentMatrixPage: React.FC = () => {
                         value={selectedPerformanceCycleId}
                         onChange={(e) => setSelectedPerformanceCycleId(e.target.value)}
                       >
-                        <option value="">All Performance Cycles</option>
+                        <option value="">{t('assessmentMatrix.filters.allCycles')}</option>
                         {performanceCycles.map(cycle => (
                           <option key={cycle.id} value={cycle.id}>
                             {cycle.name}
@@ -327,7 +329,7 @@ const AssessmentMatrixPage: React.FC = () => {
                       <input
                         type="text"
                         className="form-control"
-                        placeholder="Search Assessment Matrices..."
+                        placeholder={t('assessmentMatrix.search.placeholder')}
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                       />
@@ -348,7 +350,7 @@ const AssessmentMatrixPage: React.FC = () => {
                           onClick={() => handleSort('name')}
                           style={{ cursor: 'pointer' }}
                         >
-                          Name
+                          {t('assessmentMatrix.columns.name')}
                           {sortField === 'name' && (
                             <i className={`ml-1 fas fa-sort-${sortDirection === 'asc' ? 'up' : 'down'}`}></i>
                           )}
@@ -357,7 +359,7 @@ const AssessmentMatrixPage: React.FC = () => {
                           onClick={() => handleSort('description')}
                           style={{ cursor: 'pointer' }}
                         >
-                          Description
+                          {t('assessmentMatrix.columns.description')}
                           {sortField === 'description' && (
                             <i className={`ml-1 fas fa-sort-${sortDirection === 'asc' ? 'up' : 'down'}`}></i>
                           )}
@@ -366,22 +368,22 @@ const AssessmentMatrixPage: React.FC = () => {
                           onClick={() => handleSort('performanceCycleId')}
                           style={{ cursor: 'pointer' }}
                         >
-                          Performance Cycle
+                          {t('assessmentMatrix.columns.performanceCycle')}
                           {sortField === 'performanceCycleId' && (
                             <i className={`ml-1 fas fa-sort-${sortDirection === 'asc' ? 'up' : 'down'}`}></i>
                           )}
                         </th>
-                        <th>Structure</th>
+                        <th>{t('assessmentMatrix.columns.structure')}</th>
                         <th 
                           onClick={() => handleSort('questionCount')}
                           style={{ cursor: 'pointer' }}
                         >
-                          Questions
+                          {t('assessmentMatrix.columns.questions')}
                           {sortField === 'questionCount' && (
                             <i className={`ml-1 fas fa-sort-${sortDirection === 'asc' ? 'up' : 'down'}`}></i>
                           )}
                         </th>
-                        <th>Actions</th>
+                        <th>{t('common.labels.actions')}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -389,14 +391,14 @@ const AssessmentMatrixPage: React.FC = () => {
                         <tr>
                           <td colSpan={6} className="text-center">
                             <div className="spinner-border text-primary" role="status">
-                              <span className="sr-only">Loading...</span>
+                              <span className="sr-only">{t('common.status.loading')}</span>
                             </div>
                           </td>
                         </tr>
                       ) : processedItems().length === 0 ? (
                         <tr>
                           <td colSpan={6} className="text-center">
-                            No assessment matrices found
+                            {t('assessmentMatrix.messages.noMatricesFound')}
                           </td>
                         </tr>
                       ) : (
@@ -411,7 +413,7 @@ const AssessmentMatrixPage: React.FC = () => {
                                 <button
                                   className="btn btn-sm btn-outline-info ml-2"
                                   onClick={() => handleShowStructure(matrix)}
-                                  title="View structure details"
+                                  title={t('assessmentMatrix.actions.viewStructure')}
                                 >
                                   <i className="fas fa-sitemap"></i>
                                 </button>
@@ -423,12 +425,12 @@ const AssessmentMatrixPage: React.FC = () => {
                                 className="btn btn-sm btn-primary mr-1"
                                 onClick={() => handleShowDashboard(matrix)}
                                 disabled={isDashboardLoading && selectedMatrixForDashboard?.id === matrix.id}
-                                title="View assessment dashboard"
+                                title={t('assessmentMatrix.actions.viewDashboard')}
                               >
                                 {isDashboardLoading && selectedMatrixForDashboard?.id === matrix.id ? (
                                   <>
                                     <i className="fas fa-spinner fa-spin"></i>
-                                    <span className="d-none d-sm-inline ml-1">Loading...</span>
+                                    <span className="d-none d-sm-inline ml-1">{t('common.status.loading')}</span>
                                   </>
                                 ) : (
                                   <i className="fas fa-chart-bar"></i>
@@ -465,7 +467,7 @@ const AssessmentMatrixPage: React.FC = () => {
                               onClick={() => handlePageChange(currentPage - 1)}
                               disabled={currentPage === 1}
                             >
-                              Previous
+                              {t('common.actions.previous')}
                             </button>
                           </li>
                           {[...Array(totalPages)].map((_, index) => (
@@ -487,7 +489,7 @@ const AssessmentMatrixPage: React.FC = () => {
                               onClick={() => handlePageChange(currentPage + 1)}
                               disabled={currentPage === totalPages}
                             >
-                              Next
+                              {t('common.actions.next')}
                             </button>
                           </li>
                         </ul>
@@ -509,10 +511,10 @@ const AssessmentMatrixPage: React.FC = () => {
                   <div className="card">
                     <div className="card-body text-center py-5">
                       <div className="spinner-border text-primary mb-3" role="status" style={{ width: '3rem', height: '3rem' }}>
-                        <span className="sr-only">Loading...</span>
+                        <span className="sr-only">{t('common.status.loading')}</span>
                       </div>
-                      <h5 className="text-muted">Loading Assessment Dashboard</h5>
-                      <p className="text-muted">Please wait while we fetch the data for &quot;{selectedMatrixForDashboard.name}&quot;...</p>
+                      <h5 className="text-muted">{t('assessmentMatrix.dashboard.loading')}</h5>
+                      <p className="text-muted">{t('assessmentMatrix.dashboard.loadingMessage', { matrixName: selectedMatrixForDashboard.name })}</p>
                     </div>
                   </div>
                 </div>
@@ -562,7 +564,7 @@ const AssessmentMatrixPage: React.FC = () => {
                 onClick={closeDashboard}
               >
                 <i className="fas fa-times mr-1"></i>
-                Close Dashboard
+                {t('assessmentMatrix.actions.closeDashboard')}
               </button>
             </div>
           </div>

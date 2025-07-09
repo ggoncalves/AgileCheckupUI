@@ -246,6 +246,229 @@
       "deleteFailed": "Failed to delete performance cycle. Please try again."
     }
   },
+  "assessmentMatrix": {
+    "title": "Assessment Matrices",
+    "singular": "Assessment Matrix",
+    "plural": "Assessment Matrices",
+    "columns": {
+      "name": "Name",
+      "description": "Description",
+      "performanceCycle": "Performance Cycle",
+      "structure": "Structure",
+      "questions": "Questions"
+    },
+    "filters": {
+      "allCycles": "All Performance Cycles"
+    },
+    "search": {
+      "placeholder": "Search Assessment Matrices..."
+    },
+    "structure": {
+      "summary": "{{pillarCount}} pillar{{pillarCount, plural, one {} other {s}}}, {{categoryCount}} categor{{categoryCount, plural, one {y} other {ies}}}",
+      "title": "Matrix Structure",
+      "pillars": "Pillars",
+      "categories": "Categories",
+      "categoriesCount": "{{count}} categor{{count, plural, one {y} other {ies}}}",
+      "noPillarsMessage": "This matrix doesn't have any pillars defined yet. Use the edit form to add pillars and categories.",
+      "noCategoriesMessage": "No categories defined"
+    },
+    "form": {
+      "createTitle": "Create New Assessment Matrix",
+      "editTitle": "Edit Assessment Matrix",
+      "fields": {
+        "name": "Name",
+        "description": "Description",
+        "performanceCycle": "Performance Cycle"
+      },
+      "placeholders": {
+        "selectPerformanceCycle": "Select Performance Cycle",
+        "pillarName": "Pillar Name",
+        "pillarDescription": "Pillar Description (optional)",
+        "categoryName": "Category Name",
+        "categoryDescription": "Category Description (optional)"
+      },
+      "sections": {
+        "pillarsAndCategories": "Pillars and Categories",
+        "categories": "Categories"
+      },
+      "buttons": {
+        "addPillar": "Add Pillar",
+        "addCategory": "Add Category",
+        "deleteCategory": "Delete Category",
+        "save": "Save",
+        "saving": "Saving..."
+      },
+      "validation": {
+        "pillarNameRequired": "Pillar name is required",
+        "categoryNameRequired": "Category name is required",
+        "pillarNeedsCategory": "Each pillar must have at least one category"
+      },
+      "dialogs": {
+        "deletePillar": {
+          "title": "Delete Pillar",
+          "message": "Are you sure you want to delete the pillar \"{{pillarName}}\" and all its categories?"
+        },
+        "deleteCategory": {
+          "title": "Delete Category",
+          "message": "Are you sure you want to delete the category \"{{categoryName}}\"?"
+        }
+      },
+      "help": {
+        "preselectedFromFilter": "Pre-selected from filter"
+      }
+    },
+    "actions": {
+      "viewStructure": "View structure details",
+      "viewDashboard": "View assessment dashboard",
+      "closeDashboard": "Close Dashboard"
+    },
+    "dashboard": {
+      "loading": "Loading Assessment Dashboard",
+      "loadingMessage": "Please wait while we fetch the data for \"{{matrixName}}\"...",
+      "title": "Assessment Dashboard",
+      "refresh": "Refresh",
+      "refreshing": "Refreshing...",
+      "refreshTitle": "Refresh dashboard data",
+      "totalEmployees": "Total Employees",
+      "assignedToAssessment": "Assigned to assessment",
+      "completed": "Completed",
+      "completionRate": "Completion rate: {{rate}}%",
+      "inProgress": "In Progress",
+      "remaining": "Remaining: {{percentage}}%",
+      "teams": "Teams",
+      "withAssignedEmployees": "With assigned employees",
+      "columns": {
+        "team": "Team",
+        "totalEmployees": "Total Employees",
+        "completed": "Completed",
+        "inProgress": "In Progress",
+        "progress": "Progress",
+        "actions": "Actions"
+      },
+      "loadingTeamData": "Loading team data...",
+      "noTeamData": "No team data available"
+    },
+    "employeeStatus": {
+      "title": "Employee Status Details - {{teamName}} Team",
+      "refresh": "Refresh",
+      "refreshing": "Refreshing...",
+      "refreshTitle": "Refresh employee data",
+      "columns": {
+        "employee": "Employee",
+        "status": "Status",
+        "progress": "Progress",
+        "lastActivity": "Last Activity"
+      },
+      "loadingData": "Loading employee data...",
+      "noEmployees": "No employees found for {{teamName}} team",
+      "questionsAnswered": "{{count}} question{{count, plural, one {} other {s}}} answered",
+      "pagination": {
+        "showing": "Showing {{startIndex}} to {{endIndex}} of {{totalCount}} employees"
+      },
+      "lastActivity": {
+        "never": "Never",
+        "lessThanHour": "Less than 1 hour ago",
+        "hoursAgo": "{{hours}} hour{{hours, plural, one {} other {s}}} ago",
+        "dayAgo": "1 day ago",
+        "daysAgo": "{{days}} days ago",
+        "unknown": "Unknown"
+      }
+    },
+    "messages": {
+      "noMatricesFound": "No assessment matrices found",
+      "noPillarsDefined": "No pillars defined"
+    },
+    "errors": {
+      "loadFailed": "Failed to load assessment matrices. Please try again.",
+      "deleteFailed": "Failed to delete assessment matrix. Please try again.",
+      "dashboardLoadFailed": "Failed to load dashboard data. Please try again."
+    }
+  },
+  "employeeAssessment": {
+    "title": "Employee Assessments",
+    "singular": "Employee Assessment",
+    "plural": "Employee Assessments",
+    "columns": {
+      "name": "Name",
+      "email": "Email",
+      "status": "Status",
+      "team": "Team",
+      "answeredQuestions": "Answered Questions"
+    },
+    "status": {
+      "invited": "Invited",
+      "confirmed": "Confirmed",
+      "inProgress": "In Progress",
+      "completed": "Completed"
+    },
+    "filters": {
+      "title": "Filters",
+      "performanceCycle": "Performance Cycle",
+      "selectPerformanceCycle": "Select Performance Cycle",
+      "assessmentMatrix": "Assessment Matrix",
+      "selectAssessmentMatrix": "Select Assessment Matrix",
+      "department": "Department",
+      "allDepartments": "All Departments",
+      "team": "Team",
+      "allTeams": "All Teams"
+    },
+    "context": {
+      "employeeCount": "{{count}} employee{{count, plural, one {} other {s}}} in this assessment",
+      "filteredByTeam": "Filtered by team"
+    },
+    "invitation": {
+      "sendToEmployees": "Send this link to all employees:",
+      "linkGenerated": "Link Generated",
+      "viewFullLink": "View full invitation link",
+      "generateInstruction": "Click \"Copy Invitation Link\" to generate secure link",
+      "copied": "Copied!",
+      "generating": "Generating...",
+      "copyLink": "Copy Invitation Link",
+      "instructions": "Employees will enter their email address on this page to access their assessment",
+      "linkFor": "Invitation Link for {{matrixName}}",
+      "fullLink": "Full Invitation Link:",
+      "shareInstruction": "Share this link with all employees who need to complete the assessment. They will enter their email address to access their specific assessment."
+    },
+    "form": {
+      "sections": {
+        "departmentTeam": "Department & Team Selection",
+        "employeeInfo": "Employee Information"
+      },
+      "fields": {
+        "department": "Department",
+        "team": "Team",
+        "employeeName": "Employee Name",
+        "email": "Email"
+      },
+      "placeholders": {
+        "allDepartments": "All Departments",
+        "selectTeam": "Select Team (Optional)",
+        "employeeName": "Enter employee full name",
+        "email": "employee@company.com"
+      },
+      "buttons": {
+        "create": "Create",
+        "creating": "Creating...",
+        "update": "Update Assessment",
+        "updating": "Updating..."
+      },
+      "validation": {
+        "nameRequired": "Employee name is required",
+        "emailRequired": "Employee email is required",
+        "emailExists": "Employee with email \"{{email}}\" already exists in this assessment matrix",
+        "emailExistsShort": "This email already exists in the assessment matrix"
+      },
+      "success": {
+        "employeeAdded": "Employee \"{{name}}\" was successfully added to the assessment!"
+      },
+      "error": {
+        "generic": "An error occurred"
+      }
+    },
+    "messages": {
+      "selectFilters": "Please select a Performance Cycle and Assessment Matrix to manage employee assessments."
+    }
+  },
   "navigation": {
     "home": "Home",
     "dashboard": "Dashboard",
@@ -272,11 +495,16 @@
       "confirm": "Confirm",
       "back": "Back",
       "previous": "Previous",
-      "next": "Next"
+      "next": "Next",
+      "copy": "Copy"
     },
     "labels": {
       "list": "List",
       "actions": "Actions"
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next"
     },
     "status": {
       "loading": "Loading...",
