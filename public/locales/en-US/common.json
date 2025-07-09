@@ -145,6 +145,38 @@
       "deleteFailed": "Failed to delete team. Please try again."
     }
   },
+  "department": {
+    "title": "Department Management",
+    "singular": "Department",
+    "plural": "Departments",
+    "columns": {
+      "company": "Company",
+      "name": "Department Name",
+      "description": "Description"
+    },
+    "form": {
+      "fields": {
+        "name": "Name",
+        "description": "Description"
+      },
+      "validation": {
+        "nameRequired": "Department name is required",
+        "nameMinLength": "Name must be at least 3 characters",
+        "descriptionRequired": "Department description is required",
+        "descriptionMinLength": "Description must be at least 3 characters"
+      },
+      "buttons": {
+        "create": "Create Department",
+        "update": "Update Department",
+        "creating": "Creating...",
+        "updating": "Updating..."
+      }
+    },
+    "errors": {
+      "loadCompaniesFailed": "Failed to load companies. Please try again.",
+      "generic": "An error occurred. Please try again."
+    }
+  },
   "navigation": {
     "home": "Home",
     "dashboard": "Dashboard",

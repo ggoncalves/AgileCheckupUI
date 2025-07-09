@@ -145,6 +145,38 @@
       "deleteFailed": "Falha ao excluir time. Por favor, tente novamente."
     }
   },
+  "department": {
+    "title": "Gerenciamento de Departamentos",
+    "singular": "Departamento",
+    "plural": "Departamentos",
+    "columns": {
+      "company": "Empresa",
+      "name": "Nome do Departamento",
+      "description": "Descrição"
+    },
+    "form": {
+      "fields": {
+        "name": "Nome",
+        "description": "Descrição"
+      },
+      "validation": {
+        "nameRequired": "Nome do departamento é obrigatório",
+        "nameMinLength": "Nome deve ter pelo menos 3 caracteres",
+        "descriptionRequired": "Descrição do departamento é obrigatória",
+        "descriptionMinLength": "Descrição deve ter pelo menos 3 caracteres"
+      },
+      "buttons": {
+        "create": "Criar Departamento",
+        "update": "Atualizar Departamento",
+        "creating": "Criando...",
+        "updating": "Atualizando..."
+      }
+    },
+    "errors": {
+      "loadCompaniesFailed": "Falha ao carregar empresas. Por favor, tente novamente.",
+      "generic": "Ocorreu um erro. Por favor, tente novamente."
+    }
+  },
   "navigation": {
     "home": "Início",
     "dashboard": "Painel",
