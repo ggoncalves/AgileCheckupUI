@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import AdminLayout from '@/components/layout/AdminLayout';
+import { AdminLayout } from '@/infrastructure/layouts';
 import { performanceCycleService, PerformanceCycle } from '@/services/performanceCycleService';
 import { PerformanceCycleForm } from '@/components/performancecycles/PerformanceCycleForm';
-import { useTenant } from '@/contexts/TenantContext';
+import { useTenant } from '@/infrastructure/auth';
 
 const PerformanceCyclesPage: React.FC = () => {
   const { tenantId } = useTenant();

@@ -4,7 +4,7 @@ import React, {useEffect, useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {Department} from '@/services/departmentService';
 import {Company, companyApi} from '@/services/companyService';
-import {useTenant} from '@/contexts/TenantContext';
+import {useTenant} from '@/infrastructure/auth';
 
 // Type for form data derived from Department interface
 type DepartmentFormData = Omit<Department, 'id' | 'createdDate' | 'lastUpdatedDate'>;

@@ -1,0 +1,183 @@
+{
+  "company": {
+    "title": "Company Management",
+    "singular": "Company",
+    "plural": "Companies",
+    "columns": {
+      "name": "Company Name",
+      "email": "Email",
+      "document": "Document",
+      "size": "Size",
+      "industry": "Industry",
+      "website": "Website",
+      "city": "City",
+      "created": "Created"
+    },
+    "form": {
+      "sections": {
+        "basicInfo": "Basic Information",
+        "contactInfo": "Contact Information",
+        "address": "Address",
+        "contactPerson": "Contact Person"
+      },
+      "fields": {
+        "companyName": "Company Name",
+        "legalName": "Legal Name",
+        "cnpj": "CNPJ",
+        "tenantId": "Tenant ID",
+        "description": "Description",
+        "companySize": "Company Size",
+        "industry": "Industry",
+        "companyEmail": "Company Email",
+        "companyPhone": "Company Phone",
+        "website": "Website",
+        "street": "Street",
+        "city": "City",
+        "state": "State",
+        "zipCode": "ZIP Code",
+        "country": "Country",
+        "name": "Name",
+        "email": "Email",
+        "cpf": "CPF",
+        "phone": "Phone",
+        "gender": "Gender",
+        "pronouns": "Pronouns"
+      },
+      "placeholders": {
+        "legalName": "Legal company name (if different from display name)",
+        "cnpj": "00.000.000/0000-00",
+        "tenantId": "tenant-company-001",
+        "description": "Brief description of the company and its activities",
+        "selectSize": "Select a size...",
+        "selectIndustry": "Select an industry...",
+        "email": "company@example.com",
+        "phone": "+55 11 1234-5678",
+        "website": "https://www.company.com",
+        "street": "Street name and number",
+        "state": "SP",
+        "zipCode": "00000-000",
+        "cpf": "000.000.000-00",
+        "phoneContact": "+55 11 98765-4321",
+        "selectGender": "Select gender...",
+        "selectPronouns": "Select pronouns..."
+      },
+      "validation": {
+        "required": "is required",
+        "companyNameRequired": "Company name is required",
+        "nameMinLength": "Name must be at least 3 characters",
+        "cnpjRequired": "CNPJ is required",
+        "cnpjInvalid": "Invalid CNPJ format (XX.XXX.XXX/XXXX-XX or 14 digits)",
+        "tenantIdRequired": "Tenant ID is required",
+        "tenantIdMinLength": "Tenant ID must be at least 9 characters",
+        "tenantIdPattern": "Tenant ID must be lowercase alphanumeric with hyphens only",
+        "descriptionRequired": "Company description is required",
+        "descriptionMinLength": "Description must be at least 10 characters",
+        "sizeRequired": "Company size is required",
+        "industryRequired": "Industry is required",
+        "emailRequired": "Email is required",
+        "emailInvalid": "Invalid email address",
+        "phoneInvalid": "Invalid phone number format",
+        "urlInvalid": "Invalid URL format",
+        "zipCodeInvalid": "Invalid ZIP code format (XXXXX-XXX)",
+        "contactNameRequired": "Contact person name is required",
+        "contactEmailRequired": "Contact person email is required",
+        "contactCpfRequired": "Contact person CPF is required",
+        "cpfInvalid": "Invalid CPF format (XXX.XXX.XXX-XX or 11 digits)"
+      },
+      "buttons": {
+        "cancel": "Cancel",
+        "create": "Create Company",
+        "update": "Update Company",
+        "creating": "Creating...",
+        "updating": "Updating..."
+      },
+      "errors": {
+        "generic": "An error occurred. Please try again."
+      }
+    }
+  },
+  "navigation": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "companies": "Companies",
+    "departments": "Departments",
+    "teams": "Teams",
+    "performanceCycles": "Performance Cycles",
+    "assessmentMatrices": "Assessment Matrices",
+    "questions": "Questions",
+    "employeeAssessments": "Employee Assessments",
+    "settings": "Settings"
+  },
+  "common": {
+    "actions": {
+      "add": "Add",
+      "addNew": "Add New",
+      "edit": "Edit",
+      "delete": "Delete",
+      "save": "Save",
+      "cancel": "Cancel",
+      "search": "Search",
+      "clear": "Clear",
+      "close": "Close",
+      "confirm": "Confirm",
+      "back": "Back",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "labels": {
+      "list": "List",
+      "actions": "Actions"
+    },
+    "status": {
+      "loading": "Loading...",
+      "saving": "Saving...",
+      "deleting": "Deleting...",
+      "success": "Success",
+      "error": "Error"
+    },
+    "messages": {
+      "confirmDelete": "Are you sure you want to delete this item?",
+      "deleteSuccess": "Item deleted successfully",
+      "saveSuccess": "Item saved successfully",
+      "errorOccurred": "An error occurred"
+    }
+  },
+  "sizes": {
+    "MICRO": "Micro",
+    "SMALL": "Small",
+    "MEDIUM": "Medium",
+    "LARGE": "Large",
+    "ENTERPRISE": "Enterprise"
+  },
+  "industries": {
+    "TECHNOLOGY": "Technology",
+    "FINANCE": "Finance",
+    "HEALTHCARE": "Healthcare",
+    "EDUCATION": "Education",
+    "RETAIL": "Retail",
+    "MANUFACTURING": "Manufacturing",
+    "SERVICES": "Services",
+    "OTHER": "Other"
+  },
+  "genders": {
+    "MALE": "Male",
+    "FEMALE": "Female",
+    "NON_BINARY": "Non-binary",
+    "PREFER_NOT_TO_SAY": "Prefer not to say",
+    "OTHER": "Other"
+  },
+  "pronouns": {
+    "HE_HIM": "He/Him",
+    "SHE_HER": "She/Her",
+    "THEY_THEM": "They/Them",
+    "OTHER": "Other"
+  },
+  "language": {
+    "current": "English",
+    "switch": "Switch language"
+  },
+  "footer": {
+    "copyright": "All rights reserved",
+    "version": "Version"
+  }
+}

@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'next/navigation';
-import TenantProtected from '@/components/TenantProtected';
-import AdminLayout from '@/components/layout/AdminLayout';
-import { useTenant } from '@/contexts/TenantContext';
+import { TenantProtected } from '@/infrastructure/auth';
+import { AdminLayout } from '@/infrastructure/layouts';
+import { useTenant } from '@/infrastructure/auth';
 import dashboardAnalyticsService, { DashboardAnalyticsTeamResponse } from '@/services/dashboardAnalyticsService';
 import RadarChart from '@/components/charts/RadarChart';
 import { transformCategoriesToChartData } from '@/utils/chartUtils';

@@ -1,14 +1,14 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import AdminLayout from '@/components/layout/AdminLayout';
+import { AdminLayout } from '@/infrastructure/layouts';
 import AssessmentMatrixForm from '../../components/assessmentmatrices/AssessmentMatrixForm';
 import AssessmentMatrixStructureModal from '../../components/assessmentmatrices/AssessmentMatrixStructureModal';
 import TeamStatusTable from '../../components/assessmentmatrices/TeamStatusTable';
 import EmployeeStatusTable from '../../components/assessmentmatrices/EmployeeStatusTable';
 import { assessmentMatrixService, AssessmentMatrix, Pillar, getDashboard, DashboardResponse } from '@/services/assessmentMatrixService';
 import { performanceCycleService, PerformanceCycle } from '@/services/performanceCycleService';
-import { useTenant } from '@/contexts/TenantContext';
+import { useTenant } from '@/infrastructure/auth';
 
 const AssessmentMatrixPage: React.FC = () => {
   const { tenantId } = useTenant();

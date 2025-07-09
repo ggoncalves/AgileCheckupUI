@@ -1,0 +1,183 @@
+{
+  "company": {
+    "title": "Gerenciamento de Empresas",
+    "singular": "Empresa",
+    "plural": "Empresas",
+    "columns": {
+      "name": "Nome da Empresa",
+      "email": "E-mail",
+      "document": "Documento",
+      "size": "Porte",
+      "industry": "Setor",
+      "website": "Website",
+      "city": "Cidade",
+      "created": "Criado em"
+    },
+    "form": {
+      "sections": {
+        "basicInfo": "Informações Básicas",
+        "contactInfo": "Informações de Contato",
+        "address": "Endereço",
+        "contactPerson": "Pessoa de Contato"
+      },
+      "fields": {
+        "companyName": "Nome da Empresa",
+        "legalName": "Razão Social",
+        "cnpj": "CNPJ",
+        "tenantId": "ID do Tenant",
+        "description": "Descrição",
+        "companySize": "Porte da Empresa",
+        "industry": "Setor",
+        "companyEmail": "E-mail da Empresa",
+        "companyPhone": "Telefone da Empresa",
+        "website": "Website",
+        "street": "Rua",
+        "city": "Cidade",
+        "state": "Estado",
+        "zipCode": "CEP",
+        "country": "País",
+        "name": "Nome",
+        "email": "E-mail",
+        "cpf": "CPF",
+        "phone": "Telefone",
+        "gender": "Gênero",
+        "pronouns": "Pronomes"
+      },
+      "placeholders": {
+        "legalName": "Razão social (se diferente do nome de exibição)",
+        "cnpj": "00.000.000/0000-00",
+        "tenantId": "tenant-empresa-001",
+        "description": "Breve descrição da empresa e suas atividades",
+        "selectSize": "Selecione um porte...",
+        "selectIndustry": "Selecione um setor...",
+        "email": "empresa@exemplo.com",
+        "phone": "+55 11 1234-5678",
+        "website": "https://www.empresa.com",
+        "street": "Nome da rua e número",
+        "state": "SP",
+        "zipCode": "00000-000",
+        "cpf": "000.000.000-00",
+        "phoneContact": "+55 11 98765-4321",
+        "selectGender": "Selecione o gênero...",
+        "selectPronouns": "Selecione os pronomes..."
+      },
+      "validation": {
+        "required": "é obrigatório",
+        "companyNameRequired": "Nome da empresa é obrigatório",
+        "nameMinLength": "Nome deve ter pelo menos 3 caracteres",
+        "cnpjRequired": "CNPJ é obrigatório",
+        "cnpjInvalid": "Formato de CNPJ inválido (XX.XXX.XXX/XXXX-XX ou 14 dígitos)",
+        "tenantIdRequired": "ID do Tenant é obrigatório",
+        "tenantIdMinLength": "ID do Tenant deve ter pelo menos 9 caracteres",
+        "tenantIdPattern": "ID do Tenant deve conter apenas letras minúsculas, números e hífens",
+        "descriptionRequired": "Descrição da empresa é obrigatória",
+        "descriptionMinLength": "Descrição deve ter pelo menos 10 caracteres",
+        "sizeRequired": "Porte da empresa é obrigatório",
+        "industryRequired": "Setor é obrigatório",
+        "emailRequired": "E-mail é obrigatório",
+        "emailInvalid": "Endereço de e-mail inválido",
+        "phoneInvalid": "Formato de telefone inválido",
+        "urlInvalid": "Formato de URL inválido",
+        "zipCodeInvalid": "Formato de CEP inválido (XXXXX-XXX)",
+        "contactNameRequired": "Nome da pessoa de contato é obrigatório",
+        "contactEmailRequired": "E-mail da pessoa de contato é obrigatório",
+        "contactCpfRequired": "CPF da pessoa de contato é obrigatório",
+        "cpfInvalid": "Formato de CPF inválido (XXX.XXX.XXX-XX ou 11 dígitos)"
+      },
+      "buttons": {
+        "cancel": "Cancelar",
+        "create": "Criar Empresa",
+        "update": "Atualizar Empresa",
+        "creating": "Criando...",
+        "updating": "Atualizando..."
+      },
+      "errors": {
+        "generic": "Ocorreu um erro. Por favor, tente novamente."
+      }
+    }
+  },
+  "navigation": {
+    "home": "Início",
+    "dashboard": "Painel",
+    "companies": "Empresas",
+    "departments": "Departamentos",
+    "teams": "Equipes",
+    "performanceCycles": "Ciclos de Performance",
+    "assessmentMatrices": "Matrizes de Avaliação",
+    "questions": "Perguntas",
+    "employeeAssessments": "Avaliações de Funcionários",
+    "settings": "Configurações"
+  },
+  "common": {
+    "actions": {
+      "add": "Adicionar",
+      "addNew": "Adicionar Novo",
+      "edit": "Editar",
+      "delete": "Excluir",
+      "save": "Salvar",
+      "cancel": "Cancelar",
+      "search": "Buscar",
+      "clear": "Limpar",
+      "close": "Fechar",
+      "confirm": "Confirmar",
+      "back": "Voltar",
+      "previous": "Anterior",
+      "next": "Próximo"
+    },
+    "labels": {
+      "list": "Lista de",
+      "actions": "Ações"
+    },
+    "status": {
+      "loading": "Carregando...",
+      "saving": "Salvando...",
+      "deleting": "Excluindo...",
+      "success": "Sucesso",
+      "error": "Erro"
+    },
+    "messages": {
+      "confirmDelete": "Tem certeza que deseja excluir este item?",
+      "deleteSuccess": "Item excluído com sucesso",
+      "saveSuccess": "Item salvo com sucesso",
+      "errorOccurred": "Ocorreu um erro"
+    }
+  },
+  "sizes": {
+    "MICRO": "Microempresa",
+    "SMALL": "Pequena",
+    "MEDIUM": "Média",
+    "LARGE": "Grande",
+    "ENTERPRISE": "Grande Porte"
+  },
+  "industries": {
+    "TECHNOLOGY": "Tecnologia",
+    "FINANCE": "Finanças",
+    "HEALTHCARE": "Saúde",
+    "EDUCATION": "Educação",
+    "RETAIL": "Varejo",
+    "MANUFACTURING": "Manufatura",
+    "SERVICES": "Serviços",
+    "OTHER": "Outro"
+  },
+  "genders": {
+    "MALE": "Masculino",
+    "FEMALE": "Feminino",
+    "NON_BINARY": "Não-binário",
+    "PREFER_NOT_TO_SAY": "Prefiro não dizer",
+    "OTHER": "Outro"
+  },
+  "pronouns": {
+    "HE_HIM": "Ele/Dele",
+    "SHE_HER": "Ela/Dela",
+    "THEY_THEM": "Elu/Delu",
+    "OTHER": "Outro"
+  },
+  "language": {
+    "current": "Português",
+    "switch": "Mudar idioma"
+  },
+  "footer": {
+    "copyright": "Todos os direitos reservados",
+    "version": "Versão"
+  }
+}

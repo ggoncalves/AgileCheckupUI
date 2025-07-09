@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useTenant } from '@/contexts/TenantContext';
+import { useTenant } from '@/infrastructure/auth';
 import questionService, { Question, QuestionFormData, QuestionType, QuestionOption } from '@/services/questionService';
 import { AssessmentMatrix } from '@/services/assessmentMatrixService';
 

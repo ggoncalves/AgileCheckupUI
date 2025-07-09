@@ -19,11 +19,15 @@
     "datatables.net-buttons-bs4": "^3.2.3",
     "datatables.net-responsive-bs4": "^3.0.4",
     "husky": "^9.1.7",
+    "i18next": "^25.3.2",
+    "i18next-browser-languagedetector": "^8.2.0",
+    "i18next-http-backend": "^3.0.2",
     "jquery": "^3.7.1",
     "next": "15.3.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.56.3",
+    "react-i18next": "^15.6.0",
     "recharts": "^2.15.3"
   },
   "devDependencies": {

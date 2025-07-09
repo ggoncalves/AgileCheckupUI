@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import AdminLayout from '@/components/layout/AdminLayout';
+import { AdminLayout } from '@/infrastructure/layouts';
 import { teamService, Team } from '@/services/teamService';
 import { departmentApi, Department } from '@/services/departmentService';
 import { TeamForm } from '@/components/teams/TeamForm';
-import { useTenant } from '@/contexts/TenantContext';
+import { useTenant } from '@/infrastructure/auth';
 
 const TeamsPage: React.FC = () => {
   const { tenantId } = useTenant();

@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { PerformanceCycle, PerformanceCycleCreateDto } from '@/services/performanceCycleService';
-import { useTenant } from '@/contexts/TenantContext';
+import { useTenant } from '@/infrastructure/auth';
 
 interface PerformanceCycleFormProps {
   item?: PerformanceCycle;

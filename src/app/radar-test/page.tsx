@@ -7,7 +7,8 @@ import { DASHBOARD_COLORS } from '@/styles/dashboardColors';
 
 const RadarTestPage: React.FC = () => {
   // Debug function to manually create chart data
-  const createTestChartData = (categories: any[]) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const createTestChartData = (categories: unknown[]) => {
     return categories.map(cat => ({
       name: cat.name,
       value: Math.round(cat.score),

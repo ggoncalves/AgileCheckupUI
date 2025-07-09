@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { Team, TeamCreateDto } from '../../services/teamService';
 import { Department } from '../../services/departmentService';
 import { departmentApi } from '../../services/departmentService';
-import { useTenant } from '../../contexts/TenantContext';
+import { useTenant } from '@/infrastructure/auth';
 
 interface TeamFormProps {
   item?: Team;

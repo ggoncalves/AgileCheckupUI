@@ -1,32 +1,35 @@
 'use client'
 
 import React from 'react';
-import AdminLayout from '@/components/layout/AdminLayout';
+import { useTranslation } from 'react-i18next';
+import { AdminLayout } from '@/infrastructure/layouts';
 import AbstractCRUD, { CrudColumn } from '@/components/common/AbstractCRUD';
 import CompanyForm from '@/components/admin/companies/CompanyForm';
-import { companyApi, Company, getCompanySizeLabel, getIndustryLabel } from '@/services/companyService';
+import { companyApi, Company } from '@/services/companyService';
 
 const CompaniesPage: React.FC = () => {
+  const { t } = useTranslation();
+  
   // Define columns for company table
   const columns: CrudColumn<Company>[] = [
-    { key: 'name', label: 'Company Name', sortable: true },
-    { key: 'email', label: 'Email', sortable: true },
-    { key: 'documentNumber', label: 'Document', sortable: true },
+    { key: 'name', label: t('company.columns.name'), sortable: true },
+    { key: 'email', label: t('company.columns.email'), sortable: true },
+    { key: 'documentNumber', label: t('company.columns.document'), sortable: true },
     { 
       key: 'size', 
-      label: 'Size', 
+      label: t('company.columns.size'), 
       sortable: true,
-      render: (company) => company.size ? getCompanySizeLabel(company.size) : '-'
+      render: (company) => company.size ? t(`sizes.${company.size}`) : '-'
     },
     { 
       key: 'industry', 
-      label: 'Industry', 
+      label: t('company.columns.industry'), 
       sortable: true,
-      render: (company) => company.industry ? getIndustryLabel(company.industry) : '-'
+      render: (company) => company.industry ? t(`industries.${company.industry}`) : '-'
     },
     { 
       key: 'website', 
-      label: 'Website', 
+      label: t('company.columns.website'), 
       sortable: true,
       render: (company) => company.website ? (
         <a href={company.website} target="_blank" rel="noopener noreferrer" className="text-primary">
@@ -36,13 +39,13 @@ const CompaniesPage: React.FC = () => {
     },
     { 
       key: 'address', 
-      label: 'City', 
+      label: t('company.columns.city'), 
       sortable: false,
       render: (company) => company.address ? `${company.address.city}, ${company.address.state}` : '-'
     },
     {
       key: 'createdDate',
-      label: 'Created',
+      label: t('company.columns.created'),
       sortable: true,
       render: (company) => new Date(company.createdDate).toLocaleDateString()
     }
@@ -51,11 +54,11 @@ const CompaniesPage: React.FC = () => {
   return (
     <AdminLayout>
       <AbstractCRUD<Company>
-        title="Company Management"
+        title={t('company.title')}
         columns={columns}
         api={companyApi}
         FormComponent={CompanyForm}
-        itemName="Company"
+        itemName={t('company.singular')}
       />
     </AdminLayout>
   );

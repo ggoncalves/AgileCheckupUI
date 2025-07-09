@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import AdminLayout from '@/components/layout/AdminLayout';
-import TenantProtected from '@/components/TenantProtected';
+import { AdminLayout } from '@/infrastructure/layouts';
+import { TenantProtected } from '@/infrastructure/auth';
 import AbstractCRUD, { CrudColumn } from '@/components/common/AbstractCRUD';
 import EmployeeAssessmentForm from '@/components/employeeassessments/EmployeeAssessmentForm';
 import { EmployeeAssessment, employeeAssessmentService } from '@/services/employeeAssessmentService';
@@ -10,7 +10,7 @@ import { performanceCycleService, PerformanceCycle } from '@/services/performanc
 import { assessmentMatrixService, AssessmentMatrix } from '@/services/assessmentMatrixService';
 import { departmentService, Department } from '@/services/departmentService';
 import { teamService, Team } from '@/services/teamService';
-import { useTenant } from '@/contexts/TenantContext';
+import { useTenant } from '@/infrastructure/auth';
 
 const EmployeeAssessmentPage: React.FC = () => {
   const { tenantId } = useTenant();

@@ -1,7 +1,7 @@
 'use client'
 
 import React, {useEffect, useState} from 'react';
-import AdminLayout from '@/components/layout/AdminLayout';
+import { AdminLayout } from '@/infrastructure/layouts';
 import AbstractCRUD, {CrudColumn} from '@/components/common/AbstractCRUD';
 import DepartmentForm from '@/components/departments/DepartmentForm';
 import {Department, departmentApi} from '@/services/departmentService';

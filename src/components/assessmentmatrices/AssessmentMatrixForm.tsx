@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { AssessmentMatrix, AssessmentMatrixCreateDto, Pillar, Category } from '@/services/assessmentMatrixService';
 import { performanceCycleService, PerformanceCycle } from '@/services/performanceCycleService';
-import { useTenant } from '@/contexts/TenantContext';
+import { useTenant } from '@/infrastructure/auth';
 import ConfirmationDialog from '@/components/common/ConfirmationDialog';
 
 interface AssessmentMatrixFormProps {

@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { useTenant } from '@/contexts/TenantContext';
-import TenantProtected from '@/components/TenantProtected';
-import AdminLayout from '@/components/layout/AdminLayout';
+import { useTenant } from '@/infrastructure/auth';
+import { TenantProtected } from '@/infrastructure/auth';
+import { AdminLayout } from '@/infrastructure/layouts';
 import questionService, { Question, QuestionType } from '@/services/questionService';
 import { performanceCycleService, PerformanceCycle } from '@/services/performanceCycleService';
 import { assessmentMatrixService, AssessmentMatrix } from '@/services/assessmentMatrixService';

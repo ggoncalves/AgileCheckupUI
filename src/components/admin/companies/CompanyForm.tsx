@@ -2,7 +2,8 @@
 
 import React, {useState} from 'react';
 import {useForm} from 'react-hook-form';
-import {Company, CompanySize, Industry, Gender, GenderPronoun, getCompanySizeLabel, getIndustryLabel, getGenderLabel, getGenderPronounLabel} from '@/services/companyService';
+import { useTranslation } from 'react-i18next';
+import {Company, CompanySize, Industry, Gender, GenderPronoun} from '@/services/companyService';
 
 // Type for form data derived from Company interface
 type CompanyFormData = Omit<Company, 'id' | 'createdDate' | 'lastUpdatedDate'>;
@@ -18,6 +19,7 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
                                                    onSubmit,
                                                    onCancel
                                                  }) => {
+  const { t } = useTranslation();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -78,7 +80,7 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
     } catch (err: unknown) {
       const errorMessage = err instanceof Error
         ? err.message
-        : 'An error occurred. Please try again.';
+        : t('company.form.errors.generic');
       setError(errorMessage);
       console.error(err);
     } finally {
@@ -95,20 +97,20 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
       {/* Basic Information Section */}
       <div className="card">
         <div className="card-header">
-          <h3 className="card-title">Basic Information</h3>
+          <h3 className="card-title">{t('company.form.sections.basicInfo')}</h3>
         </div>
         <div className="card-body">
           <div className="row">
             <div className="col-md-6">
               <div className="form-group">
-                <label htmlFor="name">Company Name <span className="text-danger">*</span></label>
+                <label htmlFor="name">{t('company.form.fields.companyName')} <span className="text-danger">*</span></label>
                 <input
                   id="name"
                   type="text"
                   className={`form-control ${errors.name ? 'is-invalid' : ''}`}
                   {...register('name', {
-                    required: 'Company name is required',
-                    minLength: {value: 3, message: 'Name must be at least 3 characters'}
+                    required: t('company.form.validation.companyNameRequired'),
+                    minLength: {value: 3, message: t('company.form.validation.nameMinLength')}
                   })}
                 />
                 {errors.name && (
@@ -119,7 +121,7 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
 
             <div className="col-md-6">
               <div className="form-group">
-                <label htmlFor="legalName">Legal Name</label>
+                <label htmlFor="legalName">{t('company.form.fields.legalName')}</label>
                 <input
                   id="legalName"
                   type="text"
@@ -134,16 +136,16 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
           <div className="row">
             <div className="col-md-6">
               <div className="form-group">
-                <label htmlFor="documentNumber">CNPJ <span className="text-danger">*</span></label>
+                <label htmlFor="documentNumber">{t('company.form.fields.cnpj')} <span className="text-danger">*</span></label>
                 <input
                   id="documentNumber"
                   type="text"
                   className={`form-control ${errors.documentNumber ? 'is-invalid' : ''}`}
                   {...register('documentNumber', {
-                    required: 'CNPJ is required',
+                    required: t('company.form.validation.cnpjRequired'),
                     pattern: {
                       value: /^(\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}|\d{14})$/,
-                      message: 'Invalid CNPJ format (XX.XXX.XXX/XXXX-XX or 14 digits)'
+                      message: t('company.form.validation.cnpjInvalid')
                     }
                   })}
                   placeholder="00.000.000/0000-00"
@@ -156,14 +158,14 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
 
             <div className="col-md-6">
               <div className="form-group">
-                <label htmlFor="tenantId">Tenant ID <span className="text-danger">*</span></label>
+                <label htmlFor="tenantId">{t('company.form.fields.tenantId')} <span className="text-danger">*</span></label>
                 <input
                   id="tenantId"
                   type="text"
                   className={`form-control ${errors.tenantId ? 'is-invalid' : ''}`}
                   {...register('tenantId', {
-                    required: 'Tenant ID is required',
-                    minLength: {value: 9, message: 'Tenant ID must be at least 9 characters'},
+                    required: t('company.form.validation.tenantIdRequired'),
+                    minLength: {value: 9, message: t('company.form.validation.tenantIdMinLength')},
                     pattern: {
                       value: /^[a-z0-9-]+$/,
                       message: 'Tenant ID must be lowercase alphanumeric with hyphens only'
@@ -179,15 +181,15 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
           </div>
 
           <div className="form-group">
-            <label htmlFor="description">Description <span className="text-danger">*</span></label>
+            <label htmlFor="description">{t('company.form.fields.description')} <span className="text-danger">*</span></label>
             <textarea
               id="description"
               className={`form-control ${errors.description ? 'is-invalid' : ''}`}
               {...register('description', {
-                required: 'Company description is required',
+                required: t('company.form.validation.descriptionRequired'),
                 minLength: {
                   value: 10,
-                  message: 'Description must be at least 10 characters'
+                  message: t('company.form.validation.descriptionMinLength')
                 }
               })}
               rows={3}
@@ -201,18 +203,18 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
           <div className="row">
             <div className="col-md-6">
               <div className="form-group">
-                <label htmlFor="size">Company Size <span className="text-danger">*</span></label>
+                <label htmlFor="size">{t('company.form.fields.companySize')} <span className="text-danger">*</span></label>
                 <select
                   id="size"
                   className={`form-control ${errors.size ? 'is-invalid' : ''}`}
                   {...register('size', {
-                    required: 'Company size is required'
+                    required: t('company.form.validation.sizeRequired')
                   })}
                 >
                   <option value="">Select a size...</option>
                   {Object.values(CompanySize).map((size) => (
                     <option key={size} value={size}>
-                      {getCompanySizeLabel(size)}
+                      {t(`sizes.${size}`)}
                     </option>
                   ))}
                 </select>
@@ -224,18 +226,18 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
 
             <div className="col-md-6">
               <div className="form-group">
-                <label htmlFor="industry">Industry <span className="text-danger">*</span></label>
+                <label htmlFor="industry">{t('company.form.fields.industry')} <span className="text-danger">*</span></label>
                 <select
                   id="industry"
                   className={`form-control ${errors.industry ? 'is-invalid' : ''}`}
                   {...register('industry', {
-                    required: 'Industry is required'
+                    required: t('company.form.validation.industryRequired')
                   })}
                 >
                   <option value="">Select an industry...</option>
                   {Object.values(Industry).map((industry) => (
                     <option key={industry} value={industry}>
-                      {getIndustryLabel(industry)}
+                      {t(`industries.${industry}`)}
                     </option>
                   ))}
                 </select>
@@ -251,19 +253,19 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
       {/* Contact Information Section */}
       <div className="card mt-3">
         <div className="card-header">
-          <h3 className="card-title">Contact Information</h3>
+          <h3 className="card-title">{t('company.form.sections.contactInfo')}</h3>
         </div>
         <div className="card-body">
           <div className="row">
             <div className="col-md-6">
               <div className="form-group">
-                <label htmlFor="email">Company Email <span className="text-danger">*</span></label>
+                <label htmlFor="email">{t('company.form.fields.companyEmail')} <span className="text-danger">*</span></label>
                 <input
                   id="email"
                   type="email"
                   className={`form-control ${errors.email ? 'is-invalid' : ''}`}
                   {...register('email', {
-                    required: 'Email is required',
+                    required: t('company.form.validation.emailRequired'),
                     pattern: {
                       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                       message: 'Invalid email address'
@@ -279,7 +281,7 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
 
             <div className="col-md-6">
               <div className="form-group">
-                <label htmlFor="phone">Company Phone</label>
+                <label htmlFor="phone">{t('company.form.fields.companyPhone')}</label>
                 <input
                   id="phone"
                   type="tel"
@@ -300,7 +302,7 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
           </div>
 
           <div className="form-group">
-            <label htmlFor="website">Website</label>
+            <label htmlFor="website">{t('company.form.fields.website')}</label>
             <input
               id="website"
               type="url"
@@ -323,11 +325,11 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
       {/* Address Section */}
       <div className="card mt-3">
         <div className="card-header">
-          <h3 className="card-title">Address</h3>
+          <h3 className="card-title">{t('company.form.sections.address')}</h3>
         </div>
         <div className="card-body">
           <div className="form-group">
-            <label htmlFor="address.street">Street</label>
+            <label htmlFor="address.street">{t('company.form.fields.street')}</label>
             <input
               id="address.street"
               type="text"
@@ -343,7 +345,7 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
           <div className="row">
             <div className="col-md-6">
               <div className="form-group">
-                <label htmlFor="address.city">City</label>
+                <label htmlFor="address.city">{t('company.form.fields.city')}</label>
                 <input
                   id="address.city"
                   type="text"
@@ -358,7 +360,7 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
 
             <div className="col-md-3">
               <div className="form-group">
-                <label htmlFor="address.state">State</label>
+                <label htmlFor="address.state">{t('company.form.fields.state')}</label>
                 <input
                   id="address.state"
                   type="text"
@@ -374,7 +376,7 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
 
             <div className="col-md-3">
               <div className="form-group">
-                <label htmlFor="address.zipcode">ZIP Code</label>
+                <label htmlFor="address.zipcode">{t('company.form.fields.zipCode')}</label>
                 <input
                   id="address.zipcode"
                   type="text"
@@ -395,7 +397,7 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
           </div>
 
           <div className="form-group">
-            <label htmlFor="address.country">Country</label>
+            <label htmlFor="address.country">{t('company.form.fields.country')}</label>
             <input
               id="address.country"
               type="text"
@@ -413,19 +415,19 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
       {/* Contact Person Section */}
       <div className="card mt-3">
         <div className="card-header">
-          <h3 className="card-title">Contact Person</h3>
+          <h3 className="card-title">{t('company.form.sections.contactPerson')}</h3>
         </div>
         <div className="card-body">
           <div className="row">
             <div className="col-md-6">
               <div className="form-group">
-                <label htmlFor="contactPerson.name">Name <span className="text-danger">*</span></label>
+                <label htmlFor="contactPerson.name">{t('company.form.fields.name')} <span className="text-danger">*</span></label>
                 <input
                   id="contactPerson.name"
                   type="text"
                   className={`form-control ${errors.contactPerson?.name ? 'is-invalid' : ''}`}
                   {...register('contactPerson.name', {
-                    required: hasContactPerson ? 'Contact person name is required' : false
+                    required: hasContactPerson ? t('company.form.validation.contactNameRequired') : false
                   })}
                 />
                 {errors.contactPerson?.name && (
@@ -436,13 +438,13 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
 
             <div className="col-md-6">
               <div className="form-group">
-                <label htmlFor="contactPerson.email">Email <span className="text-danger">*</span></label>
+                <label htmlFor="contactPerson.email">{t('company.form.fields.email')} <span className="text-danger">*</span></label>
                 <input
                   id="contactPerson.email"
                   type="email"
                   className={`form-control ${errors.contactPerson?.email ? 'is-invalid' : ''}`}
                   {...register('contactPerson.email', {
-                    required: hasContactPerson ? 'Contact person email is required' : false,
+                    required: hasContactPerson ? t('company.form.validation.contactEmailRequired') : false,
                     pattern: {
                       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                       message: 'Invalid email address'
@@ -459,13 +461,13 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
           <div className="row">
             <div className="col-md-6">
               <div className="form-group">
-                <label htmlFor="contactPerson.documentNumber">CPF <span className="text-danger">*</span></label>
+                <label htmlFor="contactPerson.documentNumber">{t('company.form.fields.cpf')} <span className="text-danger">*</span></label>
                 <input
                   id="contactPerson.documentNumber"
                   type="text"
                   className={`form-control ${errors.contactPerson?.documentNumber ? 'is-invalid' : ''}`}
                   {...register('contactPerson.documentNumber', {
-                    required: hasContactPerson ? 'Contact person CPF is required' : false,
+                    required: hasContactPerson ? t('company.form.validation.contactCpfRequired') : false,
                     pattern: {
                       value: /^(\d{3}\.\d{3}\.\d{3}-\d{2}|\d{11})$/,
                       message: 'Invalid CPF format (XXX.XXX.XXX-XX or 11 digits)'
@@ -481,7 +483,7 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
 
             <div className="col-md-6">
               <div className="form-group">
-                <label htmlFor="contactPerson.phone">Phone</label>
+                <label htmlFor="contactPerson.phone">{t('company.form.fields.phone')}</label>
                 <input
                   id="contactPerson.phone"
                   type="tel"
@@ -504,7 +506,7 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
           <div className="row">
             <div className="col-md-6">
               <div className="form-group">
-                <label htmlFor="contactPerson.gender">Gender</label>
+                <label htmlFor="contactPerson.gender">{t('company.form.fields.gender')}</label>
                 <select
                   id="contactPerson.gender"
                   className={`form-control ${errors.contactPerson?.gender ? 'is-invalid' : ''}`}
@@ -513,7 +515,7 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
                   <option value="">Select gender...</option>
                   {Object.values(Gender).map((gender) => (
                     <option key={gender} value={gender}>
-                      {getGenderLabel(gender)}
+                      {t(`genders.${gender}`)}
                     </option>
                   ))}
                 </select>
@@ -525,7 +527,7 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
 
             <div className="col-md-6">
               <div className="form-group">
-                <label htmlFor="contactPerson.genderPronoun">Pronouns</label>
+                <label htmlFor="contactPerson.genderPronoun">{t('company.form.fields.pronouns')}</label>
                 <select
                   id="contactPerson.genderPronoun"
                   className={`form-control ${errors.contactPerson?.genderPronoun ? 'is-invalid' : ''}`}
@@ -534,7 +536,7 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
                   <option value="">Select pronouns...</option>
                   {Object.values(GenderPronoun).map((pronoun) => (
                     <option key={pronoun} value={pronoun}>
-                      {getGenderPronounLabel(pronoun)}
+                      {t(`pronouns.${pronoun}`)}
                     </option>
                   ))}
                 </select>
@@ -555,7 +557,7 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
           onClick={onCancel}
           disabled={isSubmitting}
         >
-          Cancel
+          {t('company.form.buttons.cancel')}
         </button>
         <button
           type="submit"
@@ -565,10 +567,10 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
           {isSubmitting ? (
             <>
               <span className="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>
-              {item ? 'Updating...' : 'Creating...'}
+              {item ? t('company.form.buttons.updating') : t('company.form.buttons.creating')}
             </>
           ) : (
-            item ? 'Update Company' : 'Create Company'
+            item ? t('company.form.buttons.update') : t('company.form.buttons.create')
           )}
         </button>
       </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTenant } from '@/contexts/TenantContext';
+import { useTenant } from '@/infrastructure/auth';
 import { useRouter } from 'next/navigation'; // Change to next/navigation
 
 const TenantInfo: React.FC = () => {

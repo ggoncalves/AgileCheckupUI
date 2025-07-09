@@ -4,7 +4,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { EmployeeAssessment, CreateEmployeeAssessmentDTO } from '@/services/employeeAssessmentService';
 import { teamService, Team } from '@/services/teamService';
 import { departmentService, Department } from '@/services/departmentService';
-import { useTenant } from '@/contexts/TenantContext';
+import { useTenant } from '@/infrastructure/auth';
 
 interface EmployeeAssessmentFormProps {
   item?: EmployeeAssessment;

@@ -2,7 +2,7 @@
 
 import React, { ReactNode, useEffect } from 'react';
 import { useRouter } from 'next/navigation'; // Change to next/navigation
-import { useTenant } from '@/contexts/TenantContext';
+import { useTenant } from './TenantProvider';
 
 interface TenantProtectedProps {
   children: ReactNode;
