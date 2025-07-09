@@ -1,12 +1,14 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { AdminLayout } from '@/infrastructure/layouts';
 import { performanceCycleService, PerformanceCycle } from '@/services/performanceCycleService';
 import { PerformanceCycleForm } from '@/components/performancecycles/PerformanceCycleForm';
 import { useTenant } from '@/infrastructure/auth';
 
 const PerformanceCyclesPage: React.FC = () => {
+  const { t } = useTranslation();
   const { tenantId } = useTenant();
   const [cycles, setCycles] = useState<PerformanceCycle[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -28,7 +30,7 @@ const PerformanceCyclesPage: React.FC = () => {
       setCycles(data);
       setError(null);
     } catch (err) {
-      setError('Failed to load performance cycles. Please try again.');
+      setError(t('performanceCycle.errors.loadFailed'));
       console.error(err);
     } finally {
       setIsLoading(false);
@@ -50,12 +52,12 @@ const PerformanceCyclesPage: React.FC = () => {
   };
 
   const handleDelete = async (id: string) => {
-    if (window.confirm('Are you sure you want to delete this performance cycle?')) {
+    if (window.confirm(t('common.messages.confirmDelete'))) {
       try {
         await performanceCycleService.delete(id);
         setCycles(cycles.filter(item => item.id !== id));
       } catch (err) {
-        setError('Failed to delete performance cycle. Please try again.');
+        setError(t('performanceCycle.errors.deleteFailed'));
         console.error(err);
       }
     }
@@ -146,7 +148,7 @@ const PerformanceCyclesPage: React.FC = () => {
             <div className="col-sm-6">
               <h1 className="m-0">
                 <i className="fas fa-sync-alt mr-2"></i>
-                Performance Cycle Management
+                {t('performanceCycle.title')}
               </h1>
             </div>
           </div>
@@ -157,7 +159,7 @@ const PerformanceCyclesPage: React.FC = () => {
         <div className="container-fluid">
           <div className="card">
             <div className="card-header">
-              <h3 className="card-title">Performance Cycles</h3>
+              <h3 className="card-title">{t('performanceCycle.plural')}</h3>
               <div className="card-tools">
                 <button
                   type="button"
@@ -165,7 +167,7 @@ const PerformanceCyclesPage: React.FC = () => {
                   onClick={handleAddNew}
                   disabled={showForm}
                 >
-                  <i className="fas fa-plus mr-1"></i> Add New Cycle
+                  <i className="fas fa-plus mr-1"></i> {t('common.actions.addNew')} {t('performanceCycle.singular')}
                 </button>
               </div>
             </div>
@@ -187,9 +189,9 @@ const PerformanceCyclesPage: React.FC = () => {
                       value={filterActive}
                       onChange={(e) => setFilterActive(e.target.value as 'all' | 'active' | 'inactive')}
                     >
-                      <option value="all">All Cycles</option>
-                      <option value="active">Active Only</option>
-                      <option value="inactive">Inactive Only</option>
+                      <option value="all">{t('performanceCycle.filters.allCycles')}</option>
+                      <option value="active">{t('performanceCycle.filters.activeOnly')}</option>
+                      <option value="inactive">{t('performanceCycle.filters.inactiveOnly')}</option>
                     </select>
                   </div>
                 </div>
@@ -198,7 +200,7 @@ const PerformanceCyclesPage: React.FC = () => {
                     <input
                       type="text"
                       className="form-control"
-                      placeholder="Search cycles..."
+                      placeholder={t('performanceCycle.search.placeholder')}
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />
@@ -219,19 +221,19 @@ const PerformanceCyclesPage: React.FC = () => {
                         onClick={() => handleSort('name')}
                         style={{ cursor: 'pointer' }}
                       >
-                        Cycle Name
+                        {t('performanceCycle.columns.name')}
                         {sortField === 'name' && (
                           <i
                             className={`ml-1 fas fa-sort-${sortDirection === 'asc' ? 'up' : 'down'}`}
                           ></i>
                         )}
                       </th>
-                      <th>Description</th>
+                      <th>{t('performanceCycle.columns.description')}</th>
                       <th
                         onClick={() => handleSort('startDate')}
                         style={{ cursor: 'pointer' }}
                       >
-                        Start Date
+                        {t('performanceCycle.columns.startDate')}
                         {sortField === 'startDate' && (
                           <i
                             className={`ml-1 fas fa-sort-${sortDirection === 'asc' ? 'up' : 'down'}`}
@@ -242,26 +244,26 @@ const PerformanceCyclesPage: React.FC = () => {
                         onClick={() => handleSort('endDate')}
                         style={{ cursor: 'pointer' }}
                       >
-                        End Date
+                        {t('performanceCycle.columns.endDate')}
                         {sortField === 'endDate' && (
                           <i
                             className={`ml-1 fas fa-sort-${sortDirection === 'asc' ? 'up' : 'down'}`}
                           ></i>
                         )}
                       </th>
-                      <th>Type</th>
+                      <th>{t('performanceCycle.columns.type')}</th>
                       <th
                         onClick={() => handleSort('isActive')}
                         style={{ cursor: 'pointer' }}
                       >
-                        Status
+                        {t('performanceCycle.columns.status')}
                         {sortField === 'isActive' && (
                           <i
                             className={`ml-1 fas fa-sort-${sortDirection === 'asc' ? 'up' : 'down'}`}
                           ></i>
                         )}
                       </th>
-                      <th className="text-nowrap" style={{ minWidth: '140px' }}>Actions</th>
+                      <th className="text-nowrap" style={{ minWidth: '140px' }}>{t('common.labels.actions')}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -269,33 +271,33 @@ const PerformanceCyclesPage: React.FC = () => {
                       <tr>
                         <td colSpan={7} className="text-center">
                           <div className="spinner-border text-primary" role="status">
-                            <span className="sr-only">Loading...</span>
+                            <span className="sr-only">{t('common.status.loading')}</span>
                           </div>
                         </td>
                       </tr>
                     ) : processedCycles.length === 0 ? (
                       <tr>
                         <td colSpan={7} className="text-center">
-                          No performance cycles found
+                          {t('performanceCycle.messages.noCyclesFound')}
                         </td>
                       </tr>
                     ) : (
                       processedCycles.map((cycle) => (
                         <tr key={cycle.id}>
                           <td>{cycle.name}</td>
-                          <td>{cycle.description || <em className="text-muted">No description</em>}</td>
+                          <td>{cycle.description || <em className="text-muted">{t('performanceCycle.messages.noDescription')}</em>}</td>
                           <td>{formatDate(cycle.startDate)}</td>
                           <td>{formatDate(cycle.endDate)}</td>
                           <td>
                             {cycle.isTimeSensitive ? (
                               <span className="badge badge-warning">
                                 <i className="fas fa-clock mr-1"></i>
-                                Time-sensitive
+                                {t('performanceCycle.types.timeSensitive')}
                               </span>
                             ) : (
                               <span className="badge badge-info">
                                 <i className="fas fa-infinity mr-1"></i>
-                                Ongoing
+                                {t('performanceCycle.types.ongoing')}
                               </span>
                             )}
                           </td>
@@ -303,12 +305,12 @@ const PerformanceCyclesPage: React.FC = () => {
                             {cycle.isActive ? (
                               <span className="badge badge-success">
                                 <i className="fas fa-check-circle mr-1"></i>
-                                Active
+                                {t('performanceCycle.status.active')}
                               </span>
                             ) : (
                               <span className="badge badge-secondary">
                                 <i className="fas fa-times-circle mr-1"></i>
-                                Inactive
+                                {t('performanceCycle.status.inactive')}
                               </span>
                             )}
                           </td>
@@ -318,14 +320,14 @@ const PerformanceCyclesPage: React.FC = () => {
                               onClick={() => handleEdit(cycle)}
                               disabled={showForm}
                             >
-                              <i className="fas fa-edit"></i> Edit
+                              <i className="fas fa-edit"></i> {t('common.actions.edit')}
                             </button>
                             <button
                               className="btn btn-danger btn-sm"
                               onClick={() => handleDelete(cycle.id)}
                               disabled={showForm}
                             >
-                              <i className="fas fa-trash"></i> Delete
+                              <i className="fas fa-trash"></i> {t('common.actions.delete')}
                             </button>
                           </td>
                         </tr>

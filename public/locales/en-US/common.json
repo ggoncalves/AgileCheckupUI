@@ -177,6 +177,75 @@
       "generic": "An error occurred. Please try again."
     }
   },
+  "performanceCycle": {
+    "title": "Performance Cycle Management",
+    "singular": "Cycle",
+    "plural": "Performance Cycles",
+    "columns": {
+      "name": "Cycle Name",
+      "description": "Description",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "type": "Type",
+      "status": "Status"
+    },
+    "form": {
+      "newTitle": "New Performance Cycle",
+      "editTitle": "Edit Performance Cycle",
+      "fields": {
+        "name": "Cycle Name",
+        "description": "Description",
+        "status": "Status",
+        "active": "Active",
+        "startDate": "Start Date",
+        "endDate": "End Date"
+      },
+      "placeholders": {
+        "name": "e.g., Q1 2024, Annual Review",
+        "description": "Enter cycle description (optional)"
+      },
+      "validation": {
+        "nameRequired": "Cycle name is required",
+        "endDateAfterStart": "End date must be after start date"
+      },
+      "help": {
+        "activeHelp": "Active cycles can be used for assessments",
+        "startDateHelp": "When this performance cycle begins",
+        "endDateHelp": "Leave empty for ongoing cycles",
+        "timeSensitiveInfo": "This cycle is time-sensitive because an end date is specified."
+      },
+      "buttons": {
+        "create": "Create",
+        "update": "Update",
+        "creating": "Creating...",
+        "updating": "Updating..."
+      }
+    },
+    "filters": {
+      "allCycles": "All Cycles",
+      "activeOnly": "Active Only",
+      "inactiveOnly": "Inactive Only"
+    },
+    "search": {
+      "placeholder": "Search cycles..."
+    },
+    "types": {
+      "timeSensitive": "Time-sensitive",
+      "ongoing": "Ongoing"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "messages": {
+      "noCyclesFound": "No performance cycles found",
+      "noDescription": "No description"
+    },
+    "errors": {
+      "loadFailed": "Failed to load performance cycles. Please try again.",
+      "deleteFailed": "Failed to delete performance cycle. Please try again."
+    }
+  },
   "navigation": {
     "home": "Home",
     "dashboard": "Dashboard",

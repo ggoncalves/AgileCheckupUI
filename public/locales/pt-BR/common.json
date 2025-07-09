@@ -177,6 +177,75 @@
       "generic": "Ocorreu um erro. Por favor, tente novamente."
     }
   },
+  "performanceCycle": {
+    "title": "Gerenciamento de Ciclos de Performance",
+    "singular": "Ciclo",
+    "plural": "Ciclos de Performance",
+    "columns": {
+      "name": "Nome do Ciclo",
+      "description": "Descrição",
+      "startDate": "Data de Início",
+      "endDate": "Data de Término",
+      "type": "Tipo",
+      "status": "Status"
+    },
+    "form": {
+      "newTitle": "Novo Ciclo de Performance",
+      "editTitle": "Editar Ciclo de Performance",
+      "fields": {
+        "name": "Nome do Ciclo",
+        "description": "Descrição",
+        "status": "Status",
+        "active": "Ativo",
+        "startDate": "Data de Início",
+        "endDate": "Data de Término"
+      },
+      "placeholders": {
+        "name": "ex: Q1 2024, Avaliação Anual",
+        "description": "Digite a descrição do ciclo (opcional)"
+      },
+      "validation": {
+        "nameRequired": "Nome do ciclo é obrigatório",
+        "endDateAfterStart": "Data de término deve ser posterior à data de início"
+      },
+      "help": {
+        "activeHelp": "Ciclos ativos podem ser usados para avaliações",
+        "startDateHelp": "Quando este ciclo de performance inicia",
+        "endDateHelp": "Deixe vazio para ciclos contínuos",
+        "timeSensitiveInfo": "Este ciclo é sensível ao tempo porque uma data de término foi especificada."
+      },
+      "buttons": {
+        "create": "Criar",
+        "update": "Atualizar",
+        "creating": "Criando...",
+        "updating": "Atualizando..."
+      }
+    },
+    "filters": {
+      "allCycles": "Todos os Ciclos",
+      "activeOnly": "Apenas Ativos",
+      "inactiveOnly": "Apenas Inativos"
+    },
+    "search": {
+      "placeholder": "Buscar ciclos..."
+    },
+    "types": {
+      "timeSensitive": "Sensível ao tempo",
+      "ongoing": "Contínuo"
+    },
+    "status": {
+      "active": "Ativo",
+      "inactive": "Inativo"
+    },
+    "messages": {
+      "noCyclesFound": "Nenhum ciclo de performance encontrado",
+      "noDescription": "Sem descrição"
+    },
+    "errors": {
+      "loadFailed": "Falha ao carregar ciclos de performance. Por favor, tente novamente.",
+      "deleteFailed": "Falha ao excluir ciclo de performance. Por favor, tente novamente."
+    }
+  },
   "navigation": {
     "home": "Início",
     "dashboard": "Painel",
