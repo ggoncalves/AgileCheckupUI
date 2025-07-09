@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useTenant } from '@/infrastructure/auth';
 import questionService, { Question, QuestionFormData, QuestionType, QuestionOption } from '@/services/questionService';
 import { AssessmentMatrix } from '@/services/assessmentMatrixService';
@@ -24,6 +25,7 @@ export default function QuestionForm({
   onSuccess,
   onError
 }: QuestionFormProps) {
+  const { t } = useTranslation();
   const { tenantId } = useTenant();
   const [loading, setLoading] = useState(false);
   const [showToast, setShowToast] = useState(false);
@@ -122,7 +124,7 @@ export default function QuestionForm({
         pillarId: formData.pillarId,
         categoryId: formData.categoryId
       });
-      setErrors({ submit: 'Missing required fields' });
+      setErrors({ submit: t('question.form.validation.missingFields') });
       setLoadingButton(null);
       return;
     }
@@ -162,8 +164,8 @@ export default function QuestionForm({
       
       // Show success toast for all operations
       const actionMessage = question 
-        ? `Question "${questionText}" updated successfully!`
-        : `Question "${questionText}" created successfully!`;
+        ? t('question.form.messages.updateSuccess', { question: questionText })
+        : t('question.form.messages.createSuccess', { question: questionText });
       
       if (closeAfterSave) {
         // Pass message to parent for toast display
@@ -213,34 +215,34 @@ export default function QuestionForm({
     const newErrors: Record<string, string> = {};
     
     if (!questionText.trim()) {
-      newErrors.question = 'Question text is required';
+      newErrors.question = t('question.form.validation.questionRequired');
     }
     
     if (!selectedPillarId) {
-      newErrors.pillar = 'Pillar is required';
+      newErrors.pillar = t('question.form.validation.pillarRequired');
     }
     
     if (!selectedCategoryId) {
-      newErrors.category = 'Category is required';
+      newErrors.category = t('question.form.validation.categoryRequired');
     }
     
     if (isCustom || questionType === QuestionType.CUSTOMIZED) {
       const validOptions = options.filter(opt => opt.text.trim() !== '');
       if (validOptions.length < 2) {
-        newErrors.options = 'At least 2 options with text are required';
+        newErrors.options = t('question.form.validation.optionsMinimum');
       } else if (options.length > 64) {
-        newErrors.options = 'Maximum 64 options allowed';
+        newErrors.options = t('question.form.validation.optionsMaximum');
       }
       
       // Validate individual options
       options.forEach((option, index) => {
         if (!option.text.trim()) {
-          newErrors[`option_text_${index}`] = 'Option text is required';
+          newErrors[`option_text_${index}`] = t('question.form.validation.optionTextRequired');
         }
         if (option.points === undefined || option.points === null || isNaN(option.points)) {
-          newErrors[`option_points_${index}`] = 'Points value is required';
+          newErrors[`option_points_${index}`] = t('question.form.validation.pointsRequired');
         } else if (option.points < 0) {
-          newErrors[`option_points_${index}`] = 'Points must be 0 or greater';
+          newErrors[`option_points_${index}`] = t('question.form.validation.pointsMinimum');
         }
       });
     }
@@ -292,6 +294,19 @@ export default function QuestionForm({
     QuestionType.OPEN_ANSWER
   ];
 
+  const getQuestionTypeLabel = (type: QuestionType): string => {
+    const typeMap: Record<QuestionType, string> = {
+      [QuestionType.YES_NO]: t('question.form.types.yes_no'),
+      [QuestionType.STAR_THREE]: t('question.form.types.star_three'),
+      [QuestionType.STAR_FIVE]: t('question.form.types.star_five'),
+      [QuestionType.ONE_TO_TEN]: t('question.form.types.one_to_ten'),
+      [QuestionType.GOOD_BAD]: t('question.form.types.good_bad'),
+      [QuestionType.OPEN_ANSWER]: t('question.form.types.open_answer'),
+      [QuestionType.CUSTOMIZED]: t('question.form.types.customized')
+    };
+    return typeMap[type] || type;
+  };
+
   return (
     <>
       {/* Toast Notification */}
@@ -299,7 +314,7 @@ export default function QuestionForm({
         <div className="toast show position-fixed" style={{ top: '20px', right: '20px', zIndex: 9999 }}>
           <div className={`toast-header bg-${toastType} text-white`}>
             <i className={`fas fa-${toastType === 'success' ? 'check-circle' : 'exclamation-circle'} mr-2`}></i>
-            <strong className="mr-auto">{toastType === 'success' ? 'Success' : 'Error'}</strong>
+            <strong className="mr-auto">{toastType === 'success' ? t('common.status.success') : t('common.status.error')}</strong>
             <button type="button" className="ml-2 mb-1 close text-white" onClick={() => setShowToast(false)}>
               <span>&times;</span>
             </button>
@@ -316,7 +331,7 @@ export default function QuestionForm({
           <div className="modal-header">
             <h5 className="modal-title">
               <i className={`fas fa-${question ? 'edit' : 'plus'} mr-2`}></i>
-              {question ? 'Edit' : 'Create'} {isCustom ? 'Custom' : 'Standard'} Question
+              {question ? t('question.form.editTitle') : t('question.form.createTitle')} {isCustom ? t('question.form.customType') : t('question.form.standardType')}
             </h5>
             <button type="button" className="close" onClick={onClose}>
               <span>&times;</span>
@@ -336,7 +351,7 @@ export default function QuestionForm({
               <div className="row">
                 <div className="col-md-6">
                   <div className="form-group">
-                    <label>Pillar <span className="text-danger">*</span></label>
+                    <label>{t('question.form.fields.pillar')} <span className="text-danger">*</span></label>
                     <select
                       className={`form-control ${errors.pillar ? 'is-invalid' : ''}`}
                       value={selectedPillarId}
@@ -346,7 +361,7 @@ export default function QuestionForm({
                       }}
                       required
                     >
-                      <option value="">Select Pillar</option>
+                      <option value="">{t('question.form.placeholders.selectPillar')}</option>
                       {pillars.map(pillar => (
                         <option key={pillar.id} value={pillar.id}>
                           {pillar.name}
@@ -361,7 +376,7 @@ export default function QuestionForm({
                 
                 <div className="col-md-6">
                   <div className="form-group">
-                    <label>Category <span className="text-danger">*</span></label>
+                    <label>{t('question.form.fields.category')} <span className="text-danger">*</span></label>
                     <select
                       className={`form-control ${errors.category ? 'is-invalid' : ''}`}
                       value={selectedCategoryId}
@@ -369,7 +384,7 @@ export default function QuestionForm({
                       disabled={!selectedPillarId}
                       required
                     >
-                      <option value="">Select Category</option>
+                      <option value="">{t('question.form.placeholders.selectCategory')}</option>
                       {categories.map(category => (
                         <option key={category.id} value={category.id}>
                           {category.name}
@@ -384,13 +399,13 @@ export default function QuestionForm({
               </div>
               
               <div className="form-group">
-                <label>Question Text <span className="text-danger">*</span></label>
+                <label>{t('question.form.fields.questionText')} <span className="text-danger">*</span></label>
                 <textarea
                   className={`form-control ${errors.question ? 'is-invalid' : ''}`}
                   rows={3}
                   value={questionText}
                   onChange={(e) => setQuestionText(e.target.value)}
-                  placeholder="Enter your question here..."
+                  placeholder={t('question.form.placeholders.questionText')}
                   required
                 />
                 {errors.question && (
@@ -399,23 +414,23 @@ export default function QuestionForm({
               </div>
               
               <div className="form-group">
-                <label>Extra Description</label>
+                <label>{t('question.form.fields.extraDescription')}</label>
                 <textarea
                   className="form-control"
                   rows={2}
                   value={extraDescription}
                   onChange={(e) => setExtraDescription(e.target.value)}
-                  placeholder="Add clarification or context for this question (optional)..."
+                  placeholder={t('question.form.placeholders.extraDescription')}
                 />
                 <small className="form-text text-muted">
-                  Use this field to provide additional context or clarification for the question
+                  {t('question.form.help.extraDescription')}
                 </small>
               </div>
               
               <div className="row">
                 <div className="col-md-6">
                   <div className="form-group">
-                    <label>Question Type <span className="text-danger">*</span></label>
+                    <label>{t('question.form.fields.questionType')} <span className="text-danger">*</span></label>
                     <select
                       className="form-control"
                       value={questionType}
@@ -423,10 +438,10 @@ export default function QuestionForm({
                       disabled={isCustom}
                     >
                       {isCustom ? (
-                        <option value={QuestionType.CUSTOMIZED}>Custom Question</option>
+                        <option value={QuestionType.CUSTOMIZED}>{t('question.form.types.customized')}</option>
                       ) : (
                         standardTypes.map(type => (
-                          <option key={type} value={type}>{type.replace(/_/g, ' ')}</option>
+                          <option key={type} value={type}>{getQuestionTypeLabel(type)}</option>
                         ))
                       )}
                     </select>
@@ -436,7 +451,7 @@ export default function QuestionForm({
                 {!(isCustom || questionType === QuestionType.CUSTOMIZED) && (
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label>Points</label>
+                      <label>{t('question.form.fields.points')}</label>
                       <input
                         type="number"
                         className="form-control"
@@ -444,7 +459,7 @@ export default function QuestionForm({
                         onChange={(e) => setPoints(e.target.value ? parseFloat(e.target.value) : undefined)}
                         min="0"
                         step="0.1"
-                        placeholder="Points for this question"
+                        placeholder={t('question.form.placeholders.points')}
                       />
                     </div>
                   </div>
@@ -454,7 +469,7 @@ export default function QuestionForm({
               {/* Custom Question Options */}
               {(isCustom || questionType === QuestionType.CUSTOMIZED) && (
                 <div className="custom-question-section border-top pt-3 mt-3">
-                  <h6 className="mb-3">Custom Question Options</h6>
+                  <h6 className="mb-3">{t('question.form.sections.customOptions')}</h6>
                   
                   <div className="row mb-3">
                     <div className="col-md-6">
@@ -467,7 +482,7 @@ export default function QuestionForm({
                           onChange={(e) => setIsMultipleChoice(e.target.checked)}
                         />
                         <label className="custom-control-label" htmlFor="multipleChoice">
-                          Allow Multiple Selection
+                          {t('question.form.fields.allowMultiple')}
                         </label>
                       </div>
                     </div>
@@ -481,7 +496,7 @@ export default function QuestionForm({
                           onChange={(e) => setShowFlushed(e.target.checked)}
                         />
                         <label className="custom-control-label" htmlFor="showFlushed">
-                          Show Flushed Layout
+                          {t('question.form.fields.showFlushed')}
                         </label>
                       </div>
                     </div>
@@ -489,14 +504,14 @@ export default function QuestionForm({
                   
                   <div className="form-group">
                     <label>
-                      Options ({options.length} of 64) <span className="text-danger">*</span>
+                      {t('question.form.fields.options', { current: options.length, max: 64 })} <span className="text-danger">*</span>
                       {errors.options && (
                         <span className="text-danger ml-2">- {errors.options}</span>
                       )}
                     </label>
                     <small className="form-text text-muted mb-2">
                       <i className="fas fa-info-circle mr-1"></i>
-                      Each option must have text and points value. Points determine scoring for this option.
+                      {t('question.form.help.options')}
                     </small>
                     
                     <div className="options-list">
@@ -505,18 +520,18 @@ export default function QuestionForm({
                         <div className="input-group">
                           <div className="input-group-prepend">
                             <span className="input-group-text bg-light">
-                              <strong>#</strong>
+                              <strong>{t('question.form.table.number')}</strong>
                             </span>
                           </div>
                           <div className="form-control bg-light border-0 d-flex align-items-center">
-                            <strong>Option Text</strong>
+                            <strong>{t('question.form.table.optionText')}</strong>
                           </div>
                           <div className="form-control bg-light border-0 d-flex align-items-center justify-content-center" style={{ maxWidth: '100px' }}>
-                            <strong>Points</strong>
+                            <strong>{t('question.form.table.points')}</strong>
                           </div>
                           <div className="input-group-append">
                             <span className="input-group-text bg-light">
-                              <strong>Action</strong>
+                              <strong>{t('question.form.table.action')}</strong>
                             </span>
                           </div>
                         </div>
@@ -535,7 +550,7 @@ export default function QuestionForm({
                               className={`form-control ${errors[`option_text_${index}`] ? 'is-invalid' : ''}`}
                               value={option.text}
                               onChange={(e) => handleOptionChange(index, 'text', e.target.value)}
-                              placeholder="Option text"
+                              placeholder={t('question.form.placeholders.optionText')}
                               required
                             />
                             <input
@@ -544,7 +559,7 @@ export default function QuestionForm({
                               style={{ maxWidth: '100px' }}
                               value={option.points ?? ''}
                               onChange={(e) => handleOptionChange(index, 'points', parseFloat(e.target.value) || 0)}
-                              placeholder="Points*"
+                              placeholder={t('question.form.placeholders.optionPoints')}
                               step="0.1"
                               min="0"
                               required
@@ -555,7 +570,7 @@ export default function QuestionForm({
                                 className="btn btn-outline-danger"
                                 onClick={() => handleRemoveOption(index)}
                                 disabled={options.length <= 2}
-                                title="Remove option"
+                                title={t('question.form.buttons.removeOption')}
                               >
                                 <i className="fas fa-trash"></i>
                               </button>
@@ -589,7 +604,7 @@ export default function QuestionForm({
                         onClick={handleAddOption}
                       >
                         <i className="fas fa-plus mr-2"></i>
-                        Add Option
+                        {t('question.form.buttons.addOption')}
                       </button>
                     )}
                   </div>
@@ -599,7 +614,7 @@ export default function QuestionForm({
             
             <div className="modal-footer">
               <button type="button" className="btn btn-secondary" onClick={onClose}>
-                Close
+                {t('common.actions.close')}
               </button>
               
               {/* Save and Close Button - always available */}
@@ -615,12 +630,12 @@ export default function QuestionForm({
                 {loadingButton === 'saveAndClose' ? (
                   <>
                     <span className="spinner-border spinner-border-sm mr-2"></span>
-                    Saving...
+                    {t('question.form.buttons.saving')}
                   </>
                 ) : (
                   <>
                     <i className="fas fa-check mr-2"></i>
-                    {question ? 'Update' : 'Create and Close'}
+                    {question ? t('question.form.buttons.update') : t('question.form.buttons.createAndClose')}
                   </>
                 )}
               </button>
@@ -639,12 +654,12 @@ export default function QuestionForm({
                   {loadingButton === 'save' ? (
                     <>
                       <span className="spinner-border spinner-border-sm mr-2"></span>
-                      Saving...
+                      {t('question.form.buttons.saving')}
                     </>
                   ) : (
                     <>
                       <i className="fas fa-save mr-2"></i>
-                      Create
+                      {t('question.form.buttons.create')}
                     </>
                   )}
                 </button>

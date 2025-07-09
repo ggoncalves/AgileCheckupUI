@@ -469,6 +469,180 @@
       "selectFilters": "Please select a Performance Cycle and Assessment Matrix to manage employee assessments."
     }
   },
+  "question": {
+    "title": "Questions Management",
+    "buttons": {
+      "addStandard": "Add Standard Question",
+      "addCustom": "Add Custom Question",
+      "preview": "Preview",
+      "create": "Create",
+      "createAndClose": "Create and Close",
+      "update": "Update",
+      "saving": "Saving...",
+      "addOption": "Add Option",
+      "removeOption": "Remove option",
+      "showPoints": "Show Points",
+      "hidePoints": "Hide Points"
+    },
+    "filters": {
+      "title": "Filters",
+      "performanceCycle": "Performance Cycle",
+      "selectPerformanceCycle": "Select Performance Cycle",
+      "assessmentMatrix": "Assessment Matrix",
+      "selectAssessmentMatrix": "Select Assessment Matrix",
+      "pillar": "Pillar",
+      "allPillars": "All Pillars",
+      "category": "Category",
+      "allCategories": "All Categories"
+    },
+    "stats": {
+      "totalQuestions": "Total Questions",
+      "questionCount": "{{count}} question{{count, plural, one {} other {s}}}"
+    },
+    "details": {
+      "points": "{{points}} points",
+      "options": "{{count}} option{{count, plural, one {} other {s}}}"
+    },
+    "types": {
+      "yesNo": "Yes/No",
+      "star3": "★★★",
+      "star5": "★★★★★",
+      "oneToTen": "1-10",
+      "goodBad": "Good/Bad",
+      "openAnswer": "Open",
+      "customized": "Custom"
+    },
+    "messages": {
+      "noQuestions": "No questions found. Add your first question!",
+      "selectFilters": "Please select a Performance Cycle and Assessment Matrix to manage questions",
+      "deleteSuccess": "Question \"{{question}}\" deleted successfully!",
+      "deleteFailed": "Failed to delete question. Please try again."
+    },
+    "dialogs": {
+      "deleteTitle": "Delete Question",
+      "deleteMessage": "Are you sure you want to delete the question \"{{question}}\"?"
+    },
+    "form": {
+      "createTitle": "Create",
+      "editTitle": "Edit",
+      "customType": "Custom Question",
+      "standardType": "Standard Question",
+      "fields": {
+        "pillar": "Pillar",
+        "category": "Category",
+        "questionText": "Question Text",
+        "extraDescription": "Extra Description",
+        "questionType": "Question Type",
+        "points": "Points",
+        "allowMultiple": "Allow Multiple Selection",
+        "showFlushed": "Show Flushed Layout",
+        "options": "Options ({{current}} of {{max}})"
+      },
+      "placeholders": {
+        "selectPillar": "Select Pillar",
+        "selectCategory": "Select Category",
+        "questionText": "Enter your question here...",
+        "extraDescription": "Add clarification or context for this question (optional)...",
+        "points": "Points for this question",
+        "optionText": "Option text",
+        "optionPoints": "Points*"
+      },
+      "sections": {
+        "customOptions": "Custom Question Options"
+      },
+      "table": {
+        "number": "#",
+        "optionText": "Option Text",
+        "points": "Points",
+        "action": "Action"
+      },
+      "help": {
+        "extraDescription": "Use this field to provide additional context or clarification for the question",
+        "options": "Each option must have text and points value. Points determine scoring for this option."
+      },
+      "types": {
+        "customized": "Custom Question",
+        "yes_no": "Yes/No",
+        "star_three": "3-Star Rating",
+        "star_five": "5-Star Rating",
+        "one_to_ten": "1-10 Scale",
+        "good_bad": "Good/Bad",
+        "open_answer": "Open Answer"
+      },
+      "validation": {
+        "missingFields": "Missing required fields",
+        "questionRequired": "Question text is required",
+        "pillarRequired": "Pillar is required",
+        "categoryRequired": "Category is required",
+        "optionsMinimum": "At least 2 options with text are required",
+        "optionsMaximum": "Maximum 64 options allowed",
+        "optionTextRequired": "Option text is required",
+        "pointsRequired": "Points value is required",
+        "pointsMinimum": "Points must be 0 or greater"
+      },
+      "messages": {
+        "createSuccess": "Question \"{{question}}\" created successfully!",
+        "updateSuccess": "Question \"{{question}}\" updated successfully!"
+      },
+      "buttons": {
+        "create": "Create",
+        "createAndClose": "Create and Close",
+        "update": "Update",
+        "saving": "Saving...",
+        "addOption": "Add Option",
+        "removeOption": "Remove option"
+      }
+    },
+    "preview": {
+      "title": "Question Preview",
+      "howItAppears": "How this question will appear to users:",
+      "context": {
+        "pillar": "Pillar",
+        "category": "Category"
+      },
+      "answers": {
+        "yes": "Yes",
+        "no": "No",
+        "good": "Good",
+        "bad": "Bad"
+      },
+      "placeholders": {
+        "openAnswer": "Type your answer here..."
+      },
+      "unknownType": "Unknown question type",
+      "pointsValue": "{{points}} points",
+      "types": {
+        "yesNo": "Yes/No Question",
+        "star3": "3-Star Rating",
+        "star5": "5-Star Rating",
+        "oneToTen": "1-10 Scale",
+        "goodBad": "Good/Bad Choice",
+        "openAnswer": "Open Text Answer",
+        "customized": "Custom Options"
+      },
+      "help": {
+        "pointsVisibility": "Shows point values for each option. This is only visible to administrators for verification purposes. Users will not see these point values."
+      },
+      "buttons": {
+        "showPoints": "Show Points",
+        "hidePoints": "Hide Points"
+      },
+      "table": {
+        "option": "Option",
+        "points": "Points"
+      },
+      "technicalDetails": "Technical Details",
+      "details": {
+        "type": "Type",
+        "points": "Points",
+        "notApplicable": "N/A",
+        "questionId": "Question ID",
+        "options": "Options",
+        "optionsCount": "{{count}} option{{count, plural, one {} other {s}}}",
+        "multiSelect": "multi-select"
+      }
+    }
+  },
   "navigation": {
     "home": "Home",
     "dashboard": "Dashboard",

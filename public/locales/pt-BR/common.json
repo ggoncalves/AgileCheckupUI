@@ -469,6 +469,180 @@
       "selectFilters": "Por favor, selecione um Ciclo de Performance e uma Matriz de Avaliação para gerenciar avaliações de funcionários."
     }
   },
+  "question": {
+    "title": "Gerenciamento de Perguntas",
+    "buttons": {
+      "addStandard": "Adicionar Pergunta Padrão",
+      "addCustom": "Adicionar Pergunta Personalizada",
+      "preview": "Visualizar",
+      "create": "Criar",
+      "createAndClose": "Criar e Fechar",
+      "update": "Atualizar",
+      "saving": "Salvando...",
+      "addOption": "Adicionar Opção",
+      "removeOption": "Remover opção",
+      "showPoints": "Mostrar Pontos",
+      "hidePoints": "Ocultar Pontos"
+    },
+    "filters": {
+      "title": "Filtros",
+      "performanceCycle": "Ciclo de Performance",
+      "selectPerformanceCycle": "Selecionar Ciclo de Performance",
+      "assessmentMatrix": "Matriz de Avaliação",
+      "selectAssessmentMatrix": "Selecionar Matriz de Avaliação",
+      "pillar": "Pilar",
+      "allPillars": "Todos os Pilares",
+      "category": "Categoria",
+      "allCategories": "Todas as Categorias"
+    },
+    "stats": {
+      "totalQuestions": "Total de Perguntas",
+      "questionCount": "{{count}} pergunta{{count, plural, one {} other {s}}}"
+    },
+    "details": {
+      "points": "{{points}} pontos",
+      "options": "{{count}} opção{{count, plural, one {} other {ões}}}"
+    },
+    "types": {
+      "yesNo": "Sim/Não",
+      "star3": "★★★",
+      "star5": "★★★★★",
+      "oneToTen": "1-10",
+      "goodBad": "Bom/Ruim",
+      "openAnswer": "Aberta",
+      "customized": "Personalizada"
+    },
+    "messages": {
+      "noQuestions": "Nenhuma pergunta encontrada. Adicione sua primeira pergunta!",
+      "selectFilters": "Por favor, selecione um Ciclo de Performance e uma Matriz de Avaliação para gerenciar perguntas",
+      "deleteSuccess": "Pergunta \"{{question}}\" excluída com sucesso!",
+      "deleteFailed": "Falha ao excluir pergunta. Por favor, tente novamente."
+    },
+    "dialogs": {
+      "deleteTitle": "Excluir Pergunta",
+      "deleteMessage": "Tem certeza que deseja excluir a pergunta \"{{question}}\"?"
+    },
+    "form": {
+      "createTitle": "Criar",
+      "editTitle": "Editar",
+      "customType": "Pergunta Personalizada",
+      "standardType": "Pergunta Padrão",
+      "fields": {
+        "pillar": "Pilar",
+        "category": "Categoria",
+        "questionText": "Texto da Pergunta",
+        "extraDescription": "Descrição Extra",
+        "questionType": "Tipo de Pergunta",
+        "points": "Pontos",
+        "allowMultiple": "Permitir Seleção Múltipla",
+        "showFlushed": "Mostrar Layout Alinhado",
+        "options": "Opções ({{current}} de {{max}})"
+      },
+      "placeholders": {
+        "selectPillar": "Selecionar Pilar",
+        "selectCategory": "Selecionar Categoria",
+        "questionText": "Digite sua pergunta aqui...",
+        "extraDescription": "Adicione esclarecimentos ou contexto para esta pergunta (opcional)...",
+        "points": "Pontos para esta pergunta",
+        "optionText": "Texto da opção",
+        "optionPoints": "Pontos*"
+      },
+      "sections": {
+        "customOptions": "Opções de Pergunta Personalizada"
+      },
+      "table": {
+        "number": "#",
+        "optionText": "Texto da Opção",
+        "points": "Pontos",
+        "action": "Ação"
+      },
+      "help": {
+        "extraDescription": "Use este campo para fornecer contexto adicional ou esclarecimentos para a pergunta",
+        "options": "Cada opção deve ter texto e valor de pontos. Os pontos determinam a pontuação para esta opção."
+      },
+      "types": {
+        "customized": "Pergunta Personalizada",
+        "yes_no": "Sim/Não",
+        "star_three": "Avaliação 3 Estrelas",
+        "star_five": "Avaliação 5 Estrelas",
+        "one_to_ten": "Escala 1-10",
+        "good_bad": "Bom/Ruim",
+        "open_answer": "Resposta Aberta"
+      },
+      "validation": {
+        "missingFields": "Campos obrigatórios ausentes",
+        "questionRequired": "Texto da pergunta é obrigatório",
+        "pillarRequired": "Pilar é obrigatório",
+        "categoryRequired": "Categoria é obrigatória",
+        "optionsMinimum": "Pelo menos 2 opções com texto são obrigatórias",
+        "optionsMaximum": "Máximo de 64 opções permitidas",
+        "optionTextRequired": "Texto da opção é obrigatório",
+        "pointsRequired": "Valor de pontos é obrigatório",
+        "pointsMinimum": "Pontos devem ser 0 ou maior"
+      },
+      "messages": {
+        "createSuccess": "Pergunta \"{{question}}\" criada com sucesso!",
+        "updateSuccess": "Pergunta \"{{question}}\" atualizada com sucesso!"
+      },
+      "buttons": {
+        "create": "Criar",
+        "createAndClose": "Criar e Fechar",
+        "update": "Atualizar",
+        "saving": "Salvando...",
+        "addOption": "Adicionar Opção",
+        "removeOption": "Remover opção"
+      }
+    },
+    "preview": {
+      "title": "Visualização da Pergunta",
+      "howItAppears": "Como esta pergunta aparecerá para os usuários:",
+      "context": {
+        "pillar": "Pilar",
+        "category": "Categoria"
+      },
+      "answers": {
+        "yes": "Sim",
+        "no": "Não",
+        "good": "Bom",
+        "bad": "Ruim"
+      },
+      "placeholders": {
+        "openAnswer": "Digite sua resposta aqui..."
+      },
+      "unknownType": "Tipo de pergunta desconhecido",
+      "pointsValue": "{{points}} pontos",
+      "types": {
+        "yesNo": "Pergunta Sim/Não",
+        "star3": "Avaliação 3 Estrelas",
+        "star5": "Avaliação 5 Estrelas",
+        "oneToTen": "Escala 1-10",
+        "goodBad": "Escolha Bom/Ruim",
+        "openAnswer": "Resposta de Texto Aberta",
+        "customized": "Opções Personalizadas"
+      },
+      "help": {
+        "pointsVisibility": "Mostra valores de pontos para cada opção. Isso é visível apenas para administradores para fins de verificação. Os usuários não verão esses valores de pontos."
+      },
+      "buttons": {
+        "showPoints": "Mostrar Pontos",
+        "hidePoints": "Ocultar Pontos"
+      },
+      "table": {
+        "option": "Opção",
+        "points": "Pontos"
+      },
+      "technicalDetails": "Detalhes Técnicos",
+      "details": {
+        "type": "Tipo",
+        "points": "Pontos",
+        "notApplicable": "N/A",
+        "questionId": "ID da Pergunta",
+        "options": "Opções",
+        "optionsCount": "{{count}} opção{{count, plural, one {} other {ões}}}",
+        "multiSelect": "seleção múltipla"
+      }
+    }
+  },
   "navigation": {
     "home": "Início",
     "dashboard": "Painel",

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useTenant } from '@/infrastructure/auth';
 import { TenantProtected } from '@/infrastructure/auth';
 import { AdminLayout } from '@/infrastructure/layouts';
@@ -13,6 +14,7 @@ import ConfirmationDialog from '@/components/common/ConfirmationDialog';
 import styles from './questions.module.css';
 
 export default function QuestionsPage() {
+  const { t } = useTranslation();
   const { tenantId } = useTenant();
   const [questions, setQuestions] = useState<Question[]>([]);
   const [performanceCycles, setPerformanceCycles] = useState<PerformanceCycle[]>([]);
@@ -109,7 +111,7 @@ export default function QuestionsPage() {
         await questionService.delete(selectedQuestion.id);
         
         // Show success toast
-        setToastMessage(`Question "${selectedQuestion.question}" deleted successfully!`);
+        setToastMessage(t('question.messages.deleteSuccess', { question: selectedQuestion.question }));
         setToastType('success');
         setShowToast(true);
         setTimeout(() => setShowToast(false), 3000);
@@ -121,7 +123,7 @@ export default function QuestionsPage() {
         console.error('Error deleting question:', error);
         
         // Show error toast
-        setToastMessage('Failed to delete question. Please try again.');
+        setToastMessage(t('question.messages.deleteFailed'));
         setToastType('error');
         setShowToast(true);
         setTimeout(() => setShowToast(false), 3000);
@@ -158,13 +160,13 @@ export default function QuestionsPage() {
 
   const getQuestionTypeBadge = (type: QuestionType) => {
     const badges: Record<QuestionType, { color: string; icon: string; label: string }> = {
-      [QuestionType.YES_NO]: { color: 'primary', icon: '✓', label: 'Yes/No' },
-      [QuestionType.STAR_THREE]: { color: 'warning', icon: '★', label: '★★★' },
-      [QuestionType.STAR_FIVE]: { color: 'success', icon: '★', label: '★★★★★' },
-      [QuestionType.ONE_TO_TEN]: { color: 'info', icon: '#', label: '1-10' },
-      [QuestionType.GOOD_BAD]: { color: 'secondary', icon: '±', label: 'Good/Bad' },
-      [QuestionType.OPEN_ANSWER]: { color: 'danger', icon: '✎', label: 'Open' },
-      [QuestionType.CUSTOMIZED]: { color: 'warning', icon: '⚙', label: 'Custom' }
+      [QuestionType.YES_NO]: { color: 'primary', icon: '✓', label: t('question.types.yesNo') },
+      [QuestionType.STAR_THREE]: { color: 'warning', icon: '★', label: t('question.types.star3') },
+      [QuestionType.STAR_FIVE]: { color: 'success', icon: '★', label: t('question.types.star5') },
+      [QuestionType.ONE_TO_TEN]: { color: 'info', icon: '#', label: t('question.types.oneToTen') },
+      [QuestionType.GOOD_BAD]: { color: 'secondary', icon: '±', label: t('question.types.goodBad') },
+      [QuestionType.OPEN_ANSWER]: { color: 'danger', icon: '✎', label: t('question.types.openAnswer') },
+      [QuestionType.CUSTOMIZED]: { color: 'warning', icon: '⚙', label: t('question.types.customized') }
     };
     
     const badge = badges[type];
@@ -210,7 +212,7 @@ export default function QuestionsPage() {
         <AdminLayout>
           <div className="text-center py-5">
             <div className="spinner-border" role="status">
-              <span className="sr-only">Loading...</span>
+              <span className="sr-only">{t('common.status.loading')}</span>
             </div>
           </div>
         </AdminLayout>
@@ -228,7 +230,7 @@ export default function QuestionsPage() {
           <div className="toast show position-fixed" style={{ top: '20px', right: '20px', zIndex: 9999 }}>
             <div className={`toast-header bg-${toastType} text-white`}>
               <i className={`fas fa-${toastType === 'success' ? 'check-circle' : 'exclamation-circle'} mr-2`}></i>
-              <strong className="mr-auto">{toastType === 'success' ? 'Success' : 'Error'}</strong>
+              <strong className="mr-auto">{toastType === 'success' ? t('common.status.success') : t('common.status.error')}</strong>
               <button type="button" className="ml-2 mb-1 close text-white" onClick={() => setShowToast(false)}>
                 <span>&times;</span>
               </button>
@@ -247,7 +249,7 @@ export default function QuestionsPage() {
                 <div className="col-sm-6">
                   <h1 className="m-0">
                     <i className="fas fa-question-circle mr-2"></i>
-                    Questions Management
+                    {t('question.title')}
                   </h1>
                 </div>
                 <div className="col-sm-6">
@@ -259,7 +261,7 @@ export default function QuestionsPage() {
                         disabled={!selectedMatrixId}
                       >
                         <i className="fas fa-plus mr-2"></i>
-                        Add Standard Question
+                        {t('question.buttons.addStandard')}
                       </button>
                       <button 
                         className="btn btn-warning"
@@ -267,7 +269,7 @@ export default function QuestionsPage() {
                         disabled={!selectedMatrixId}
                       >
                         <i className="fas fa-cog mr-2"></i>
-                        Add Custom Question
+                        {t('question.buttons.addCustom')}
                       </button>
                     </div>
                   </div>
@@ -283,20 +285,20 @@ export default function QuestionsPage() {
                 <div className="card-header">
                   <h3 className="card-title">
                     <i className="fas fa-filter mr-2"></i>
-                    Filters
+                    {t('question.filters.title')}
                   </h3>
                 </div>
                 <div className="card-body">
                   <div className="row">
                     <div className="col-md-3">
                       <div className="form-group">
-                        <label>Performance Cycle</label>
+                        <label>{t('question.filters.performanceCycle')}</label>
                         <select
                           className="form-control"
                           value={selectedCycleId}
                           onChange={(e) => setSelectedCycleId(e.target.value)}
                         >
-                          <option value="">Select Performance Cycle</option>
+                          <option value="">{t('question.filters.selectPerformanceCycle')}</option>
                           {performanceCycles.map(cycle => (
                             <option key={cycle.id} value={cycle.id}>
                               {cycle.name}
@@ -307,7 +309,7 @@ export default function QuestionsPage() {
                     </div>
                     <div className="col-md-3">
                       <div className="form-group">
-                        <label>Assessment Matrix</label>
+                        <label>{t('question.filters.assessmentMatrix')}</label>
                         <select
                           className="form-control"
                           value={selectedMatrixId}
@@ -318,7 +320,7 @@ export default function QuestionsPage() {
                           }}
                           disabled={!selectedCycleId}
                         >
-                          <option value="">Select Assessment Matrix</option>
+                          <option value="">{t('question.filters.selectAssessmentMatrix')}</option>
                           {assessmentMatrices
                             .filter(m => !selectedCycleId || m.performanceCycleId === selectedCycleId)
                             .map(matrix => (
@@ -331,7 +333,7 @@ export default function QuestionsPage() {
                     </div>
                     <div className="col-md-3">
                       <div className="form-group">
-                        <label>Pillar</label>
+                        <label>{t('question.filters.pillar')}</label>
                         <select
                           className="form-control"
                           value={selectedPillarId}
@@ -341,7 +343,7 @@ export default function QuestionsPage() {
                           }}
                           disabled={!selectedMatrixId}
                         >
-                          <option value="">All Pillars</option>
+                          <option value="">{t('question.filters.allPillars')}</option>
                           {pillars.map(pillar => (
                             <option key={pillar.id} value={pillar.id}>
                               {pillar.name}
@@ -352,14 +354,14 @@ export default function QuestionsPage() {
                     </div>
                     <div className="col-md-3">
                       <div className="form-group">
-                        <label>Category</label>
+                        <label>{t('question.filters.category')}</label>
                         <select
                           className="form-control"
                           value={selectedCategoryId}
                           onChange={(e) => setSelectedCategoryId(e.target.value)}
                           disabled={!selectedPillarId}
                         >
-                          <option value="">All Categories</option>
+                          <option value="">{t('question.filters.allCategories')}</option>
                           {categories.map(category => (
                             <option key={category.id} value={category.id}>
                               {category.name}
@@ -377,7 +379,7 @@ export default function QuestionsPage() {
                             <i className="fas fa-info"></i>
                           </span>
                           <div className="info-box-content">
-                            <span className="info-box-text">Total Questions</span>
+                            <span className="info-box-text">{t('question.stats.totalQuestions')}</span>
                             <span className="info-box-number">{getFilteredQuestions().length}</span>
                           </div>
                         </div>
@@ -394,7 +396,7 @@ export default function QuestionsPage() {
                     <div className="card">
                       <div className="card-body text-center py-5">
                         <i className="fas fa-question-circle fa-3x text-muted mb-3"></i>
-                        <p className="text-muted">No questions found. Add your first question!</p>
+                        <p className="text-muted">{t('question.messages.noQuestions')}</p>
                       </div>
                     </div>
                   ) : (
@@ -406,7 +408,7 @@ export default function QuestionsPage() {
                           </h3>
                           <div className="card-tools">
                             <span className="badge badge-primary">
-                              {group.questions.length} questions
+                              {t('question.stats.questionCount', { count: group.questions.length })}
                             </span>
                           </div>
                         </div>
@@ -429,13 +431,13 @@ export default function QuestionsPage() {
                                           {question.points !== undefined && (
                                             <span className="badge badge-light ml-2">
                                               <i className="fas fa-star mr-1"></i>
-                                              {question.points} points
+                                              {t('question.details.points', { points: question.points })}
                                             </span>
                                           )}
                                           {question.optionGroup && (
                                             <span className="badge badge-info ml-2">
                                               <i className="fas fa-list mr-1"></i>
-                                              {Object.keys(question.optionGroup.optionMap).length} options
+                                              {t('question.details.options', { count: Object.keys(question.optionGroup.optionMap).length })}
                                             </span>
                                           )}
                                         </div>
@@ -453,21 +455,21 @@ export default function QuestionsPage() {
                                       <button
                                         className="btn btn-sm btn-outline-info"
                                         onClick={() => handlePreview(question)}
-                                        title="Preview"
+                                        title={t('question.buttons.preview')}
                                       >
                                         <i className="fas fa-eye"></i>
                                       </button>
                                       <button
                                         className="btn btn-sm btn-outline-primary"
                                         onClick={() => handleEdit(question)}
-                                        title="Edit"
+                                        title={t('common.actions.edit')}
                                       >
                                         <i className="fas fa-edit"></i>
                                       </button>
                                       <button
                                         className="btn btn-sm btn-outline-danger"
                                         onClick={() => handleDeleteClick(question)}
-                                        title="Delete"
+                                        title={t('common.actions.delete')}
                                       >
                                         <i className="fas fa-trash"></i>
                                       </button>
@@ -489,7 +491,7 @@ export default function QuestionsPage() {
                   <div className="card-body text-center py-5">
                     <i className="fas fa-arrow-up fa-3x text-muted mb-3"></i>
                     <p className="text-muted">
-                      Please select a Performance Cycle and Assessment Matrix to manage questions
+                      {t('question.messages.selectFilters')}
                     </p>
                   </div>
                 </div>
@@ -523,9 +525,9 @@ export default function QuestionsPage() {
         {/* Delete Confirmation */}
         <ConfirmationDialog
           isOpen={showDeleteConfirm}
-          title="Delete Question"
-          message={`Are you sure you want to delete the question "${selectedQuestion?.question}"?`}
-          confirmText="Delete"
+          title={t('question.dialogs.deleteTitle')}
+          message={t('question.dialogs.deleteMessage', { question: selectedQuestion?.question })}
+          confirmText={t('common.actions.delete')}
           type="danger"
           onConfirm={handleDelete}
           onCancel={() => setShowDeleteConfirm(false)}
