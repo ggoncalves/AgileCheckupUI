@@ -731,5 +731,139 @@
   "footer": {
     "copyright": "All rights reserved",
     "version": "Version"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "description": "Performance analytics dashboard for all active assessment cycles.",
+    "loading": {
+      "performanceCycles": "Loading Performance Cycles...",
+      "assessmentMatrices": "Loading Assessment Matrices...",
+      "completionData": "Loading completion data..."
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "warning": "Warning",
+      "completed": "Completed",
+      "goodProgress": "Good Progress",
+      "needsAttention": "Needs Attention",
+      "notStarted": "Not Started"
+    },
+    "buttons": {
+      "retry": "Retry",
+      "viewTeamAnalytics": "View Team Analytics"
+    },
+    "errors": {
+      "loadCyclesFailed": "Failed to load performance cycles. Please try again.",
+      "loadMatricesFailed": "Failed to load assessment matrices. Please try again."
+    },
+    "matrix": {
+      "count": "{{count}} Assessment Matri{{count, plural, one {x} other {ces}}}"
+    },
+    "dates": {
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "notSet": "Not set"
+    },
+    "progress": {
+      "completionProgress": "Completion Progress",
+      "employeesCompleted": "{{completed}} of {{total}} employees completed"
+    },
+    "summary": {
+      "teams": "Teams",
+      "questions": "Questions",
+      "notAvailable": "N/A"
+    },
+    "messages": {
+      "noCompletionData": "No completion data available",
+      "assessmentNotStarted": "Assessment may not have started yet"
+    },
+    "emptyState": {
+      "noMatrices": {
+        "title": "No Assessment Matrices Found",
+        "description": "You have {{count}} active performance cycle{{count, plural, one {} other {s}}}, but no assessment matrices have been created yet. Create assessment matrices to start tracking team performance.",
+        "button": "Create Assessment Matrix"
+      },
+      "noCycles": {
+        "title": "No Active Performance Cycles",
+        "description": "There are no active performance cycles found for {{companyName}}. Create a performance cycle to start tracking team analytics.",
+        "button": "Create Performance Cycle"
+      }
+    },
+    "overview": {
+      "title": "Team Performance Overview",
+      "breadcrumb": "Team Comparison",
+      "defaultMatrixName": "Assessment Matrix",
+      "performanceCycle": "Performance Cycle",
+      "teamComparisonTitle": "Team Comparison Overview",
+      "loading": {
+        "title": "Loading Team Comparison",
+        "subtitle": "Preparing radar graphs for all teams..."
+      },
+      "errors": {
+        "loadFailed": "Failed to load team comparison data. Please try again."
+      },
+      "noPillarAnalysis": "No pillar analysis available",
+      "pillarsFound": "Found {{count}} pillar{{count, plural, one {} other {s}}}",
+      "noPillarData": "No pillar data structure found",
+      "assessmentProgress": "Assessment Progress",
+      "stats": {
+        "employees": "Employees",
+        "score": "Score",
+        "completion": "Completion"
+      },
+      "buttons": {
+        "viewDetails": "View Details"
+      },
+      "noTeams": {
+        "title": "No Teams Found",
+        "description": "No teams have been assigned to this assessment matrix yet."
+      },
+      "noData": {
+        "title": "No Data Available",
+        "description": "No data is available for this assessment matrix."
+      }
+    },
+    "team": {
+      "title": "Team Performance Detail",
+      "teamComparison": "Team Comparison",
+      "teamDefault": "Team {{teamId}}",
+      "loading": {
+        "title": "Loading Team Analytics",
+        "subtitle": "Preparing detailed performance analysis..."
+      },
+      "errors": {
+        "loadFailed": "Failed to load team analytics. Please try again."
+      },
+      "stats": {
+        "teamMembers": "Team Members",
+        "overallScore": "Overall Score",
+        "completion": "Completion",
+        "pillars": "Pillars"
+      },
+      "pillar": {
+        "categories": "Categories",
+        "actual": "Actual",
+        "potential": "Potential",
+        "gapFromPotential": "Gap from potential: {{gap}}%",
+        "noCategoryData": "No category data available"
+      },
+      "noPillarData": {
+        "title": "No Pillar Data Available",
+        "description": "This team hasn't completed enough assessments to generate pillar analysis."
+      },
+      "wordCloud": {
+        "title": "Team Feedback Word Cloud",
+        "generatedFrom": "Generated from {{count}} feedback response{{count, plural, one {} other {s}}}",
+        "noData": {
+          "title": "No Feedback Data Available",
+          "description": "No text feedback has been collected for this team yet."
+        }
+      },
+      "noData": {
+        "title": "No Data Available",
+        "description": "No analytics data is available for this team and assessment matrix combination."
+      }
+    }
   }
 }

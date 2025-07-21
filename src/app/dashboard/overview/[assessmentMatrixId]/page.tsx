@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
 import { TenantProtected } from '@/infrastructure/auth';
 import { AdminLayout } from '@/infrastructure/layouts';
 import { useTenant } from '@/infrastructure/auth';
@@ -13,6 +14,7 @@ import { DASHBOARD_COLORS } from '@/styles/dashboardColors';
 const DashboardOverview: React.FC = () => {
   const params = useParams();
   const router = useRouter();
+  const { t } = useTranslation();
   const assessmentMatrixId = params.assessmentMatrixId as string;
   const { } = useTenant();
   
@@ -31,11 +33,11 @@ const DashboardOverview: React.FC = () => {
       setOverviewData(data);
     } catch (err) {
       console.error('Error loading overview data:', err);
-      setError('Failed to load team comparison data. Please try again.');
+      setError(t('dashboard.overview.errors.loadFailed'));
     } finally {
       setLoading(false);
     }
-  }, [assessmentMatrixId]);
+  }, [assessmentMatrixId, t]);
   
   useEffect(() => {
     // Get matrix name from sessionStorage
@@ -56,14 +58,14 @@ const DashboardOverview: React.FC = () => {
             <div className="container-fluid">
               <div className="row mb-2">
                 <div className="col-sm-6">
-                  <h1 className="m-0">Team Performance Overview</h1>
+                  <h1 className="m-0">{t('dashboard.overview.title')}</h1>
                 </div>
                 <div className="col-sm-6">
                   <ol className="breadcrumb float-sm-right">
                     <li className="breadcrumb-item">
-                      <a href="/dashboard">Dashboard</a>
+                      <a href="/dashboard">{t('dashboard.title')}</a>
                     </li>
-                    <li className="breadcrumb-item active">Team Comparison</li>
+                    <li className="breadcrumb-item active">{t('dashboard.overview.breadcrumb')}</li>
                   </ol>
                 </div>
               </div>
@@ -79,7 +81,7 @@ const DashboardOverview: React.FC = () => {
                     <div className="card-header">
                       <h3 className="card-title">
                         <i className="fas fa-clipboard-check mr-2"></i>
-                        {matrixName || 'Assessment Matrix'}
+                        {matrixName || t('dashboard.overview.defaultMatrixName')}
                       </h3>
                       <div className="card-tools">
                         <button type="button" className="btn btn-tool" data-card-widget="collapse">
@@ -91,20 +93,20 @@ const DashboardOverview: React.FC = () => {
                       {loading && (
                         <div className="text-center py-5">
                           <div className="spinner-border text-primary mb-3" role="status">
-                            <span className="sr-only">Loading...</span>
+                            <span className="sr-only">{t('common.status.loading')}</span>
                           </div>
-                          <h5 className="text-muted">Loading Team Comparison</h5>
-                          <p className="text-muted">Preparing radar graphs for all teams...</p>
+                          <h5 className="text-muted">{t('dashboard.overview.loading.title')}</h5>
+                          <p className="text-muted">{t('dashboard.overview.loading.subtitle')}</p>
                         </div>
                       )}
                       
                       {error && (
                         <div className="alert alert-danger">
-                          <h5><i className="icon fas fa-ban"></i> Error!</h5>
+                          <h5><i className="icon fas fa-ban"></i> {t('common.status.error')}!</h5>
                           {error}
                           <div className="mt-2">
                             <button className="btn btn-outline-danger btn-sm" onClick={loadOverviewData}>
-                              <i className="fas fa-redo"></i> Retry
+                              <i className="fas fa-redo"></i> {t('dashboard.buttons.retry')}
                             </button>
                           </div>
                         </div>
@@ -118,7 +120,7 @@ const DashboardOverview: React.FC = () => {
                               <div className="alert alert-info">
                                 <h6 className="mb-2"><i className="fas fa-building mr-2"></i>{overviewData.metadata.companyName}</h6>
                                 <p className="mb-0">
-                                  <strong>Performance Cycle:</strong> {overviewData.metadata.performanceCycle}
+                                  <strong>{t('dashboard.overview.performanceCycle')}:</strong> {overviewData.metadata.performanceCycle}
                                 </p>
                               </div>
                             </div>
@@ -132,7 +134,7 @@ const DashboardOverview: React.FC = () => {
                                   <div className="card-header">
                                     <h5 className="card-title mb-0">
                                       <i className="fas fa-chart-radar mr-2"></i>
-                                      Team Comparison Overview
+                                      {t('dashboard.overview.teamComparisonTitle')}
                                     </h5>
                                   </div>
                                   <div className="card-body">
@@ -181,11 +183,11 @@ const DashboardOverview: React.FC = () => {
                                       ) : (
                                         <div className="text-center py-4">
                                           <i className="fas fa-chart-radar text-muted mb-2" style={{ fontSize: '2rem' }}></i>
-                                          <p className="text-muted mb-1">No pillar analysis available</p>
+                                          <p className="text-muted mb-1">{t('dashboard.overview.noPillarAnalysis')}</p>
                                           <small className="text-muted">
                                             {team.pillarScores ? 
-                                              `Found ${Object.keys(team.pillarScores).length} pillars` : 
-                                              'No pillar data structure found'
+                                              t('dashboard.overview.pillarsFound', { count: Object.keys(team.pillarScores).length }) : 
+                                              t('dashboard.overview.noPillarData')
                                             }
                                           </small>
                                           <div className="mt-3">
@@ -196,7 +198,7 @@ const DashboardOverview: React.FC = () => {
                                               ></div>
                                             </div>
                                             <small className="text-muted mt-1 d-block">
-                                              Assessment Progress: {team.completionPercentage}%
+                                              {t('dashboard.overview.assessmentProgress')}: {team.completionPercentage}%
                                             </small>
                                           </div>
                                         </div>
@@ -206,15 +208,15 @@ const DashboardOverview: React.FC = () => {
                                       <div className="mt-3">
                                         <div className="row text-center">
                                           <div className="col-4">
-                                            <div className="small text-muted">Employees</div>
+                                            <div className="small text-muted">{t('dashboard.overview.stats.employees')}</div>
                                             <div className="font-weight-bold">{team.employeeCount}</div>
                                           </div>
                                           <div className="col-4">
-                                            <div className="small text-muted">Score</div>
+                                            <div className="small text-muted">{t('dashboard.overview.stats.score')}</div>
                                             <div className="font-weight-bold">{team.totalScore}%</div>
                                           </div>
                                           <div className="col-4">
-                                            <div className="small text-muted">Completion</div>
+                                            <div className="small text-muted">{t('dashboard.overview.stats.completion')}</div>
                                             <div className="font-weight-bold">{team.completionPercentage}%</div>
                                           </div>
                                         </div>
@@ -232,7 +234,7 @@ const DashboardOverview: React.FC = () => {
                                           }}
                                         >
                                           <i className="fas fa-chart-line mr-1"></i>
-                                          View Details
+                                          {t('dashboard.overview.buttons.viewDetails')}
                                         </button>
                                       </div>
                                     </div>
@@ -242,8 +244,8 @@ const DashboardOverview: React.FC = () => {
                             ) : (
                               <div className="col-12">
                                 <div className="alert alert-warning">
-                                  <h5><i className="icon fas fa-exclamation-triangle"></i> No Teams Found</h5>
-                                  No teams have been assigned to this assessment matrix yet.
+                                  <h5><i className="icon fas fa-exclamation-triangle"></i> {t('dashboard.overview.noTeams.title')}</h5>
+                                  {t('dashboard.overview.noTeams.description')}
                                 </div>
                               </div>
                             )}
@@ -253,8 +255,8 @@ const DashboardOverview: React.FC = () => {
                       
                       {!loading && !error && !overviewData && (
                         <div className="alert alert-warning">
-                          <h5><i className="icon fas fa-exclamation-triangle"></i> No Data Available</h5>
-                          No data is available for this assessment matrix.
+                          <h5><i className="icon fas fa-exclamation-triangle"></i> {t('dashboard.overview.noData.title')}</h5>
+                          {t('dashboard.overview.noData.description')}
                         </div>
                       )}
                     </div>

@@ -731,5 +731,139 @@
   "footer": {
     "copyright": "Todos os direitos reservados",
     "version": "Versão"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "description": "Painel de análise de desempenho para todos os ciclos de avaliação ativos.",
+    "loading": {
+      "performanceCycles": "Carregando Ciclos de Performance...",
+      "assessmentMatrices": "Carregando Matrizes de Avaliação...",
+      "completionData": "Carregando dados de conclusão..."
+    },
+    "status": {
+      "active": "Ativo",
+      "inactive": "Inativo",
+      "warning": "Aviso",
+      "completed": "Concluído",
+      "goodProgress": "Bom Progresso",
+      "needsAttention": "Precisa de Atenção",
+      "notStarted": "Não Iniciado"
+    },
+    "buttons": {
+      "retry": "Tentar Novamente",
+      "viewTeamAnalytics": "Ver Análises da Equipe"
+    },
+    "errors": {
+      "loadCyclesFailed": "Falha ao carregar ciclos de performance. Por favor, tente novamente.",
+      "loadMatricesFailed": "Falha ao carregar matrizes de avaliação. Por favor, tente novamente."
+    },
+    "matrix": {
+      "count": "{{count}} Matriz{{count, plural, one {} other {es}}} de Avaliação"
+    },
+    "dates": {
+      "startDate": "Data de Início",
+      "endDate": "Data de Término",
+      "notSet": "Não definido"
+    },
+    "progress": {
+      "completionProgress": "Progresso de Conclusão",
+      "employeesCompleted": "{{completed}} de {{total}} funcionários concluíram"
+    },
+    "summary": {
+      "teams": "Equipes",
+      "questions": "Perguntas",
+      "notAvailable": "N/A"
+    },
+    "messages": {
+      "noCompletionData": "Nenhum dado de conclusão disponível",
+      "assessmentNotStarted": "A avaliação pode não ter começado ainda"
+    },
+    "emptyState": {
+      "noMatrices": {
+        "title": "Nenhuma Matriz de Avaliação Encontrada",
+        "description": "Você tem {{count}} ciclo{{count, plural, one {} other {s}}} de performance ativo{{count, plural, one {} other {s}}}, mas nenhuma matriz de avaliação foi criada ainda. Crie matrizes de avaliação para começar a rastrear o desempenho da equipe.",
+        "button": "Criar Matriz de Avaliação"
+      },
+      "noCycles": {
+        "title": "Nenhum Ciclo de Performance Ativo",
+        "description": "Não há ciclos de performance ativos encontrados para {{companyName}}. Crie um ciclo de performance para começar a rastrear análises de equipe.",
+        "button": "Criar Ciclo de Performance"
+      }
+    },
+    "overview": {
+      "title": "Visão Geral de Desempenho da Equipe",
+      "breadcrumb": "Comparação de Equipes",
+      "defaultMatrixName": "Matriz de Avaliação",
+      "performanceCycle": "Ciclo de Performance",
+      "teamComparisonTitle": "Visão Geral da Comparação de Equipes",
+      "loading": {
+        "title": "Carregando Comparação de Equipes",
+        "subtitle": "Preparando gráficos radar para todas as equipes..."
+      },
+      "errors": {
+        "loadFailed": "Falha ao carregar dados de comparação de equipes. Por favor, tente novamente."
+      },
+      "noPillarAnalysis": "Nenhuma análise de pilares disponível",
+      "pillarsFound": "Encontrado {{count}} pilar{{count, plural, one {} other {es}}}",
+      "noPillarData": "Nenhuma estrutura de dados de pilar encontrada",
+      "assessmentProgress": "Progresso da Avaliação",
+      "stats": {
+        "employees": "Funcionários",
+        "score": "Pontuação",
+        "completion": "Conclusão"
+      },
+      "buttons": {
+        "viewDetails": "Ver Detalhes"
+      },
+      "noTeams": {
+        "title": "Nenhuma Equipe Encontrada",
+        "description": "Nenhuma equipe foi atribuída a esta matriz de avaliação ainda."
+      },
+      "noData": {
+        "title": "Nenhum Dado Disponível",
+        "description": "Nenhum dado está disponível para esta matriz de avaliação."
+      }
+    },
+    "team": {
+      "title": "Detalhes de Desempenho da Equipe",
+      "teamComparison": "Comparação de Equipes",
+      "teamDefault": "Equipe {{teamId}}",
+      "loading": {
+        "title": "Carregando Análises da Equipe",
+        "subtitle": "Preparando análise detalhada de desempenho..."
+      },
+      "errors": {
+        "loadFailed": "Falha ao carregar análises da equipe. Por favor, tente novamente."
+      },
+      "stats": {
+        "teamMembers": "Membros da Equipe",
+        "overallScore": "Pontuação Geral",
+        "completion": "Conclusão",
+        "pillars": "Pilares"
+      },
+      "pillar": {
+        "categories": "Categorias",
+        "actual": "Real",
+        "potential": "Potencial",
+        "gapFromPotential": "Diferença do potencial: {{gap}}%",
+        "noCategoryData": "Nenhum dado de categoria disponível"
+      },
+      "noPillarData": {
+        "title": "Nenhum Dado de Pilar Disponível",
+        "description": "Esta equipe não completou avaliações suficientes para gerar análise de pilares."
+      },
+      "wordCloud": {
+        "title": "Nuvem de Palavras do Feedback da Equipe",
+        "generatedFrom": "Gerado a partir de {{count}} resposta{{count, plural, one {} other {s}}} de feedback",
+        "noData": {
+          "title": "Nenhum Dado de Feedback Disponível",
+          "description": "Nenhum feedback textual foi coletado para esta equipe ainda."
+        }
+      },
+      "noData": {
+        "title": "Nenhum Dado Disponível",
+        "description": "Nenhum dado de análise está disponível para esta combinação de equipe e matriz de avaliação."
+      }
+    }
   }
 }

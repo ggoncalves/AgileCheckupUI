@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
 import { useTenant } from '@/infrastructure/auth';
 import { TenantProtected } from '@/infrastructure/auth';
 import { AdminLayout } from '@/infrastructure/layouts';
@@ -15,6 +16,7 @@ import { getMatrixCardColor } from '@/styles/dashboardColors';
 const Dashboard: React.FC = () => {
   // Hooks
   const router = useRouter();
+  const { t } = useTranslation();
   const { tenantId, companyName } = useTenant();
   const [performanceCycles, setPerformanceCycles] = useState<PerformanceCycle[]>([]);
   const [assessmentMatrices, setAssessmentMatrices] = useState<AssessmentMatrix[]>([]);
@@ -43,11 +45,11 @@ const Dashboard: React.FC = () => {
       setPerformanceCycles(activeCycles);
     } catch (error) {
       console.error('Error loading performance cycles:', error);
-      setCyclesError('Failed to load performance cycles. Please try again.');
+      setCyclesError(t('dashboard.errors.loadCyclesFailed'));
     } finally {
       setLoadingCycles(false);
     }
-  }, [tenantId]);
+  }, [tenantId, t]);
 
   // Step 2: Load Assessment Matrices
   const loadAssessmentMatrices = useCallback(async () => {
@@ -61,11 +63,11 @@ const Dashboard: React.FC = () => {
       setAssessmentMatrices(matrices);
     } catch (error) {
       console.error('Error loading assessment matrices:', error);
-      setMatricesError('Failed to load assessment matrices. Please try again.');
+      setMatricesError(t('dashboard.errors.loadMatricesFailed'));
     } finally {
       setLoadingMatrices(false);
     }
-  }, [tenantId]);
+  }, [tenantId, t]);
 
   // Step 3: Load Dashboard Data for a specific matrix  
   const loadMatrixDashboard = useCallback(async (matrixId: string) => {
@@ -157,11 +159,11 @@ const Dashboard: React.FC = () => {
             <div className="container-fluid">
               <div className="row mb-2">
                 <div className="col-sm-6">
-                  <h1 className="m-0">Dashboard</h1>
+                  <h1 className="m-0">{t('dashboard.title')}</h1>
                 </div>
                 <div className="col-sm-6">
                   <ol className="breadcrumb float-sm-right">
-                    <li className="breadcrumb-item active">Dashboard</li>
+                    <li className="breadcrumb-item active">{t('dashboard.title')}</li>
                   </ol>
                 </div>
               </div>
@@ -177,7 +179,7 @@ const Dashboard: React.FC = () => {
                 <div className="col-12">
                   <div className="alert alert-info">
                     <h5><i className="icon fas fa-building"></i> {companyName}</h5>
-                    <p className="mb-0">Performance analytics dashboard for all active assessment cycles.</p>
+                    <p className="mb-0">{t('dashboard.description')}</p>
                   </div>
                 </div>
               </div>
@@ -189,9 +191,9 @@ const Dashboard: React.FC = () => {
                     <div className="card">
                       <div className="card-body text-center py-4">
                         <div className="spinner-border text-primary mb-3" role="status">
-                          <span className="sr-only">Loading...</span>
+                          <span className="sr-only">{t('common.status.loading')}</span>
                         </div>
-                        <h6 className="text-muted">Loading Performance Cycles...</h6>
+                        <h6 className="text-muted">{t('dashboard.loading.performanceCycles')}</h6>
                       </div>
                     </div>
                   </div>
@@ -204,11 +206,11 @@ const Dashboard: React.FC = () => {
                   <div className="col-12">
                     <div className="alert alert-danger alert-dismissible">
                       <button type="button" className="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      <h5><i className="icon fas fa-ban"></i> Error!</h5>
+                      <h5><i className="icon fas fa-ban"></i> {t('common.status.error')}!</h5>
                       {cyclesError}
                       <div className="mt-2">
                         <button className="btn btn-outline-danger btn-sm" onClick={retryLoadCycles}>
-                          <i className="fas fa-redo"></i> Retry
+                          <i className="fas fa-redo"></i> {t('dashboard.buttons.retry')}
                         </button>
                       </div>
                     </div>
@@ -223,9 +225,9 @@ const Dashboard: React.FC = () => {
                     <div className="card">
                       <div className="card-body text-center py-4">
                         <div className="spinner-border text-secondary mb-3" role="status">
-                          <span className="sr-only">Loading...</span>
+                          <span className="sr-only">{t('common.status.loading')}</span>
                         </div>
-                        <h6 className="text-muted">Loading Assessment Matrices...</h6>
+                        <h6 className="text-muted">{t('dashboard.loading.assessmentMatrices')}</h6>
                       </div>
                     </div>
                   </div>
@@ -238,11 +240,11 @@ const Dashboard: React.FC = () => {
                   <div className="col-12">
                     <div className="alert alert-warning alert-dismissible">
                       <button type="button" className="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      <h5><i className="icon fas fa-exclamation-triangle"></i> Warning!</h5>
+                      <h5><i className="icon fas fa-exclamation-triangle"></i> {t('dashboard.status.warning')}!</h5>
                       {matricesError}
                       <div className="mt-2">
                         <button className="btn btn-outline-warning btn-sm" onClick={retryLoadMatrices}>
-                          <i className="fas fa-redo"></i> Retry
+                          <i className="fas fa-redo"></i> {t('dashboard.buttons.retry')}
                         </button>
                       </div>
                     </div>
@@ -262,10 +264,10 @@ const Dashboard: React.FC = () => {
                         </h3>
                         <div className="card-tools">
                           <span className="badge badge-primary">
-                            {group.matrices.length} Assessment Matrix{group.matrices.length !== 1 ? 'es' : ''}
+                            {t('dashboard.matrix.count', { count: group.matrices.length })}
                           </span>
                           <span className="badge badge-secondary ml-2">
-                            {group.cycle.isActive ? 'Active' : 'Inactive'}
+                            {group.cycle.isActive ? t('dashboard.status.active') : t('dashboard.status.inactive')}
                           </span>
                         </div>
                       </div>
@@ -282,13 +284,13 @@ const Dashboard: React.FC = () => {
                           <div className="col-md-6">
                             <small className="text-muted">
                               <i className="fas fa-calendar-alt mr-1"></i>
-                              <strong>Start Date:</strong> {group.cycle.startDate ? new Date(group.cycle.startDate).toLocaleDateString() : 'Not set'}
+                              <strong>{t('dashboard.dates.startDate')}:</strong> {group.cycle.startDate ? new Date(group.cycle.startDate).toLocaleDateString() : t('dashboard.dates.notSet')}
                             </small>
                           </div>
                           <div className="col-md-6">
                             <small className="text-muted">
                               <i className="fas fa-calendar-check mr-1"></i>
-                              <strong>End Date:</strong> {group.cycle.endDate ? new Date(group.cycle.endDate).toLocaleDateString() : 'Not set'}
+                              <strong>{t('dashboard.dates.endDate')}:</strong> {group.cycle.endDate ? new Date(group.cycle.endDate).toLocaleDateString() : t('dashboard.dates.notSet')}
                             </small>
                           </div>
                         </div>
@@ -311,11 +313,11 @@ const Dashboard: React.FC = () => {
 
                             // Determine status badge
                             const getStatusBadge = () => {
-                              if (!dashboardData) return { text: 'Loading', class: 'badge-secondary' };
-                              if (completionPercentage >= 100) return { text: 'Completed', class: 'badge-success' };
-                              if (completionPercentage >= 50) return { text: 'Good Progress', class: 'badge-primary' };
-                              if (completionPercentage > 0) return { text: 'Needs Attention', class: 'badge-warning' };
-                              return { text: 'Not Started', class: 'badge-light' };
+                              if (!dashboardData) return { text: t('common.status.loading'), class: 'badge-secondary' };
+                              if (completionPercentage >= 100) return { text: t('dashboard.status.completed'), class: 'badge-success' };
+                              if (completionPercentage >= 50) return { text: t('dashboard.status.goodProgress'), class: 'badge-primary' };
+                              if (completionPercentage > 0) return { text: t('dashboard.status.needsAttention'), class: 'badge-warning' };
+                              return { text: t('dashboard.status.notStarted'), class: 'badge-light' };
                             };
 
                             const statusBadge = getStatusBadge();
@@ -361,9 +363,9 @@ const Dashboard: React.FC = () => {
                                     {loadingDashboards.has(matrix.id) && (
                                       <div className="text-center py-4">
                                         <div className="spinner-border spinner-border-sm text-primary" role="status">
-                                          <span className="sr-only">Loading...</span>
+                                          <span className="sr-only">{t('common.status.loading')}</span>
                                         </div>
-                                        <div className="small text-muted mt-2">Loading completion data...</div>
+                                        <div className="small text-muted mt-2">{t('dashboard.loading.completionData')}</div>
                                       </div>
                                     )}
 
@@ -373,7 +375,7 @@ const Dashboard: React.FC = () => {
                                         {/* Progress Section */}
                                         <div className="mb-3">
                                           <div className="d-flex justify-content-between align-items-center mb-2">
-                                            <span className="small text-muted">Completion Progress:</span>
+                                            <span className="small text-muted">{t('dashboard.progress.completionProgress')}:</span>
                                             <span className="font-weight-bold" style={{ color: cardColors?.text }}>
                                               {completionPercentage}%
                                             </span>
@@ -389,7 +391,7 @@ const Dashboard: React.FC = () => {
                                           </div>
                                           <div className="small text-muted">
                                             <i className="fas fa-users mr-1"></i>
-                                            {completedAssessments} of {totalEmployees} employees completed
+                                            {t('dashboard.progress.employeesCompleted', { completed: completedAssessments, total: totalEmployees })}
                                           </div>
                                         </div>
 
@@ -397,12 +399,12 @@ const Dashboard: React.FC = () => {
                                         <div className="mb-3">
                                           <div className="row text-center">
                                             <div className="col-6">
-                                              <div className="small text-muted">Teams</div>
+                                              <div className="small text-muted">{t('dashboard.summary.teams')}</div>
                                               <div className="font-weight-bold">{dashboardData.teamSummaries?.length || 0}</div>
                                             </div>
                                             <div className="col-6">
-                                              <div className="small text-muted">Questions</div>
-                                              <div className="font-weight-bold">{matrix.questionCount || 'N/A'}</div>
+                                              <div className="small text-muted">{t('dashboard.summary.questions')}</div>
+                                              <div className="font-weight-bold">{matrix.questionCount || t('dashboard.summary.notAvailable')}</div>
                                             </div>
                                           </div>
                                         </div>
@@ -425,7 +427,7 @@ const Dashboard: React.FC = () => {
                                             }}
                                           >
                                             <i className="fas fa-chart-bar mr-2"></i>
-                                            View Team Analytics
+                                            {t('dashboard.buttons.viewTeamAnalytics')}
                                           </button>
                                         </div>
                                       </>
@@ -435,9 +437,9 @@ const Dashboard: React.FC = () => {
                                     {!loadingDashboards.has(matrix.id) && !dashboardData && (
                                       <div className="text-center py-4">
                                         <i className="fas fa-exclamation-triangle text-warning mb-2" style={{ fontSize: '2rem' }}></i>
-                                        <div className="text-muted">No completion data available</div>
+                                        <div className="text-muted">{t('dashboard.messages.noCompletionData')}</div>
                                         <div className="small text-muted mt-2">
-                                          Assessment may not have started yet
+                                          {t('dashboard.messages.assessmentNotStarted')}
                                         </div>
                                       </div>
                                     )}
@@ -462,14 +464,13 @@ const Dashboard: React.FC = () => {
                         <div className="mb-4">
                           <i className="fas fa-clipboard-list text-muted" style={{ fontSize: '4rem' }}></i>
                         </div>
-                        <h4 className="text-muted">No Assessment Matrices Found</h4>
+                        <h4 className="text-muted">{t('dashboard.emptyState.noMatrices.title')}</h4>
                         <p className="text-muted mb-4">
-                          You have {performanceCycles.length} active performance cycle(s), but no assessment matrices have been created yet.
-                          Create assessment matrices to start tracking team performance.
+                          {t('dashboard.emptyState.noMatrices.description', { count: performanceCycles.length })}
                         </p>
                         <a href="/assessmentmatrices" className="btn btn-primary">
                           <i className="fas fa-plus mr-2"></i>
-                          Create Assessment Matrix
+                          {t('dashboard.emptyState.noMatrices.button')}
                         </a>
                       </div>
                     </div>
@@ -486,14 +487,13 @@ const Dashboard: React.FC = () => {
                         <div className="mb-4">
                           <i className="fas fa-chart-bar text-muted" style={{ fontSize: '4rem' }}></i>
                         </div>
-                        <h4 className="text-muted">No Active Performance Cycles</h4>
+                        <h4 className="text-muted">{t('dashboard.emptyState.noCycles.title')}</h4>
                         <p className="text-muted mb-4">
-                          There are no active performance cycles found for {companyName}. 
-                          Create a performance cycle to start tracking team analytics.
+                          {t('dashboard.emptyState.noCycles.description', { companyName })}
                         </p>
                         <a href="/performancecycles" className="btn btn-primary">
                           <i className="fas fa-plus mr-2"></i>
-                          Create Performance Cycle
+                          {t('dashboard.emptyState.noCycles.button')}
                         </a>
                       </div>
                     </div>
