@@ -3,7 +3,7 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation'; // Change to next/navigation
 import CompanySelector from '@/components/CompanySelector';
-import { useTenant } from '@/contexts/TenantContext';
+import { useTenant } from '@/infrastructure/auth';
 
 export default function SelectCompany() {
   const router = useRouter();

@@ -2,9 +2,10 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'next/navigation';
-import TenantProtected from '@/components/TenantProtected';
-import AdminLayout from '@/components/layout/AdminLayout';
-import { useTenant } from '@/contexts/TenantContext';
+import { useTranslation } from 'react-i18next';
+import { TenantProtected } from '@/infrastructure/auth';
+import { AdminLayout } from '@/infrastructure/layouts';
+import { useTenant } from '@/infrastructure/auth';
 import dashboardAnalyticsService, { DashboardAnalyticsTeamResponse } from '@/services/dashboardAnalyticsService';
 import RadarChart from '@/components/charts/RadarChart';
 import { transformCategoriesToChartData } from '@/utils/chartUtils';
@@ -13,6 +14,7 @@ import { DASHBOARD_COLORS } from '@/styles/dashboardColors';
 
 const TeamDetail: React.FC = () => {
   const params = useParams();
+  const { t } = useTranslation();
   const assessmentMatrixId = params.assessmentMatrixId as string;
   const teamId = params.teamId as string;
   const { } = useTenant();
@@ -33,11 +35,11 @@ const TeamDetail: React.FC = () => {
       setTeamData(data);
     } catch (err) {
       console.error('Error loading team data:', err);
-      setError('Failed to load team analytics. Please try again.');
+      setError(t('dashboard.team.errors.loadFailed'));
     } finally {
       setLoading(false);
     }
-  }, [assessmentMatrixId, teamId]);
+  }, [assessmentMatrixId, teamId, t]);
   
   useEffect(() => {
     // Get matrix name from sessionStorage
@@ -58,18 +60,18 @@ const TeamDetail: React.FC = () => {
             <div className="container-fluid">
               <div className="row mb-2">
                 <div className="col-sm-6">
-                  <h1 className="m-0">Team Performance Detail</h1>
+                  <h1 className="m-0">{t('dashboard.team.title')}</h1>
                 </div>
                 <div className="col-sm-6">
                   <ol className="breadcrumb float-sm-right">
                     <li className="breadcrumb-item">
-                      <a href="/dashboard">Dashboard</a>
+                      <a href="/dashboard">{t('dashboard.title')}</a>
                     </li>
                     <li className="breadcrumb-item">
-                      <a href={`/dashboard/overview/${assessmentMatrixId}`}>{matrixName || 'Team Comparison'}</a>
+                      <a href={`/dashboard/overview/${assessmentMatrixId}`}>{matrixName || t('dashboard.team.teamComparison')}</a>
                     </li>
                     <li className="breadcrumb-item active">
-                      {teamData?.teamName || `Team ${teamId}`}
+                      {teamData?.teamName || t('dashboard.team.teamDefault', { teamId })}
                     </li>
                   </ol>
                 </div>
@@ -88,10 +90,10 @@ const TeamDetail: React.FC = () => {
                     <div className="card">
                       <div className="card-body text-center py-5">
                         <div className="spinner-border text-primary mb-3" role="status">
-                          <span className="sr-only">Loading...</span>
+                          <span className="sr-only">{t('common.status.loading')}</span>
                         </div>
-                        <h5 className="text-muted">Loading Team Analytics</h5>
-                        <p className="text-muted">Preparing detailed performance analysis...</p>
+                        <h5 className="text-muted">{t('dashboard.team.loading.title')}</h5>
+                        <p className="text-muted">{t('dashboard.team.loading.subtitle')}</p>
                       </div>
                     </div>
                   </div>
@@ -103,11 +105,11 @@ const TeamDetail: React.FC = () => {
                 <div className="row">
                   <div className="col-12">
                     <div className="alert alert-danger">
-                      <h5><i className="icon fas fa-ban"></i> Error!</h5>
+                      <h5><i className="icon fas fa-ban"></i> {t('common.status.error')}!</h5>
                       {error}
                       <div className="mt-2">
                         <button className="btn btn-outline-danger btn-sm" onClick={loadTeamData}>
-                          <i className="fas fa-redo"></i> Retry
+                          <i className="fas fa-redo"></i> {t('dashboard.buttons.retry')}
                         </button>
                       </div>
                     </div>
@@ -126,7 +128,7 @@ const TeamDetail: React.FC = () => {
                           <i className="fas fa-users"></i>
                         </span>
                         <div className="info-box-content">
-                          <span className="info-box-text">Team Members</span>
+                          <span className="info-box-text">{t('dashboard.team.stats.teamMembers')}</span>
                           <span className="info-box-number">{teamData.employeeCount}</span>
                         </div>
                       </div>
@@ -137,7 +139,7 @@ const TeamDetail: React.FC = () => {
                           <i className="fas fa-chart-line"></i>
                         </span>
                         <div className="info-box-content">
-                          <span className="info-box-text">Overall Score</span>
+                          <span className="info-box-text">{t('dashboard.team.stats.overallScore')}</span>
                           <span className="info-box-number">{teamData.totalScore}%</span>
                         </div>
                       </div>
@@ -148,7 +150,7 @@ const TeamDetail: React.FC = () => {
                           <i className="fas fa-tasks"></i>
                         </span>
                         <div className="info-box-content">
-                          <span className="info-box-text">Completion</span>
+                          <span className="info-box-text">{t('dashboard.team.stats.completion')}</span>
                           <span className="info-box-number">{teamData.completionPercentage}%</span>
                         </div>
                       </div>
@@ -159,7 +161,7 @@ const TeamDetail: React.FC = () => {
                           <i className="fas fa-layer-group"></i>
                         </span>
                         <div className="info-box-content">
-                          <span className="info-box-text">Pillars</span>
+                          <span className="info-box-text">{t('dashboard.team.stats.pillars')}</span>
                           <span className="info-box-number">{Object.keys(teamData.pillarScores || {}).length}</span>
                         </div>
                       </div>
@@ -188,19 +190,19 @@ const TeamDetail: React.FC = () => {
                               <div className="row mb-3">
                                 <div className="col-4">
                                   <div className="text-center">
-                                    <div className="small text-muted">Categories</div>
+                                    <div className="small text-muted">{t('dashboard.team.pillar.categories')}</div>
                                     <div className="font-weight-bold">{pillar.categories?.length || 0}</div>
                                   </div>
                                 </div>
                                 <div className="col-4">
                                   <div className="text-center">
-                                    <div className="small text-muted">Actual</div>
+                                    <div className="small text-muted">{t('dashboard.team.pillar.actual')}</div>
                                     <div className="font-weight-bold">{pillar.actualScore}</div>
                                   </div>
                                 </div>
                                 <div className="col-4">
                                   <div className="text-center">
-                                    <div className="small text-muted">Potential</div>
+                                    <div className="small text-muted">{t('dashboard.team.pillar.potential')}</div>
                                     <div className="font-weight-bold">{pillar.potentialScore}</div>
                                   </div>
                                 </div>
@@ -211,7 +213,7 @@ const TeamDetail: React.FC = () => {
                                 <div className="alert alert-warning py-2 mb-3">
                                   <small>
                                     <i className="fas fa-exclamation-triangle mr-1"></i>
-                                    Gap from potential: {Math.round(pillar.gapFromPotential)}%
+                                    {t('dashboard.team.pillar.gapFromPotential', { gap: Math.round(pillar.gapFromPotential) })}
                                   </small>
                                 </div>
                               )}
@@ -242,7 +244,7 @@ const TeamDetail: React.FC = () => {
                               ) : (
                                 <div className="text-center py-4">
                                   <i className="fas fa-exclamation-circle text-muted mb-2" style={{ fontSize: '2rem' }}></i>
-                                  <p className="text-muted mb-0">No category data available</p>
+                                  <p className="text-muted mb-0">{t('dashboard.team.pillar.noCategoryData')}</p>
                                 </div>
                               )}
                             </div>
@@ -254,8 +256,8 @@ const TeamDetail: React.FC = () => {
                         <div className="card">
                           <div className="card-body text-center py-5">
                             <i className="fas fa-layer-group text-muted mb-3" style={{ fontSize: '3rem' }}></i>
-                            <h5 className="text-muted">No Pillar Data Available</h5>
-                            <p className="text-muted">This team hasn&apos;t completed enough assessments to generate pillar analysis.</p>
+                            <h5 className="text-muted">{t('dashboard.team.noPillarData.title')}</h5>
+                            <p className="text-muted">{t('dashboard.team.noPillarData.description')}</p>
                           </div>
                         </div>
                       </div>
@@ -269,7 +271,7 @@ const TeamDetail: React.FC = () => {
                         <div className="card-header">
                           <h3 className="card-title">
                             <i className="fas fa-cloud mr-2"></i>
-                            Team Feedback Word Cloud
+                            {t('dashboard.team.wordCloud.title')}
                           </h3>
                         </div>
                         <div className="card-body">
@@ -277,7 +279,7 @@ const TeamDetail: React.FC = () => {
                             <div className="text-center py-4">
                               <p className="text-info mb-3">
                                 <i className="fas fa-info-circle mr-1"></i>
-                                Generated from {teamData.wordCloud.totalWords} feedback responses
+                                {t('dashboard.team.wordCloud.generatedFrom', { count: teamData.wordCloud.totalResponses })}
                               </p>
                               {/* Simple word cloud representation */}
                               <div className="word-cloud-container">
@@ -299,8 +301,8 @@ const TeamDetail: React.FC = () => {
                           ) : (
                             <div className="text-center py-5">
                               <i className="fas fa-cloud text-muted mb-3" style={{ fontSize: '3rem' }}></i>
-                              <h5 className="text-muted">No Feedback Data Available</h5>
-                              <p className="text-muted">No text feedback has been collected for this team yet.</p>
+                              <h5 className="text-muted">{t('dashboard.team.wordCloud.noData.title')}</h5>
+                              <p className="text-muted">{t('dashboard.team.wordCloud.noData.description')}</p>
                             </div>
                           )}
                         </div>
@@ -315,8 +317,8 @@ const TeamDetail: React.FC = () => {
                 <div className="row">
                   <div className="col-12">
                     <div className="alert alert-warning">
-                      <h5><i className="icon fas fa-exclamation-triangle"></i> No Data Available</h5>
-                      No analytics data is available for this team and assessment matrix combination.
+                      <h5><i className="icon fas fa-exclamation-triangle"></i> {t('dashboard.team.noData.title')}</h5>
+                      {t('dashboard.team.noData.description')}
                     </div>
                   </div>
                 </div>

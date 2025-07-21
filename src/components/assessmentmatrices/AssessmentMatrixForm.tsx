@@ -1,9 +1,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { AssessmentMatrix, AssessmentMatrixCreateDto, Pillar, Category } from '@/services/assessmentMatrixService';
 import { performanceCycleService, PerformanceCycle } from '@/services/performanceCycleService';
-import { useTenant } from '@/contexts/TenantContext';
+import { useTenant } from '@/infrastructure/auth';
 import ConfirmationDialog from '@/components/common/ConfirmationDialog';
 
 interface AssessmentMatrixFormProps {
@@ -19,6 +20,7 @@ const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
   onCancel,
   selectedPerformanceCycleId
 }) => {
+  const { t } = useTranslation();
   const { tenantId } = useTenant();
   const [formData, setFormData] = useState<AssessmentMatrixCreateDto>({
     name: '',
@@ -96,13 +98,13 @@ const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
     // Validate pillars and categories have names
     for (const pillar of Object.values(formData.pillarMap)) {
       if (!pillar.name || pillar.name.trim() === '') {
-        alert('All pillars must have a name');
+        alert(t('assessmentMatrix.form.validation.pillarNameRequired'));
         return;
       }
       
       for (const category of Object.values(pillar.categoryMap)) {
         if (!category.name || category.name.trim() === '') {
-          alert('All categories must have a name');
+          alert(t('assessmentMatrix.form.validation.categoryNameRequired'));
           return;
         }
       }
@@ -177,8 +179,8 @@ const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
     
     setConfirmDialog({
       isOpen: true,
-      title: 'Delete Pillar',
-      message: `Are you sure you want to delete the pillar "${pillar.name}"? This will also delete all its categories.`,
+      title: t('assessmentMatrix.form.dialogs.deletePillar.title'),
+      message: t('assessmentMatrix.form.dialogs.deletePillar.message', { pillarName: pillar.name }),
       onConfirm: () => {
         setFormData(prev => {
           const newPillarMap = { ...prev.pillarMap };
@@ -238,14 +240,14 @@ const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
     
     // Don't allow deleting the last category
     if (categoryCount <= 1) {
-      alert('A pillar must have at least one category.');
+      alert(t('assessmentMatrix.form.validation.pillarNeedsCategory'));
       return;
     }
     
     setConfirmDialog({
       isOpen: true,
-      title: 'Delete Category',
-      message: `Are you sure you want to delete the category "${category.name}"?`,
+      title: t('assessmentMatrix.form.dialogs.deleteCategory.title'),
+      message: t('assessmentMatrix.form.dialogs.deleteCategory.message', { categoryName: category.name }),
       onConfirm: () => {
         setFormData(prev => {
           const newCategoryMap = { ...prev.pillarMap[pillarId].categoryMap };
@@ -271,14 +273,14 @@ const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
       <div className="card">
         <div className="card-header">
           <h3 className="card-title">
-            {matrix ? 'Edit Assessment Matrix' : 'Create Assessment Matrix'}
+            {matrix ? t('assessmentMatrix.form.editTitle') : t('assessmentMatrix.form.createTitle')}
           </h3>
         </div>
         <div className="card-body">
           <div className="row">
             <div className="col-md-6">
               <div className="form-group">
-                <label htmlFor="name">Name *</label>
+                <label htmlFor="name">{t('assessmentMatrix.form.fields.name')} *</label>
                 <input
                   type="text"
                   className="form-control"
@@ -291,7 +293,7 @@ const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
             </div>
             <div className="col-md-6">
               <div className="form-group">
-                <label htmlFor="performanceCycleId">Performance Cycle *</label>
+                <label htmlFor="performanceCycleId">{t('assessmentMatrix.form.fields.performanceCycle')} *</label>
                 <select
                   className="form-control"
                   id="performanceCycleId"
@@ -299,7 +301,7 @@ const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
                   onChange={(e) => setFormData({ ...formData, performanceCycleId: e.target.value })}
                   required
                 >
-                  <option value="">Select Performance Cycle</option>
+                  <option value="">{t('assessmentMatrix.form.placeholders.selectPerformanceCycle')}</option>
                   {performanceCycles.map(cycle => (
                     <option key={cycle.id} value={cycle.id}>
                       {cycle.name}
@@ -307,14 +309,14 @@ const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
                   ))}
                 </select>
                 {selectedPerformanceCycleId && (
-                  <small className="text-muted">Pre-selected from filter</small>
+                  <small className="text-muted">{t('assessmentMatrix.form.help.preselectedFromFilter')}</small>
                 )}
               </div>
             </div>
           </div>
           
           <div className="form-group">
-            <label htmlFor="description">Description</label>
+            <label htmlFor="description">{t('assessmentMatrix.form.fields.description')}</label>
             <textarea
               className="form-control"
               id="description"
@@ -326,13 +328,13 @@ const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
 
           <div className="form-group">
             <div className="d-flex justify-content-between align-items-center mb-3">
-              <label>Pillars & Categories</label>
+              <label>{t('assessmentMatrix.form.sections.pillarsAndCategories')}</label>
               <button
                 type="button"
                 className="btn btn-sm btn-success"
                 onClick={addPillar}
               >
-                <i className="fas fa-plus"></i> Add Pillar
+                <i className="fas fa-plus"></i> {t('assessmentMatrix.form.buttons.addPillar')}
               </button>
             </div>
             
@@ -344,7 +346,7 @@ const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
                       <input
                         type="text"
                         className={`form-control ${!pillar.name ? 'is-invalid' : ''}`}
-                        placeholder="Pillar name *"
+                        placeholder={t('assessmentMatrix.form.placeholders.pillarName')}
                         value={pillar.name}
                         onChange={(e) => updatePillar(pillarId, 'name', e.target.value)}
                         required
@@ -354,7 +356,7 @@ const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
                       <input
                         type="text"
                         className="form-control"
-                        placeholder="Pillar description"
+                        placeholder={t('assessmentMatrix.form.placeholders.pillarDescription')}
                         value={pillar.description || ''}
                         onChange={(e) => updatePillar(pillarId, 'description', e.target.value)}
                       />
@@ -372,13 +374,13 @@ const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
                 </div>
                 <div className="card-body">
                   <div className="d-flex justify-content-between align-items-center mb-2">
-                    <small className="text-muted">Categories</small>
+                    <small className="text-muted">{t('assessmentMatrix.form.sections.categories')}</small>
                     <button
                       type="button"
                       className="btn btn-sm btn-outline-success"
                       onClick={() => addCategory(pillarId)}
                     >
-                      <i className="fas fa-plus"></i> Add Category
+                      <i className="fas fa-plus"></i> {t('assessmentMatrix.form.buttons.addCategory')}
                     </button>
                   </div>
                   
@@ -388,7 +390,7 @@ const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
                         <input
                           type="text"
                           className={`form-control form-control-sm ${!category.name ? 'is-invalid' : ''}`}
-                          placeholder="Category name *"
+                          placeholder={t('assessmentMatrix.form.placeholders.categoryName')}
                           value={category.name}
                           onChange={(e) => updateCategory(pillarId, categoryId, 'name', e.target.value)}
                           required
@@ -398,7 +400,7 @@ const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
                         <input
                           type="text"
                           className="form-control form-control-sm"
-                          placeholder="Category description"
+                          placeholder={t('assessmentMatrix.form.placeholders.categoryDescription')}
                           value={category.description || ''}
                           onChange={(e) => updateCategory(pillarId, categoryId, 'description', e.target.value)}
                         />
@@ -409,7 +411,7 @@ const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
                           className="btn btn-sm btn-outline-danger"
                           onClick={() => deleteCategory(pillarId, categoryId)}
                           disabled={Object.keys(pillar.categoryMap).length <= 1}
-                          title={Object.keys(pillar.categoryMap).length <= 1 ? "A pillar must have at least one category" : "Delete category"}
+                          title={Object.keys(pillar.categoryMap).length <= 1 ? t('assessmentMatrix.form.validation.pillarNeedsCategory') : t('assessmentMatrix.form.buttons.deleteCategory')}
                         >
                           <i className="fas fa-trash"></i>
                         </button>
@@ -428,14 +430,14 @@ const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
             className="btn btn-primary"
             disabled={loading}
           >
-            {loading ? 'Saving...' : 'Save'}
+            {loading ? t('assessmentMatrix.form.buttons.saving') : t('assessmentMatrix.form.buttons.save')}
           </button>
           <button
             type="button"
             className="btn btn-secondary ml-2"
             onClick={onCancel}
           >
-            Cancel
+            {t('common.actions.cancel')}
           </button>
         </div>
       </div>
@@ -446,7 +448,7 @@ const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
         message={confirmDialog.message}
         onConfirm={confirmDialog.onConfirm}
         onCancel={() => setConfirmDialog(prev => ({ ...prev, isOpen: false }))}
-        confirmText="Delete"
+        confirmText={t('common.actions.delete')}
         type="danger"
       />
     </form>

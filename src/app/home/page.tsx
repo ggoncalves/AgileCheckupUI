@@ -1,8 +1,8 @@
 'use client'
 
 import React from 'react';
-import AdminLayout from '@/components/layout/AdminLayout';
-import { useTenant } from '@/contexts/TenantContext';
+import { AdminLayout } from '@/infrastructure/layouts';
+import { useTenant } from '@/infrastructure/auth';
 
 export default function Dashboard() {
   const { companyName } = useTenant();

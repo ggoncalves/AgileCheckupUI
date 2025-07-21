@@ -2,9 +2,13 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
 import TenantInfo from '../TenantInfo';
+import LanguageSwitcher from '../LanguageSwitcher';
 
 const Navbar: React.FC = () => {
+  const { t } = useTranslation();
+  
   return (
     <nav className="main-header navbar navbar-expand navbar-white navbar-light">
       {/* Left navbar links */}
@@ -15,10 +19,10 @@ const Navbar: React.FC = () => {
           </a>
         </li>
         <li className="nav-item d-none d-sm-inline-block">
-          <Link href="/" className="nav-link">Home</Link>
+          <Link href="/" className="nav-link">{t('navigation.home')}</Link>
         </li>
         <li className="nav-item d-none d-sm-inline-block">
-          <Link href="/dashboard" className="nav-link">Dashboard</Link>
+          <Link href="/dashboard" className="nav-link">{t('navigation.dashboard')}</Link>
         </li>
       </ul>
 
@@ -26,6 +30,9 @@ const Navbar: React.FC = () => {
       <ul className="navbar-nav ml-auto">
         {/* Tenant info */}
         <TenantInfo />
+
+        {/* Language Switcher */}
+        <LanguageSwitcher />
 
         {/* Search form */}
         <li className="nav-item">
@@ -35,7 +42,7 @@ const Navbar: React.FC = () => {
           <div className="navbar-search-block">
             <form className="form-inline">
               <div className="input-group input-group-sm">
-                <input className="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search" />
+                <input className="form-control form-control-navbar" type="search" placeholder={t('common.actions.search')} aria-label={t('common.actions.search')} />
                 <div className="input-group-append">
                   <button className="btn btn-navbar" type="submit">
                     <i className="fas fa-search"></i>

@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect, ReactNode, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 
 
 // Generic types
@@ -49,6 +50,7 @@ function AbstractCRUD<T extends CrudItem>({
                                             canEdit,
                                             canDelete
                                           }: AbstractCRUDProps<T>) {
+  const { t } = useTranslation();
   const [items, setItems] = useState<T[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -89,7 +91,7 @@ function AbstractCRUD<T extends CrudItem>({
   };
 
   const handleDelete = async (id: string) => {
-    if (window.confirm(`Are you sure you want to delete this ${itemName}?`)) {
+    if (window.confirm(t('common.messages.confirmDelete'))) {
       try {
         await api.delete(id);
         setItems(items.filter(item => item.id !== id));
@@ -194,7 +196,7 @@ function AbstractCRUD<T extends CrudItem>({
         <div className="container-fluid">
           <div className="card">
             <div className="card-header">
-              <h3 className="card-title">{itemName} List</h3>
+              <h3 className="card-title">{t('common.labels.list')} {itemName}s</h3>
               <div className="card-tools">
                 <button
                   type="button"
@@ -202,7 +204,7 @@ function AbstractCRUD<T extends CrudItem>({
                   onClick={handleAddNew}
                   disabled={showForm}
                 >
-                  <i className="fas fa-plus mr-1"></i> Add New {itemName}
+                  <i className="fas fa-plus mr-1"></i> {t('common.actions.addNew')} {itemName}
                 </button>
               </div>
             </div>
@@ -215,7 +217,7 @@ function AbstractCRUD<T extends CrudItem>({
                 <input
                   type="text"
                   className="form-control"
-                  placeholder={`Search ${itemName}s...`}
+                  placeholder={`${t('common.actions.search')} ${itemName}s...`}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
@@ -245,7 +247,7 @@ function AbstractCRUD<T extends CrudItem>({
                         )}
                       </th>
                     ))}
-                    <th className="text-nowrap" style={{ minWidth: '140px' }}>Actions</th>
+                    <th className="text-nowrap" style={{ minWidth: '140px' }}>{t('common.labels.actions')}</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -280,7 +282,7 @@ function AbstractCRUD<T extends CrudItem>({
                               onClick={() => handleEdit(item)}
                               disabled={showForm}
                             >
-                              <i className="fas fa-edit"></i> Edit
+                              <i className="fas fa-edit"></i> {t('common.actions.edit')}
                             </button>
                           )}
                           {(!canDelete || canDelete(item)) && (
@@ -289,7 +291,7 @@ function AbstractCRUD<T extends CrudItem>({
                               onClick={() => handleDelete(item.id)}
                               disabled={showForm}
                             >
-                              <i className="fas fa-trash"></i> Delete
+                              <i className="fas fa-trash"></i> {t('common.actions.delete')}
                             </button>
                           )}
                         </td>
@@ -309,7 +311,7 @@ function AbstractCRUD<T extends CrudItem>({
                         onClick={() => handlePageChange(currentPage - 1)}
                         disabled={currentPage === 1}
                       >
-                        Previous
+                        {t('common.actions.previous')}
                       </button>
                     </li>
                     {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
@@ -331,7 +333,7 @@ function AbstractCRUD<T extends CrudItem>({
                         onClick={() => handlePageChange(currentPage + 1)}
                         disabled={currentPage === totalPages}
                       >
-                        Next
+                        {t('common.actions.next')}
                       </button>
                     </li>
                   </ul>
@@ -344,7 +346,7 @@ function AbstractCRUD<T extends CrudItem>({
             <div className="card mt-4">
               <div className="card-header">
                 <h3 className="card-title">
-                  {editingItem ? `Edit ${itemName}` : `Add New ${itemName}`}
+                  {editingItem ? `${t('common.actions.edit')} ${itemName}` : `${t('common.actions.addNew')} ${itemName}`}
                 </h3>
               </div>
               <div className="card-body">

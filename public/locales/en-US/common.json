@@ -1,0 +1,869 @@
+{
+  "company": {
+    "title": "Company Management",
+    "singular": "Company",
+    "plural": "Companies",
+    "columns": {
+      "name": "Company Name",
+      "email": "Email",
+      "document": "Document",
+      "size": "Size",
+      "industry": "Industry",
+      "website": "Website",
+      "city": "City",
+      "created": "Created"
+    },
+    "form": {
+      "sections": {
+        "basicInfo": "Basic Information",
+        "contactInfo": "Contact Information",
+        "address": "Address",
+        "contactPerson": "Contact Person"
+      },
+      "fields": {
+        "companyName": "Company Name",
+        "legalName": "Legal Name",
+        "cnpj": "CNPJ",
+        "tenantId": "Tenant ID",
+        "description": "Description",
+        "companySize": "Company Size",
+        "industry": "Industry",
+        "companyEmail": "Company Email",
+        "companyPhone": "Company Phone",
+        "website": "Website",
+        "street": "Street",
+        "city": "City",
+        "state": "State",
+        "zipCode": "ZIP Code",
+        "country": "Country",
+        "name": "Name",
+        "email": "Email",
+        "cpf": "CPF",
+        "phone": "Phone",
+        "gender": "Gender",
+        "pronouns": "Pronouns"
+      },
+      "placeholders": {
+        "legalName": "Legal company name (if different from display name)",
+        "cnpj": "00.000.000/0000-00",
+        "tenantId": "tenant-company-001",
+        "description": "Brief description of the company and its activities",
+        "selectSize": "Select a size...",
+        "selectIndustry": "Select an industry...",
+        "email": "company@example.com",
+        "phone": "+55 11 1234-5678",
+        "website": "https://www.company.com",
+        "street": "Street name and number",
+        "state": "SP",
+        "zipCode": "00000-000",
+        "cpf": "000.000.000-00",
+        "phoneContact": "+55 11 98765-4321",
+        "selectGender": "Select gender...",
+        "selectPronouns": "Select pronouns..."
+      },
+      "validation": {
+        "required": "is required",
+        "companyNameRequired": "Company name is required",
+        "nameMinLength": "Name must be at least 3 characters",
+        "cnpjRequired": "CNPJ is required",
+        "cnpjInvalid": "Invalid CNPJ format (XX.XXX.XXX/XXXX-XX or 14 digits)",
+        "tenantIdRequired": "Tenant ID is required",
+        "tenantIdMinLength": "Tenant ID must be at least 9 characters",
+        "tenantIdPattern": "Tenant ID must be lowercase alphanumeric with hyphens only",
+        "descriptionRequired": "Company description is required",
+        "descriptionMinLength": "Description must be at least 10 characters",
+        "sizeRequired": "Company size is required",
+        "industryRequired": "Industry is required",
+        "emailRequired": "Email is required",
+        "emailInvalid": "Invalid email address",
+        "phoneInvalid": "Invalid phone number format",
+        "urlInvalid": "Invalid URL format",
+        "zipCodeInvalid": "Invalid ZIP code format (XXXXX-XXX)",
+        "contactNameRequired": "Contact person name is required",
+        "contactEmailRequired": "Contact person email is required",
+        "contactCpfRequired": "Contact person CPF is required",
+        "cpfInvalid": "Invalid CPF format (XXX.XXX.XXX-XX or 11 digits)"
+      },
+      "buttons": {
+        "cancel": "Cancel",
+        "create": "Create Company",
+        "update": "Update Company",
+        "creating": "Creating...",
+        "updating": "Updating..."
+      },
+      "errors": {
+        "generic": "An error occurred. Please try again."
+      }
+    }
+  },
+  "team": {
+    "title": "Team Management",
+    "singular": "Team",
+    "plural": "Teams",
+    "columns": {
+      "name": "Team Name",
+      "description": "Description",
+      "department": "Department"
+    },
+    "form": {
+      "newTitle": "New Team",
+      "editTitle": "Edit Team",
+      "fields": {
+        "department": "Department",
+        "name": "Team Name",
+        "description": "Description"
+      },
+      "placeholders": {
+        "selectDepartment": "Select a department...",
+        "teamName": "Enter team name",
+        "description": "Enter team description (optional)"
+      },
+      "validation": {
+        "departmentRequired": "Department is required",
+        "nameRequired": "Team name is required"
+      },
+      "buttons": {
+        "create": "Create",
+        "update": "Update",
+        "creating": "Creating...",
+        "updating": "Updating..."
+      }
+    },
+    "filters": {
+      "allDepartments": "All Departments"
+    },
+    "search": {
+      "placeholder": "Search teams..."
+    },
+    "messages": {
+      "noTeamsFound": "No teams found",
+      "noDescription": "No description",
+      "noDepartment": "No Department"
+    },
+    "errors": {
+      "loadFailed": "Failed to load teams. Please try again.",
+      "deleteFailed": "Failed to delete team. Please try again."
+    }
+  },
+  "department": {
+    "title": "Department Management",
+    "singular": "Department",
+    "plural": "Departments",
+    "columns": {
+      "company": "Company",
+      "name": "Department Name",
+      "description": "Description"
+    },
+    "form": {
+      "fields": {
+        "name": "Name",
+        "description": "Description"
+      },
+      "validation": {
+        "nameRequired": "Department name is required",
+        "nameMinLength": "Name must be at least 3 characters",
+        "descriptionRequired": "Department description is required",
+        "descriptionMinLength": "Description must be at least 3 characters"
+      },
+      "buttons": {
+        "create": "Create Department",
+        "update": "Update Department",
+        "creating": "Creating...",
+        "updating": "Updating..."
+      }
+    },
+    "errors": {
+      "loadCompaniesFailed": "Failed to load companies. Please try again.",
+      "generic": "An error occurred. Please try again."
+    }
+  },
+  "performanceCycle": {
+    "title": "Performance Cycle Management",
+    "singular": "Cycle",
+    "plural": "Performance Cycles",
+    "columns": {
+      "name": "Cycle Name",
+      "description": "Description",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "type": "Type",
+      "status": "Status"
+    },
+    "form": {
+      "newTitle": "New Performance Cycle",
+      "editTitle": "Edit Performance Cycle",
+      "fields": {
+        "name": "Cycle Name",
+        "description": "Description",
+        "status": "Status",
+        "active": "Active",
+        "startDate": "Start Date",
+        "endDate": "End Date"
+      },
+      "placeholders": {
+        "name": "e.g., Q1 2024, Annual Review",
+        "description": "Enter cycle description (optional)"
+      },
+      "validation": {
+        "nameRequired": "Cycle name is required",
+        "endDateAfterStart": "End date must be after start date"
+      },
+      "help": {
+        "activeHelp": "Active cycles can be used for assessments",
+        "startDateHelp": "When this performance cycle begins",
+        "endDateHelp": "Leave empty for ongoing cycles",
+        "timeSensitiveInfo": "This cycle is time-sensitive because an end date is specified."
+      },
+      "buttons": {
+        "create": "Create",
+        "update": "Update",
+        "creating": "Creating...",
+        "updating": "Updating..."
+      }
+    },
+    "filters": {
+      "allCycles": "All Cycles",
+      "activeOnly": "Active Only",
+      "inactiveOnly": "Inactive Only"
+    },
+    "search": {
+      "placeholder": "Search cycles..."
+    },
+    "types": {
+      "timeSensitive": "Time-sensitive",
+      "ongoing": "Ongoing"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "messages": {
+      "noCyclesFound": "No performance cycles found",
+      "noDescription": "No description"
+    },
+    "errors": {
+      "loadFailed": "Failed to load performance cycles. Please try again.",
+      "deleteFailed": "Failed to delete performance cycle. Please try again."
+    }
+  },
+  "assessmentMatrix": {
+    "title": "Assessment Matrices",
+    "singular": "Assessment Matrix",
+    "plural": "Assessment Matrices",
+    "columns": {
+      "name": "Name",
+      "description": "Description",
+      "performanceCycle": "Performance Cycle",
+      "structure": "Structure",
+      "questions": "Questions"
+    },
+    "filters": {
+      "allCycles": "All Performance Cycles"
+    },
+    "search": {
+      "placeholder": "Search Assessment Matrices..."
+    },
+    "structure": {
+      "summary": "{{pillarCount}} pillar{{pillarCount, plural, one {} other {s}}}, {{categoryCount}} categor{{categoryCount, plural, one {y} other {ies}}}",
+      "title": "Matrix Structure",
+      "pillars": "Pillars",
+      "categories": "Categories",
+      "categoriesCount": "{{count}} categor{{count, plural, one {y} other {ies}}}",
+      "noPillarsMessage": "This matrix doesn't have any pillars defined yet. Use the edit form to add pillars and categories.",
+      "noCategoriesMessage": "No categories defined"
+    },
+    "form": {
+      "createTitle": "Create New Assessment Matrix",
+      "editTitle": "Edit Assessment Matrix",
+      "fields": {
+        "name": "Name",
+        "description": "Description",
+        "performanceCycle": "Performance Cycle"
+      },
+      "placeholders": {
+        "selectPerformanceCycle": "Select Performance Cycle",
+        "pillarName": "Pillar Name",
+        "pillarDescription": "Pillar Description (optional)",
+        "categoryName": "Category Name",
+        "categoryDescription": "Category Description (optional)"
+      },
+      "sections": {
+        "pillarsAndCategories": "Pillars and Categories",
+        "categories": "Categories"
+      },
+      "buttons": {
+        "addPillar": "Add Pillar",
+        "addCategory": "Add Category",
+        "deleteCategory": "Delete Category",
+        "save": "Save",
+        "saving": "Saving..."
+      },
+      "validation": {
+        "pillarNameRequired": "Pillar name is required",
+        "categoryNameRequired": "Category name is required",
+        "pillarNeedsCategory": "Each pillar must have at least one category"
+      },
+      "dialogs": {
+        "deletePillar": {
+          "title": "Delete Pillar",
+          "message": "Are you sure you want to delete the pillar \"{{pillarName}}\" and all its categories?"
+        },
+        "deleteCategory": {
+          "title": "Delete Category",
+          "message": "Are you sure you want to delete the category \"{{categoryName}}\"?"
+        }
+      },
+      "help": {
+        "preselectedFromFilter": "Pre-selected from filter"
+      }
+    },
+    "actions": {
+      "viewStructure": "View structure details",
+      "viewDashboard": "View assessment dashboard",
+      "closeDashboard": "Close Dashboard"
+    },
+    "dashboard": {
+      "loading": "Loading Assessment Dashboard",
+      "loadingMessage": "Please wait while we fetch the data for \"{{matrixName}}\"...",
+      "title": "Assessment Dashboard",
+      "refresh": "Refresh",
+      "refreshing": "Refreshing...",
+      "refreshTitle": "Refresh dashboard data",
+      "totalEmployees": "Total Employees",
+      "assignedToAssessment": "Assigned to assessment",
+      "completed": "Completed",
+      "completionRate": "Completion rate: {{rate}}%",
+      "inProgress": "In Progress",
+      "remaining": "Remaining: {{percentage}}%",
+      "teams": "Teams",
+      "withAssignedEmployees": "With assigned employees",
+      "columns": {
+        "team": "Team",
+        "totalEmployees": "Total Employees",
+        "completed": "Completed",
+        "inProgress": "In Progress",
+        "progress": "Progress",
+        "actions": "Actions"
+      },
+      "loadingTeamData": "Loading team data...",
+      "noTeamData": "No team data available"
+    },
+    "employeeStatus": {
+      "title": "Employee Status Details - {{teamName}} Team",
+      "refresh": "Refresh",
+      "refreshing": "Refreshing...",
+      "refreshTitle": "Refresh employee data",
+      "columns": {
+        "employee": "Employee",
+        "status": "Status",
+        "progress": "Progress",
+        "lastActivity": "Last Activity"
+      },
+      "loadingData": "Loading employee data...",
+      "noEmployees": "No employees found for {{teamName}} team",
+      "questionsAnswered": "{{count}} question{{count, plural, one {} other {s}}} answered",
+      "pagination": {
+        "showing": "Showing {{startIndex}} to {{endIndex}} of {{totalCount}} employees"
+      },
+      "lastActivity": {
+        "never": "Never",
+        "lessThanHour": "Less than 1 hour ago",
+        "hoursAgo": "{{hours}} hour{{hours, plural, one {} other {s}}} ago",
+        "dayAgo": "1 day ago",
+        "daysAgo": "{{days}} days ago",
+        "unknown": "Unknown"
+      }
+    },
+    "messages": {
+      "noMatricesFound": "No assessment matrices found",
+      "noPillarsDefined": "No pillars defined"
+    },
+    "errors": {
+      "loadFailed": "Failed to load assessment matrices. Please try again.",
+      "deleteFailed": "Failed to delete assessment matrix. Please try again.",
+      "dashboardLoadFailed": "Failed to load dashboard data. Please try again."
+    }
+  },
+  "employeeAssessment": {
+    "title": "Employee Assessments",
+    "singular": "Employee Assessment",
+    "plural": "Employee Assessments",
+    "columns": {
+      "name": "Name",
+      "email": "Email",
+      "status": "Status",
+      "team": "Team",
+      "answeredQuestions": "Answered Questions"
+    },
+    "status": {
+      "invited": "Invited",
+      "confirmed": "Confirmed",
+      "inProgress": "In Progress",
+      "completed": "Completed"
+    },
+    "filters": {
+      "title": "Filters",
+      "performanceCycle": "Performance Cycle",
+      "selectPerformanceCycle": "Select Performance Cycle",
+      "assessmentMatrix": "Assessment Matrix",
+      "selectAssessmentMatrix": "Select Assessment Matrix",
+      "department": "Department",
+      "allDepartments": "All Departments",
+      "team": "Team",
+      "allTeams": "All Teams"
+    },
+    "context": {
+      "employeeCount": "{{count}} employee{{count, plural, one {} other {s}}} in this assessment",
+      "filteredByTeam": "Filtered by team"
+    },
+    "invitation": {
+      "sendToEmployees": "Send this link to all employees:",
+      "linkGenerated": "Link Generated",
+      "viewFullLink": "View full invitation link",
+      "generateInstruction": "Click \"Copy Invitation Link\" to generate secure link",
+      "copied": "Copied!",
+      "generating": "Generating...",
+      "copyLink": "Copy Invitation Link",
+      "instructions": "Employees will enter their email address on this page to access their assessment",
+      "linkFor": "Invitation Link for {{matrixName}}",
+      "fullLink": "Full Invitation Link:",
+      "shareInstruction": "Share this link with all employees who need to complete the assessment. They will enter their email address to access their specific assessment."
+    },
+    "form": {
+      "sections": {
+        "departmentTeam": "Department & Team Selection",
+        "employeeInfo": "Employee Information"
+      },
+      "fields": {
+        "department": "Department",
+        "team": "Team",
+        "employeeName": "Employee Name",
+        "email": "Email"
+      },
+      "placeholders": {
+        "allDepartments": "All Departments",
+        "selectTeam": "Select Team (Optional)",
+        "employeeName": "Enter employee full name",
+        "email": "employee@company.com"
+      },
+      "buttons": {
+        "create": "Create",
+        "creating": "Creating...",
+        "update": "Update Assessment",
+        "updating": "Updating..."
+      },
+      "validation": {
+        "nameRequired": "Employee name is required",
+        "emailRequired": "Employee email is required",
+        "emailExists": "Employee with email \"{{email}}\" already exists in this assessment matrix",
+        "emailExistsShort": "This email already exists in the assessment matrix"
+      },
+      "success": {
+        "employeeAdded": "Employee \"{{name}}\" was successfully added to the assessment!"
+      },
+      "error": {
+        "generic": "An error occurred"
+      }
+    },
+    "messages": {
+      "selectFilters": "Please select a Performance Cycle and Assessment Matrix to manage employee assessments."
+    }
+  },
+  "question": {
+    "title": "Questions Management",
+    "buttons": {
+      "addStandard": "Add Standard Question",
+      "addCustom": "Add Custom Question",
+      "preview": "Preview",
+      "create": "Create",
+      "createAndClose": "Create and Close",
+      "update": "Update",
+      "saving": "Saving...",
+      "addOption": "Add Option",
+      "removeOption": "Remove option",
+      "showPoints": "Show Points",
+      "hidePoints": "Hide Points"
+    },
+    "filters": {
+      "title": "Filters",
+      "performanceCycle": "Performance Cycle",
+      "selectPerformanceCycle": "Select Performance Cycle",
+      "assessmentMatrix": "Assessment Matrix",
+      "selectAssessmentMatrix": "Select Assessment Matrix",
+      "pillar": "Pillar",
+      "allPillars": "All Pillars",
+      "category": "Category",
+      "allCategories": "All Categories"
+    },
+    "stats": {
+      "totalQuestions": "Total Questions",
+      "questionCount": "{{count}} question{{count, plural, one {} other {s}}}"
+    },
+    "details": {
+      "points": "{{points}} points",
+      "options": "{{count}} option{{count, plural, one {} other {s}}}"
+    },
+    "types": {
+      "yesNo": "Yes/No",
+      "star3": "★★★",
+      "star5": "★★★★★",
+      "oneToTen": "1-10",
+      "goodBad": "Good/Bad",
+      "openAnswer": "Open",
+      "customized": "Custom"
+    },
+    "messages": {
+      "noQuestions": "No questions found. Add your first question!",
+      "selectFilters": "Please select a Performance Cycle and Assessment Matrix to manage questions",
+      "deleteSuccess": "Question \"{{question}}\" deleted successfully!",
+      "deleteFailed": "Failed to delete question. Please try again."
+    },
+    "dialogs": {
+      "deleteTitle": "Delete Question",
+      "deleteMessage": "Are you sure you want to delete the question \"{{question}}\"?"
+    },
+    "form": {
+      "createTitle": "Create",
+      "editTitle": "Edit",
+      "customType": "Custom Question",
+      "standardType": "Standard Question",
+      "fields": {
+        "pillar": "Pillar",
+        "category": "Category",
+        "questionText": "Question Text",
+        "extraDescription": "Extra Description",
+        "questionType": "Question Type",
+        "points": "Points",
+        "allowMultiple": "Allow Multiple Selection",
+        "showFlushed": "Show Flushed Layout",
+        "options": "Options ({{current}} of {{max}})"
+      },
+      "placeholders": {
+        "selectPillar": "Select Pillar",
+        "selectCategory": "Select Category",
+        "questionText": "Enter your question here...",
+        "extraDescription": "Add clarification or context for this question (optional)...",
+        "points": "Points for this question",
+        "optionText": "Option text",
+        "optionPoints": "Points*"
+      },
+      "sections": {
+        "customOptions": "Custom Question Options"
+      },
+      "table": {
+        "number": "#",
+        "optionText": "Option Text",
+        "points": "Points",
+        "action": "Action"
+      },
+      "help": {
+        "extraDescription": "Use this field to provide additional context or clarification for the question",
+        "options": "Each option must have text and points value. Points determine scoring for this option."
+      },
+      "types": {
+        "customized": "Custom Question",
+        "yes_no": "Yes/No",
+        "star_three": "3-Star Rating",
+        "star_five": "5-Star Rating",
+        "one_to_ten": "1-10 Scale",
+        "good_bad": "Good/Bad",
+        "open_answer": "Open Answer"
+      },
+      "validation": {
+        "missingFields": "Missing required fields",
+        "questionRequired": "Question text is required",
+        "pillarRequired": "Pillar is required",
+        "categoryRequired": "Category is required",
+        "optionsMinimum": "At least 2 options with text are required",
+        "optionsMaximum": "Maximum 64 options allowed",
+        "optionTextRequired": "Option text is required",
+        "pointsRequired": "Points value is required",
+        "pointsMinimum": "Points must be 0 or greater"
+      },
+      "messages": {
+        "createSuccess": "Question \"{{question}}\" created successfully!",
+        "updateSuccess": "Question \"{{question}}\" updated successfully!"
+      },
+      "buttons": {
+        "create": "Create",
+        "createAndClose": "Create and Close",
+        "update": "Update",
+        "saving": "Saving...",
+        "addOption": "Add Option",
+        "removeOption": "Remove option"
+      }
+    },
+    "preview": {
+      "title": "Question Preview",
+      "howItAppears": "How this question will appear to users:",
+      "context": {
+        "pillar": "Pillar",
+        "category": "Category"
+      },
+      "answers": {
+        "yes": "Yes",
+        "no": "No",
+        "good": "Good",
+        "bad": "Bad"
+      },
+      "placeholders": {
+        "openAnswer": "Type your answer here..."
+      },
+      "unknownType": "Unknown question type",
+      "pointsValue": "{{points}} points",
+      "types": {
+        "yesNo": "Yes/No Question",
+        "star3": "3-Star Rating",
+        "star5": "5-Star Rating",
+        "oneToTen": "1-10 Scale",
+        "goodBad": "Good/Bad Choice",
+        "openAnswer": "Open Text Answer",
+        "customized": "Custom Options"
+      },
+      "help": {
+        "pointsVisibility": "Shows point values for each option. This is only visible to administrators for verification purposes. Users will not see these point values."
+      },
+      "buttons": {
+        "showPoints": "Show Points",
+        "hidePoints": "Hide Points"
+      },
+      "table": {
+        "option": "Option",
+        "points": "Points"
+      },
+      "technicalDetails": "Technical Details",
+      "details": {
+        "type": "Type",
+        "points": "Points",
+        "notApplicable": "N/A",
+        "questionId": "Question ID",
+        "options": "Options",
+        "optionsCount": "{{count}} option{{count, plural, one {} other {s}}}",
+        "multiSelect": "multi-select"
+      }
+    }
+  },
+  "navigation": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "companies": "Companies",
+    "departments": "Departments",
+    "teams": "Teams",
+    "performanceCycles": "Performance Cycles",
+    "assessmentMatrices": "Assessment Matrices",
+    "questions": "Questions",
+    "employeeAssessments": "Employee Assessments",
+    "settings": "Settings"
+  },
+  "common": {
+    "actions": {
+      "add": "Add",
+      "addNew": "Add New",
+      "edit": "Edit",
+      "delete": "Delete",
+      "save": "Save",
+      "cancel": "Cancel",
+      "search": "Search",
+      "clear": "Clear",
+      "close": "Close",
+      "confirm": "Confirm",
+      "back": "Back",
+      "previous": "Previous",
+      "next": "Next",
+      "copy": "Copy"
+    },
+    "labels": {
+      "list": "List",
+      "actions": "Actions"
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "status": {
+      "loading": "Loading...",
+      "saving": "Saving...",
+      "deleting": "Deleting...",
+      "success": "Success",
+      "error": "Error"
+    },
+    "messages": {
+      "confirmDelete": "Are you sure you want to delete this item?",
+      "deleteSuccess": "Item deleted successfully",
+      "saveSuccess": "Item saved successfully",
+      "errorOccurred": "An error occurred"
+    }
+  },
+  "sizes": {
+    "MICRO": "Micro",
+    "SMALL": "Small",
+    "MEDIUM": "Medium",
+    "LARGE": "Large",
+    "ENTERPRISE": "Enterprise"
+  },
+  "industries": {
+    "TECHNOLOGY": "Technology",
+    "FINANCE": "Finance",
+    "HEALTHCARE": "Healthcare",
+    "EDUCATION": "Education",
+    "RETAIL": "Retail",
+    "MANUFACTURING": "Manufacturing",
+    "SERVICES": "Services",
+    "OTHER": "Other"
+  },
+  "genders": {
+    "MALE": "Male",
+    "FEMALE": "Female",
+    "NON_BINARY": "Non-binary",
+    "PREFER_NOT_TO_SAY": "Prefer not to say",
+    "OTHER": "Other"
+  },
+  "pronouns": {
+    "HE_HIM": "He/Him",
+    "SHE_HER": "She/Her",
+    "THEY_THEM": "They/Them",
+    "OTHER": "Other"
+  },
+  "language": {
+    "current": "English",
+    "switch": "Switch language"
+  },
+  "footer": {
+    "copyright": "All rights reserved",
+    "version": "Version"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "description": "Performance analytics dashboard for all active assessment cycles.",
+    "loading": {
+      "performanceCycles": "Loading Performance Cycles...",
+      "assessmentMatrices": "Loading Assessment Matrices...",
+      "completionData": "Loading completion data..."
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "warning": "Warning",
+      "completed": "Completed",
+      "goodProgress": "Good Progress",
+      "needsAttention": "Needs Attention",
+      "notStarted": "Not Started"
+    },
+    "buttons": {
+      "retry": "Retry",
+      "viewTeamAnalytics": "View Team Analytics"
+    },
+    "errors": {
+      "loadCyclesFailed": "Failed to load performance cycles. Please try again.",
+      "loadMatricesFailed": "Failed to load assessment matrices. Please try again."
+    },
+    "matrix": {
+      "count": "{{count}} Assessment Matri{{count, plural, one {x} other {ces}}}"
+    },
+    "dates": {
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "notSet": "Not set"
+    },
+    "progress": {
+      "completionProgress": "Completion Progress",
+      "employeesCompleted": "{{completed}} of {{total}} employees completed"
+    },
+    "summary": {
+      "teams": "Teams",
+      "questions": "Questions",
+      "notAvailable": "N/A"
+    },
+    "messages": {
+      "noCompletionData": "No completion data available",
+      "assessmentNotStarted": "Assessment may not have started yet"
+    },
+    "emptyState": {
+      "noMatrices": {
+        "title": "No Assessment Matrices Found",
+        "description": "You have {{count}} active performance cycle{{count, plural, one {} other {s}}}, but no assessment matrices have been created yet. Create assessment matrices to start tracking team performance.",
+        "button": "Create Assessment Matrix"
+      },
+      "noCycles": {
+        "title": "No Active Performance Cycles",
+        "description": "There are no active performance cycles found for {{companyName}}. Create a performance cycle to start tracking team analytics.",
+        "button": "Create Performance Cycle"
+      }
+    },
+    "overview": {
+      "title": "Team Performance Overview",
+      "breadcrumb": "Team Comparison",
+      "defaultMatrixName": "Assessment Matrix",
+      "performanceCycle": "Performance Cycle",
+      "teamComparisonTitle": "Team Comparison Overview",
+      "loading": {
+        "title": "Loading Team Comparison",
+        "subtitle": "Preparing radar graphs for all teams..."
+      },
+      "errors": {
+        "loadFailed": "Failed to load team comparison data. Please try again."
+      },
+      "noPillarAnalysis": "No pillar analysis available",
+      "pillarsFound": "Found {{count}} pillar{{count, plural, one {} other {s}}}",
+      "noPillarData": "No pillar data structure found",
+      "assessmentProgress": "Assessment Progress",
+      "stats": {
+        "employees": "Employees",
+        "score": "Score",
+        "completion": "Completion"
+      },
+      "buttons": {
+        "viewDetails": "View Details"
+      },
+      "noTeams": {
+        "title": "No Teams Found",
+        "description": "No teams have been assigned to this assessment matrix yet."
+      },
+      "noData": {
+        "title": "No Data Available",
+        "description": "No data is available for this assessment matrix."
+      }
+    },
+    "team": {
+      "title": "Team Performance Detail",
+      "teamComparison": "Team Comparison",
+      "teamDefault": "Team {{teamId}}",
+      "loading": {
+        "title": "Loading Team Analytics",
+        "subtitle": "Preparing detailed performance analysis..."
+      },
+      "errors": {
+        "loadFailed": "Failed to load team analytics. Please try again."
+      },
+      "stats": {
+        "teamMembers": "Team Members",
+        "overallScore": "Overall Score",
+        "completion": "Completion",
+        "pillars": "Pillars"
+      },
+      "pillar": {
+        "categories": "Categories",
+        "actual": "Actual",
+        "potential": "Potential",
+        "gapFromPotential": "Gap from potential: {{gap}}%",
+        "noCategoryData": "No category data available"
+      },
+      "noPillarData": {
+        "title": "No Pillar Data Available",
+        "description": "This team hasn't completed enough assessments to generate pillar analysis."
+      },
+      "wordCloud": {
+        "title": "Team Feedback Word Cloud",
+        "generatedFrom": "Generated from {{count}} feedback response{{count, plural, one {} other {s}}}",
+        "noData": {
+          "title": "No Feedback Data Available",
+          "description": "No text feedback has been collected for this team yet."
+        }
+      },
+      "noData": {
+        "title": "No Data Available",
+        "description": "No analytics data is available for this team and assessment matrix combination."
+      }
+    }
+  }
+}

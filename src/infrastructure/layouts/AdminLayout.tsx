@@ -1,15 +1,18 @@
 'use client'
 
 import React, { ReactNode } from 'react';
-import Navbar from './Navbar';
-import Sidebar from './Sidebar';
-import TenantProtected from '../TenantProtected';
+import { useTranslation } from 'react-i18next';
+import Navbar from '@/components/layout/Navbar';
+import Sidebar from '@/components/layout/Sidebar';
+import { TenantProtected } from '../auth';
 
 interface AdminLayoutProps {
   children: ReactNode;
 }
 
 const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
+  const { t } = useTranslation();
+  
   return (
     <TenantProtected>
       <div className="wrapper">
@@ -24,9 +27,9 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
         {/* Footer */}
         <footer className="main-footer">
           <div className="float-right d-none d-sm-block">
-            <b>Version</b> 1.0.0
+            <b>{t('footer.version')}</b> 1.0.0
           </div>
-          <strong>AgileCheckup &copy; 2025</strong> All rights reserved.
+          <strong>AgileCheckup &copy; 2025</strong> {t('footer.copyright')}.
         </footer>
 
         {/* Control Sidebar */}

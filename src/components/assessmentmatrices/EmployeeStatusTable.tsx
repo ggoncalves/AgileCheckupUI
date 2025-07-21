@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { EmployeePageResponse } from '@/services/assessmentMatrixService';
 
 interface EmployeeStatusTableProps {
@@ -16,6 +17,7 @@ const EmployeeStatusTable: React.FC<EmployeeStatusTableProps> = ({
   onRefresh,
   isLoading = false
 }) => {
+  const { t } = useTranslation();
   const totalPages = Math.ceil(employeeData.totalCount / employeeData.pageSize);
   const startIndex = (employeeData.page - 1) * employeeData.pageSize + 1;
   const endIndex = Math.min(employeeData.page * employeeData.pageSize, employeeData.totalCount);
@@ -23,20 +25,20 @@ const EmployeeStatusTable: React.FC<EmployeeStatusTableProps> = ({
   const getStatusBadge = (status: string) => {
     switch (status.toUpperCase()) {
       case 'COMPLETED':
-        return <span className="badge badge-success">Completed</span>;
+        return <span className="badge badge-success">{t('employeeAssessment.status.completed')}</span>;
       case 'IN_PROGRESS':
-        return <span className="badge badge-warning">In Progress</span>;
+        return <span className="badge badge-warning">{t('employeeAssessment.status.inProgress')}</span>;
       case 'INVITED':
-        return <span className="badge badge-info">Invited</span>;
+        return <span className="badge badge-info">{t('employeeAssessment.status.invited')}</span>;
       case 'CONFIRMED':
-        return <span className="badge badge-secondary">Confirmed</span>;
+        return <span className="badge badge-secondary">{t('employeeAssessment.status.confirmed')}</span>;
       default:
         return <span className="badge badge-light">{status}</span>;
     }
   };
 
   const formatLastActivity = (lastActivityDate?: string) => {
-    if (!lastActivityDate) return <span className="text-muted">Never</span>;
+    if (!lastActivityDate) return <span className="text-muted">{t('assessmentMatrix.employeeStatus.lastActivity.never')}</span>;
     
     try {
       const date = new Date(lastActivityDate);
@@ -47,18 +49,18 @@ const EmployeeStatusTable: React.FC<EmployeeStatusTableProps> = ({
 
       if (diffInDays === 0) {
         if (diffInHours === 0) {
-          return <small>Less than 1 hour ago</small>;
+          return <small>{t('assessmentMatrix.employeeStatus.lastActivity.lessThanHour')}</small>;
         }
-        return <small>{diffInHours} hour{diffInHours !== 1 ? 's' : ''} ago</small>;
+        return <small>{t('assessmentMatrix.employeeStatus.lastActivity.hoursAgo', { hours: diffInHours })}</small>;
       } else if (diffInDays === 1) {
-        return <small>1 day ago</small>;
+        return <small>{t('assessmentMatrix.employeeStatus.lastActivity.dayAgo')}</small>;
       } else if (diffInDays <= 7) {
-        return <small>{diffInDays} days ago</small>;
+        return <small>{t('assessmentMatrix.employeeStatus.lastActivity.daysAgo', { days: diffInDays })}</small>;
       } else {
         return <small>{date.toLocaleDateString()}</small>;
       }
     } catch {
-      return <span className="text-muted">Unknown</span>;
+      return <span className="text-muted">{t('assessmentMatrix.employeeStatus.lastActivity.unknown')}</span>;
     }
   };
 
@@ -69,17 +71,17 @@ const EmployeeStatusTable: React.FC<EmployeeStatusTableProps> = ({
           <div className="card-header">
             <h3 className="card-title">
               <i className="fas fa-users mr-2"></i>
-              Employee Status Details - {teamName} Team
+              {t('assessmentMatrix.employeeStatus.title', { teamName })}
             </h3>
             <div className="card-tools">
               <button
                 className="btn btn-sm btn-outline-primary"
                 onClick={onRefresh}
                 disabled={isLoading}
-                title="Refresh Employee Data"
+                title={t('assessmentMatrix.employeeStatus.refreshTitle')}
               >
                 <i className={`fas fa-sync-alt ${isLoading ? 'fa-spin' : ''}`}></i>
-                {isLoading ? ' Refreshing...' : ' Refresh'}
+                {isLoading ? ` ${t('assessmentMatrix.employeeStatus.refreshing')}` : ` ${t('assessmentMatrix.employeeStatus.refresh')}`}
               </button>
             </div>
           </div>
@@ -89,10 +91,10 @@ const EmployeeStatusTable: React.FC<EmployeeStatusTableProps> = ({
               <table className="table table-striped table-hover">
                 <thead>
                   <tr>
-                    <th>Employee</th>
-                    <th>Status</th>
-                    <th>Progress</th>
-                    <th>Last Activity</th>
+                    <th>{t('assessmentMatrix.employeeStatus.columns.employee')}</th>
+                    <th>{t('assessmentMatrix.employeeStatus.columns.status')}</th>
+                    <th>{t('assessmentMatrix.employeeStatus.columns.progress')}</th>
+                    <th>{t('assessmentMatrix.employeeStatus.columns.lastActivity')}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -100,9 +102,9 @@ const EmployeeStatusTable: React.FC<EmployeeStatusTableProps> = ({
                     <tr>
                       <td colSpan={4} className="text-center py-4">
                         <div className="spinner-border text-primary" role="status">
-                          <span className="sr-only">Loading...</span>
+                          <span className="sr-only">{t('common.status.loading')}</span>
                         </div>
-                        <div className="mt-2">Loading employee data...</div>
+                        <div className="mt-2">{t('assessmentMatrix.employeeStatus.loadingData')}</div>
                       </td>
                     </tr>
                   ) : employeeData.content.length === 0 ? (
@@ -110,7 +112,7 @@ const EmployeeStatusTable: React.FC<EmployeeStatusTableProps> = ({
                       <td colSpan={4} className="text-center py-4">
                         <div className="text-muted">
                           <i className="fas fa-user-slash fa-2x mb-2"></i>
-                          <div>No employees found for {teamName} team</div>
+                          <div>{t('assessmentMatrix.employeeStatus.noEmployees', { teamName })}</div>
                         </div>
                       </td>
                     </tr>
@@ -143,7 +145,7 @@ const EmployeeStatusTable: React.FC<EmployeeStatusTableProps> = ({
                               }}
                             ></div>
                           </div>
-                          <small>{employee.answeredQuestions} questions answered</small>
+                          <small>{t('assessmentMatrix.employeeStatus.questionsAnswered', { count: employee.answeredQuestions })}</small>
                         </td>
                         <td>{formatLastActivity(employee.lastActivityDate)}</td>
                       </tr>
@@ -160,7 +162,7 @@ const EmployeeStatusTable: React.FC<EmployeeStatusTableProps> = ({
               <div className="row">
                 <div className="col-sm-12 col-md-5">
                   <div className="dataTables_info">
-                    Showing {startIndex} to {endIndex} of {employeeData.totalCount} employees
+                    {t('assessmentMatrix.employeeStatus.pagination.showing', { startIndex, endIndex, totalCount: employeeData.totalCount })}
                   </div>
                 </div>
                 <div className="col-sm-12 col-md-7">
@@ -173,7 +175,7 @@ const EmployeeStatusTable: React.FC<EmployeeStatusTableProps> = ({
                             onClick={() => onPageChange(employeeData.page - 1)}
                             disabled={employeeData.page === 1}
                           >
-                            Previous
+                            {t('common.pagination.previous')}
                           </button>
                         </li>
                         {[...Array(Math.min(totalPages, 5))].map((_, index) => {
@@ -208,7 +210,7 @@ const EmployeeStatusTable: React.FC<EmployeeStatusTableProps> = ({
                             onClick={() => onPageChange(employeeData.page + 1)}
                             disabled={employeeData.page === totalPages}
                           >
-                            Next
+                            {t('common.pagination.next')}
                           </button>
                         </li>
                       </ul>

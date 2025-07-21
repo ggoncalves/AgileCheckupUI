@@ -2,9 +2,10 @@
 
 import React, {useEffect, useState} from 'react';
 import {useForm} from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import {Department} from '@/services/departmentService';
 import {Company, companyApi} from '@/services/companyService';
-import {useTenant} from '@/contexts/TenantContext';
+import {useTenant} from '@/infrastructure/auth';
 
 // Type for form data derived from Department interface
 type DepartmentFormData = Omit<Department, 'id' | 'createdDate' | 'lastUpdatedDate'>;
@@ -20,11 +21,12 @@ const DepartmentForm: React.FC<DepartmentFormProps> = ({
                                                          onSubmit,
                                                          onCancel
                                                        }) => {
+  const { t } = useTranslation();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [, setCompanies] = useState<Company[]>([]);
   const [, setIsLoadingCompanies] = useState(false);
-  const { tenantId } = useTenant();
+  const { tenantId, companyId } = useTenant();
 
   const {
     register,
@@ -64,14 +66,14 @@ const DepartmentForm: React.FC<DepartmentFormProps> = ({
         setCompanies(data);
       } catch (err) {
         console.error('Error fetching companies:', err);
-        setError('Failed to load companies. Please try again.');
+        setError(t('department.errors.loadCompaniesFailed'));
       } finally {
         setIsLoadingCompanies(false);
       }
     };
 
     fetchCompanies();
-  }, []);
+  }, [t]);
 
   const onFormSubmit = async (data: DepartmentFormData) => {
     setIsSubmitting(true);
@@ -85,7 +87,7 @@ const DepartmentForm: React.FC<DepartmentFormProps> = ({
     } catch (err: unknown) {
       const errorMessage = err instanceof Error
         ? err.message
-        : 'An error occurred. Please try again.';
+        : t('department.errors.generic');
       setError(errorMessage);
       console.error(err);
     } finally {
@@ -103,14 +105,14 @@ const DepartmentForm: React.FC<DepartmentFormProps> = ({
       <div className="row">
         <div className="col-md-6">
           <div className="form-group">
-            <label htmlFor="name">Name <span className="text-danger">*</span></label>
+            <label htmlFor="name">{t('department.form.fields.name')} <span className="text-danger">*</span></label>
             <input
               id="name"
               type="text"
               className={`form-control ${errors.name ? 'is-invalid' : ''}`}
               {...register('name', {
-                required: 'Department name is required',
-                minLength: { value: 3, message: 'Name must be at least 3 characters' }
+                required: t('department.form.validation.nameRequired'),
+                minLength: { value: 3, message: t('department.form.validation.nameMinLength') }
               })}
             />
             {errors.name && (
@@ -137,15 +139,15 @@ const DepartmentForm: React.FC<DepartmentFormProps> = ({
       </div>
 
       <div className="form-group">
-        <label htmlFor="description">Description <span className="text-danger">*</span></label>
+        <label htmlFor="description">{t('department.form.fields.description')} <span className="text-danger">*</span></label>
         <textarea
           id="description"
           className={`form-control ${errors.description ? 'is-invalid' : ''}`}
           {...register('description', {
-            required: 'Department description is required',
+            required: t('department.form.validation.descriptionRequired'),
             minLength: {
               value: 3,
-              message: 'Description must be at least 3 characters'
+              message: t('department.form.validation.descriptionMinLength')
             }
           })}
           rows={3}
@@ -162,7 +164,7 @@ const DepartmentForm: React.FC<DepartmentFormProps> = ({
           onClick={onCancel}
           disabled={isSubmitting}
         >
-          Cancel
+          {t('common.actions.cancel')}
         </button>
         <button
           type="submit"
@@ -172,10 +174,10 @@ const DepartmentForm: React.FC<DepartmentFormProps> = ({
           {isSubmitting ? (
             <>
               <span className="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>
-              {item ? 'Updating...' : 'Creating...'}
+              {item ? t('department.form.buttons.updating') : t('department.form.buttons.creating')}
             </>
           ) : (
-            item ? 'Update Department' : 'Create Department'
+            item ? t('department.form.buttons.update') : t('department.form.buttons.create')
           )}
         </button>
       </div>

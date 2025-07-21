@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { EmployeeAssessment, CreateEmployeeAssessmentDTO } from '@/services/employeeAssessmentService';
 import { teamService, Team } from '@/services/teamService';
 import { departmentService, Department } from '@/services/departmentService';
-import { useTenant } from '@/contexts/TenantContext';
+import { useTenant } from '@/infrastructure/auth';
 
 interface EmployeeAssessmentFormProps {
   item?: EmployeeAssessment;
@@ -19,6 +20,7 @@ const EmployeeAssessmentForm: React.FC<EmployeeAssessmentFormProps> = ({
   onCancel,
   existingItems = []
 }) => {
+  const { t } = useTranslation();
   const { tenantId } = useTenant();
   const [teams, setTeams] = useState<Team[]>([]);
   const [departments, setDepartments] = useState<Department[]>([]);
@@ -121,22 +123,22 @@ const EmployeeAssessmentForm: React.FC<EmployeeAssessmentFormProps> = ({
     try {
       // Validate required fields
       if (!formData.employee.name.trim()) {
-        throw new Error('Employee name is required');
+        throw new Error(t('employeeAssessment.form.validation.nameRequired'));
       }
       if (!formData.employee.email.trim()) {
-        throw new Error('Employee email is required');
+        throw new Error(t('employeeAssessment.form.validation.emailRequired'));
       }
 
       // Check for duplicate email (client-side) - only for new assessments or when email changed
       if (isDuplicateEmail && (!item || item.employee.email !== formData.employee.email)) {
-        throw new Error(`Employee with email "${formData.employee.email}" already exists in this assessment matrix`);
+        throw new Error(t('employeeAssessment.form.validation.emailExists', { email: formData.employee.email }));
       }
 
       await onSubmit(formData);
       
       // If successful and it's a new assessment, show success and reset form
       if (!item) {
-        setSuccessMessage(`Employee "${formData.employee.name}" was successfully added to the assessment!`);
+        setSuccessMessage(t('employeeAssessment.form.success.employeeAdded', { name: formData.employee.name }));
         // Reset only employee data, keep department/team selection
         setFormData(prev => ({
           ...prev,
@@ -149,7 +151,7 @@ const EmployeeAssessmentForm: React.FC<EmployeeAssessmentFormProps> = ({
         setTimeout(() => setSuccessMessage(null), 3000);
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      setError(err instanceof Error ? err.message : t('employeeAssessment.form.error.generic'));
     } finally {
       setIsSubmitting(false);
     }
@@ -190,14 +192,14 @@ const EmployeeAssessmentForm: React.FC<EmployeeAssessmentFormProps> = ({
           <div className="card-header">
             <h5 className="card-title mb-0">
               <i className="fas fa-sitemap mr-2"></i>
-              Department & Team Selection
+              {t('employeeAssessment.form.sections.departmentTeam')}
             </h5>
           </div>
           <div className="card-body">
             <div className="row">
               <div className="col-md-6">
                 <div className="form-group">
-                  <label htmlFor="department">Department</label>
+                  <label htmlFor="department">{t('employeeAssessment.form.fields.department')}</label>
                   <select
                     className="form-control"
                     id="department"
@@ -205,7 +207,7 @@ const EmployeeAssessmentForm: React.FC<EmployeeAssessmentFormProps> = ({
                     onChange={(e) => setSelectedDepartment(e.target.value)}
                     disabled={isSubmitting}
                   >
-                    <option value="">All Departments</option>
+                    <option value="">{t('employeeAssessment.form.placeholders.allDepartments')}</option>
                     {departments.map(dept => (
                       <option key={dept.id} value={dept.id}>
                         {dept.name}
@@ -217,7 +219,7 @@ const EmployeeAssessmentForm: React.FC<EmployeeAssessmentFormProps> = ({
               
               <div className="col-md-6">
                 <div className="form-group">
-                  <label htmlFor="team">Team</label>
+                  <label htmlFor="team">{t('employeeAssessment.form.fields.team')}</label>
                   <select
                     className="form-control"
                     id="team"
@@ -225,7 +227,7 @@ const EmployeeAssessmentForm: React.FC<EmployeeAssessmentFormProps> = ({
                     onChange={(e) => handleChange('teamId', e.target.value)}
                     disabled={isSubmitting}
                   >
-                    <option value="">Select Team (Optional)</option>
+                    <option value="">{t('employeeAssessment.form.placeholders.selectTeam')}</option>
                     {teams.map(team => (
                       <option key={team.id} value={team.id}>
                         {team.name}
@@ -243,14 +245,14 @@ const EmployeeAssessmentForm: React.FC<EmployeeAssessmentFormProps> = ({
           <div className="card-header">
             <h5 className="card-title mb-0">
               <i className="fas fa-user mr-2"></i>
-              Employee Information
+              {t('employeeAssessment.form.sections.employeeInfo')}
             </h5>
           </div>
           <div className="card-body">
             <div className="row">
               <div className="col-md-6">
                 <div className="form-group">
-                  <label htmlFor="employeeName">Employee Name *</label>
+                  <label htmlFor="employeeName">{t('employeeAssessment.form.fields.employeeName')} *</label>
                   <input
                     type="text"
                     className="form-control"
@@ -259,14 +261,14 @@ const EmployeeAssessmentForm: React.FC<EmployeeAssessmentFormProps> = ({
                     onChange={(e) => handleChange('employee.name', e.target.value)}
                     required
                     disabled={isSubmitting}
-                    placeholder="Enter employee full name"
+                    placeholder={t('employeeAssessment.form.placeholders.employeeName')}
                   />
                 </div>
               </div>
               
               <div className="col-md-6">
                 <div className="form-group">
-                  <label htmlFor="employeeEmail">Email *</label>
+                  <label htmlFor="employeeEmail">{t('employeeAssessment.form.fields.email')} *</label>
                   <div className="input-group">
                     <input
                       type="email"
@@ -276,7 +278,7 @@ const EmployeeAssessmentForm: React.FC<EmployeeAssessmentFormProps> = ({
                       onChange={(e) => handleChange('employee.email', e.target.value)}
                       required
                       disabled={isSubmitting}
-                      placeholder="employee@company.com"
+                      placeholder={t('employeeAssessment.form.placeholders.email')}
                     />
                     {!item && (
                       <div className="input-group-append">
@@ -288,12 +290,12 @@ const EmployeeAssessmentForm: React.FC<EmployeeAssessmentFormProps> = ({
                           {isSubmitting ? (
                             <>
                               <i className="fas fa-spinner fa-spin mr-1"></i>
-                              Creating...
+                              {t('employeeAssessment.form.buttons.creating')}
                             </>
                           ) : (
                             <>
                               <i className="fas fa-plus mr-1"></i>
-                              Create
+                              {t('employeeAssessment.form.buttons.create')}
                             </>
                           )}
                         </button>
@@ -303,7 +305,7 @@ const EmployeeAssessmentForm: React.FC<EmployeeAssessmentFormProps> = ({
                   {isDuplicateEmail && (
                     <div className="text-danger small mt-1">
                       <i className="fas fa-exclamation-triangle mr-1"></i>
-                      This email already exists in the assessment matrix
+                      {t('employeeAssessment.form.validation.emailExistsShort')}
                     </div>
                   )}
                 </div>
@@ -325,12 +327,12 @@ const EmployeeAssessmentForm: React.FC<EmployeeAssessmentFormProps> = ({
                 {isSubmitting ? (
                   <>
                     <i className="fas fa-spinner fa-spin mr-1"></i>
-                    Updating...
+                    {t('employeeAssessment.form.buttons.updating')}
                   </>
                 ) : (
                   <>
                     <i className="fas fa-save mr-1"></i>
-                    Update Assessment
+                    {t('employeeAssessment.form.buttons.update')}
                   </>
                 )}
               </button>
@@ -342,7 +344,7 @@ const EmployeeAssessmentForm: React.FC<EmployeeAssessmentFormProps> = ({
               disabled={isSubmitting}
             >
               <i className="fas fa-times mr-1"></i>
-              Close
+              {t('common.actions.close')}
             </button>
           </div>
         </div>

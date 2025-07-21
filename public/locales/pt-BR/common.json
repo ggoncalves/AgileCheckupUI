@@ -1,0 +1,869 @@
+{
+  "company": {
+    "title": "Gerenciamento de Empresas",
+    "singular": "Empresa",
+    "plural": "Empresas",
+    "columns": {
+      "name": "Nome da Empresa",
+      "email": "E-mail",
+      "document": "Documento",
+      "size": "Porte",
+      "industry": "Setor",
+      "website": "Website",
+      "city": "Cidade",
+      "created": "Criado em"
+    },
+    "form": {
+      "sections": {
+        "basicInfo": "Informações Básicas",
+        "contactInfo": "Informações de Contato",
+        "address": "Endereço",
+        "contactPerson": "Pessoa de Contato"
+      },
+      "fields": {
+        "companyName": "Nome da Empresa",
+        "legalName": "Razão Social",
+        "cnpj": "CNPJ",
+        "tenantId": "ID do Tenant",
+        "description": "Descrição",
+        "companySize": "Porte da Empresa",
+        "industry": "Setor",
+        "companyEmail": "E-mail da Empresa",
+        "companyPhone": "Telefone da Empresa",
+        "website": "Website",
+        "street": "Rua",
+        "city": "Cidade",
+        "state": "Estado",
+        "zipCode": "CEP",
+        "country": "País",
+        "name": "Nome",
+        "email": "E-mail",
+        "cpf": "CPF",
+        "phone": "Telefone",
+        "gender": "Gênero",
+        "pronouns": "Pronomes"
+      },
+      "placeholders": {
+        "legalName": "Razão social (se diferente do nome de exibição)",
+        "cnpj": "00.000.000/0000-00",
+        "tenantId": "tenant-empresa-001",
+        "description": "Breve descrição da empresa e suas atividades",
+        "selectSize": "Selecione um porte...",
+        "selectIndustry": "Selecione um setor...",
+        "email": "empresa@exemplo.com",
+        "phone": "+55 11 1234-5678",
+        "website": "https://www.empresa.com",
+        "street": "Nome da rua e número",
+        "state": "SP",
+        "zipCode": "00000-000",
+        "cpf": "000.000.000-00",
+        "phoneContact": "+55 11 98765-4321",
+        "selectGender": "Selecione o gênero...",
+        "selectPronouns": "Selecione os pronomes..."
+      },
+      "validation": {
+        "required": "é obrigatório",
+        "companyNameRequired": "Nome da empresa é obrigatório",
+        "nameMinLength": "Nome deve ter pelo menos 3 caracteres",
+        "cnpjRequired": "CNPJ é obrigatório",
+        "cnpjInvalid": "Formato de CNPJ inválido (XX.XXX.XXX/XXXX-XX ou 14 dígitos)",
+        "tenantIdRequired": "ID do Tenant é obrigatório",
+        "tenantIdMinLength": "ID do Tenant deve ter pelo menos 9 caracteres",
+        "tenantIdPattern": "ID do Tenant deve conter apenas letras minúsculas, números e hífens",
+        "descriptionRequired": "Descrição da empresa é obrigatória",
+        "descriptionMinLength": "Descrição deve ter pelo menos 10 caracteres",
+        "sizeRequired": "Porte da empresa é obrigatório",
+        "industryRequired": "Setor é obrigatório",
+        "emailRequired": "E-mail é obrigatório",
+        "emailInvalid": "Endereço de e-mail inválido",
+        "phoneInvalid": "Formato de telefone inválido",
+        "urlInvalid": "Formato de URL inválido",
+        "zipCodeInvalid": "Formato de CEP inválido (XXXXX-XXX)",
+        "contactNameRequired": "Nome da pessoa de contato é obrigatório",
+        "contactEmailRequired": "E-mail da pessoa de contato é obrigatório",
+        "contactCpfRequired": "CPF da pessoa de contato é obrigatório",
+        "cpfInvalid": "Formato de CPF inválido (XXX.XXX.XXX-XX ou 11 dígitos)"
+      },
+      "buttons": {
+        "cancel": "Cancelar",
+        "create": "Criar Empresa",
+        "update": "Atualizar Empresa",
+        "creating": "Criando...",
+        "updating": "Atualizando..."
+      },
+      "errors": {
+        "generic": "Ocorreu um erro. Por favor, tente novamente."
+      }
+    }
+  },
+  "team": {
+    "title": "Gerenciamento de Times",
+    "singular": "Time",
+    "plural": "Times",
+    "columns": {
+      "name": "Nome do Time",
+      "description": "Descrição",
+      "department": "Departamento"
+    },
+    "form": {
+      "newTitle": "Novo Time",
+      "editTitle": "Editar Time",
+      "fields": {
+        "department": "Departamento",
+        "name": "Nome do Time",
+        "description": "Descrição"
+      },
+      "placeholders": {
+        "selectDepartment": "Selecione um departamento...",
+        "teamName": "Digite o nome do time",
+        "description": "Digite a descrição do time (opcional)"
+      },
+      "validation": {
+        "departmentRequired": "Departamento é obrigatório",
+        "nameRequired": "Nome do time é obrigatório"
+      },
+      "buttons": {
+        "create": "Criar",
+        "update": "Atualizar",
+        "creating": "Criando...",
+        "updating": "Atualizando..."
+      }
+    },
+    "filters": {
+      "allDepartments": "Todos os Departamentos"
+    },
+    "search": {
+      "placeholder": "Buscar times..."
+    },
+    "messages": {
+      "noTeamsFound": "Nenhum time encontrado",
+      "noDescription": "Sem descrição",
+      "noDepartment": "Sem Departamento"
+    },
+    "errors": {
+      "loadFailed": "Falha ao carregar times. Por favor, tente novamente.",
+      "deleteFailed": "Falha ao excluir time. Por favor, tente novamente."
+    }
+  },
+  "department": {
+    "title": "Gerenciamento de Departamentos",
+    "singular": "Departamento",
+    "plural": "Departamentos",
+    "columns": {
+      "company": "Empresa",
+      "name": "Nome do Departamento",
+      "description": "Descrição"
+    },
+    "form": {
+      "fields": {
+        "name": "Nome",
+        "description": "Descrição"
+      },
+      "validation": {
+        "nameRequired": "Nome do departamento é obrigatório",
+        "nameMinLength": "Nome deve ter pelo menos 3 caracteres",
+        "descriptionRequired": "Descrição do departamento é obrigatória",
+        "descriptionMinLength": "Descrição deve ter pelo menos 3 caracteres"
+      },
+      "buttons": {
+        "create": "Criar Departamento",
+        "update": "Atualizar Departamento",
+        "creating": "Criando...",
+        "updating": "Atualizando..."
+      }
+    },
+    "errors": {
+      "loadCompaniesFailed": "Falha ao carregar empresas. Por favor, tente novamente.",
+      "generic": "Ocorreu um erro. Por favor, tente novamente."
+    }
+  },
+  "performanceCycle": {
+    "title": "Gerenciamento de Ciclos de Performance",
+    "singular": "Ciclo",
+    "plural": "Ciclos de Performance",
+    "columns": {
+      "name": "Nome do Ciclo",
+      "description": "Descrição",
+      "startDate": "Data de Início",
+      "endDate": "Data de Término",
+      "type": "Tipo",
+      "status": "Status"
+    },
+    "form": {
+      "newTitle": "Novo Ciclo de Performance",
+      "editTitle": "Editar Ciclo de Performance",
+      "fields": {
+        "name": "Nome do Ciclo",
+        "description": "Descrição",
+        "status": "Status",
+        "active": "Ativo",
+        "startDate": "Data de Início",
+        "endDate": "Data de Término"
+      },
+      "placeholders": {
+        "name": "ex: Q1 2024, Avaliação Anual",
+        "description": "Digite a descrição do ciclo (opcional)"
+      },
+      "validation": {
+        "nameRequired": "Nome do ciclo é obrigatório",
+        "endDateAfterStart": "Data de término deve ser posterior à data de início"
+      },
+      "help": {
+        "activeHelp": "Ciclos ativos podem ser usados para avaliações",
+        "startDateHelp": "Quando este ciclo de performance inicia",
+        "endDateHelp": "Deixe vazio para ciclos contínuos",
+        "timeSensitiveInfo": "Este ciclo é sensível ao tempo porque uma data de término foi especificada."
+      },
+      "buttons": {
+        "create": "Criar",
+        "update": "Atualizar",
+        "creating": "Criando...",
+        "updating": "Atualizando..."
+      }
+    },
+    "filters": {
+      "allCycles": "Todos os Ciclos",
+      "activeOnly": "Apenas Ativos",
+      "inactiveOnly": "Apenas Inativos"
+    },
+    "search": {
+      "placeholder": "Buscar ciclos..."
+    },
+    "types": {
+      "timeSensitive": "Sensível ao tempo",
+      "ongoing": "Contínuo"
+    },
+    "status": {
+      "active": "Ativo",
+      "inactive": "Inativo"
+    },
+    "messages": {
+      "noCyclesFound": "Nenhum ciclo de performance encontrado",
+      "noDescription": "Sem descrição"
+    },
+    "errors": {
+      "loadFailed": "Falha ao carregar ciclos de performance. Por favor, tente novamente.",
+      "deleteFailed": "Falha ao excluir ciclo de performance. Por favor, tente novamente."
+    }
+  },
+  "assessmentMatrix": {
+    "title": "Matrizes de Avaliação",
+    "singular": "Matriz de Avaliação",
+    "plural": "Matrizes de Avaliação",
+    "columns": {
+      "name": "Nome",
+      "description": "Descrição",
+      "performanceCycle": "Ciclo de Performance",
+      "structure": "Estrutura",
+      "questions": "Perguntas"
+    },
+    "filters": {
+      "allCycles": "Todos os Ciclos de Performance"
+    },
+    "search": {
+      "placeholder": "Buscar Matrizes de Avaliação..."
+    },
+    "structure": {
+      "summary": "{{pillarCount}} pilar{{pillarCount, plural, one {} other {es}}}, {{categoryCount}} categoria{{categoryCount, plural, one {} other {s}}}",
+      "title": "Estrutura da Matriz",
+      "pillars": "Pilares",
+      "categories": "Categorias",
+      "categoriesCount": "{{count}} categoria{{count, plural, one {} other {s}}}",
+      "noPillarsMessage": "Esta matriz ainda não possui pilares definidos. Use o formulário de edição para adicionar pilares e categorias.",
+      "noCategoriesMessage": "Nenhuma categoria definida"
+    },
+    "form": {
+      "createTitle": "Criar Nova Matriz de Avaliação",
+      "editTitle": "Editar Matriz de Avaliação",
+      "fields": {
+        "name": "Nome",
+        "description": "Descrição",
+        "performanceCycle": "Ciclo de Performance"
+      },
+      "placeholders": {
+        "selectPerformanceCycle": "Selecionar Ciclo de Performance",
+        "pillarName": "Nome do Pilar",
+        "pillarDescription": "Descrição do Pilar (opcional)",
+        "categoryName": "Nome da Categoria",
+        "categoryDescription": "Descrição da Categoria (opcional)"
+      },
+      "sections": {
+        "pillarsAndCategories": "Pilares e Categorias",
+        "categories": "Categorias"
+      },
+      "buttons": {
+        "addPillar": "Adicionar Pilar",
+        "addCategory": "Adicionar Categoria",
+        "deleteCategory": "Excluir Categoria",
+        "save": "Salvar",
+        "saving": "Salvando..."
+      },
+      "validation": {
+        "pillarNameRequired": "O nome do pilar é obrigatório",
+        "categoryNameRequired": "O nome da categoria é obrigatório",
+        "pillarNeedsCategory": "Cada pilar deve ter pelo menos uma categoria"
+      },
+      "dialogs": {
+        "deletePillar": {
+          "title": "Excluir Pilar",
+          "message": "Tem certeza que deseja excluir o pilar \"{{pillarName}}\" e todas as suas categorias?"
+        },
+        "deleteCategory": {
+          "title": "Excluir Categoria",
+          "message": "Tem certeza que deseja excluir a categoria \"{{categoryName}}\"?"
+        }
+      },
+      "help": {
+        "preselectedFromFilter": "Pré-selecionado do filtro"
+      }
+    },
+    "actions": {
+      "viewStructure": "Ver detalhes da estrutura",
+      "viewDashboard": "Ver dashboard de avaliação",
+      "closeDashboard": "Fechar Dashboard"
+    },
+    "dashboard": {
+      "loading": "Carregando Dashboard de Avaliação",
+      "loadingMessage": "Aguarde enquanto buscamos os dados para \"{{matrixName}}\"...",
+      "title": "Dashboard de Avaliação",
+      "refresh": "Atualizar",
+      "refreshing": "Atualizando...",
+      "refreshTitle": "Atualizar dados do dashboard",
+      "totalEmployees": "Total de Funcionários",
+      "assignedToAssessment": "Atribuídos para avaliação",
+      "completed": "Concluído",
+      "completionRate": "Taxa de conclusão: {{rate}}%",
+      "inProgress": "Em Andamento",
+      "remaining": "Restante: {{percentage}}%",
+      "teams": "Equipes",
+      "withAssignedEmployees": "Com funcionários atribuídos",
+      "columns": {
+        "team": "Equipe",
+        "totalEmployees": "Total de Funcionários",
+        "completed": "Concluído",
+        "inProgress": "Em Andamento",
+        "progress": "Progresso",
+        "actions": "Ações"
+      },
+      "loadingTeamData": "Carregando dados das equipes...",
+      "noTeamData": "Nenhum dado de equipe disponível"
+    },
+    "employeeStatus": {
+      "title": "Detalhes do Status dos Funcionários - Equipe {{teamName}}",
+      "refresh": "Atualizar",
+      "refreshing": "Atualizando...",
+      "refreshTitle": "Atualizar dados dos funcionários",
+      "columns": {
+        "employee": "Funcionário",
+        "status": "Status",
+        "progress": "Progresso",
+        "lastActivity": "Última Atividade"
+      },
+      "loadingData": "Carregando dados dos funcionários...",
+      "noEmployees": "Nenhum funcionário encontrado para a equipe {{teamName}}",
+      "questionsAnswered": "{{count}} pergunta{{count, plural, one {} other {s}}} respondida{{count, plural, one {} other {s}}}",
+      "pagination": {
+        "showing": "Mostrando {{startIndex}} a {{endIndex}} de {{totalCount}} funcionários"
+      },
+      "lastActivity": {
+        "never": "Nunca",
+        "lessThanHour": "Menos de 1 hora atrás",
+        "hoursAgo": "{{hours}} hora{{hours, plural, one {} other {s}}} atrás",
+        "dayAgo": "1 dia atrás",
+        "daysAgo": "{{days}} dias atrás",
+        "unknown": "Desconhecido"
+      }
+    },
+    "messages": {
+      "noMatricesFound": "Nenhuma matriz de avaliação encontrada",
+      "noPillarsDefined": "Nenhum pilar definido"
+    },
+    "errors": {
+      "loadFailed": "Falha ao carregar matrizes de avaliação. Por favor, tente novamente.",
+      "deleteFailed": "Falha ao excluir matriz de avaliação. Por favor, tente novamente.",
+      "dashboardLoadFailed": "Falha ao carregar dados do dashboard. Por favor, tente novamente."
+    }
+  },
+  "employeeAssessment": {
+    "title": "Avaliações de Funcionários",
+    "singular": "Avaliação de Funcionário",
+    "plural": "Avaliações de Funcionários",
+    "columns": {
+      "name": "Nome",
+      "email": "E-mail",
+      "status": "Status",
+      "team": "Equipe",
+      "answeredQuestions": "Perguntas Respondidas"
+    },
+    "status": {
+      "invited": "Convidado",
+      "confirmed": "Confirmado",
+      "inProgress": "Em Andamento",
+      "completed": "Concluído"
+    },
+    "filters": {
+      "title": "Filtros",
+      "performanceCycle": "Ciclo de Performance",
+      "selectPerformanceCycle": "Selecionar Ciclo de Performance",
+      "assessmentMatrix": "Matriz de Avaliação",
+      "selectAssessmentMatrix": "Selecionar Matriz de Avaliação",
+      "department": "Departamento",
+      "allDepartments": "Todos os Departamentos",
+      "team": "Equipe",
+      "allTeams": "Todas as Equipes"
+    },
+    "context": {
+      "employeeCount": "{{count}} funcionário{{count, plural, one {} other {s}}} nesta avaliação",
+      "filteredByTeam": "Filtrado por equipe"
+    },
+    "invitation": {
+      "sendToEmployees": "Envie este link para todos os funcionários:",
+      "linkGenerated": "Link Gerado",
+      "viewFullLink": "Ver link completo do convite",
+      "generateInstruction": "Clique em \"Copiar Link do Convite\" para gerar link seguro",
+      "copied": "Copiado!",
+      "generating": "Gerando...",
+      "copyLink": "Copiar Link do Convite",
+      "instructions": "Funcionários irão inserir seu endereço de e-mail nesta página para acessar sua avaliação",
+      "linkFor": "Link do Convite para {{matrixName}}",
+      "fullLink": "Link Completo do Convite:",
+      "shareInstruction": "Compartilhe este link com todos os funcionários que precisam completar a avaliação. Eles irão inserir seu endereço de e-mail para acessar sua avaliação específica."
+    },
+    "form": {
+      "sections": {
+        "departmentTeam": "Seleção de Departamento e Equipe",
+        "employeeInfo": "Informações do Funcionário"
+      },
+      "fields": {
+        "department": "Departamento",
+        "team": "Equipe",
+        "employeeName": "Nome do Funcionário",
+        "email": "E-mail"
+      },
+      "placeholders": {
+        "allDepartments": "Todos os Departamentos",
+        "selectTeam": "Selecionar Equipe (Opcional)",
+        "employeeName": "Digite o nome completo do funcionário",
+        "email": "funcionario@empresa.com"
+      },
+      "buttons": {
+        "create": "Criar",
+        "creating": "Criando...",
+        "update": "Atualizar Avaliação",
+        "updating": "Atualizando..."
+      },
+      "validation": {
+        "nameRequired": "Nome do funcionário é obrigatório",
+        "emailRequired": "E-mail do funcionário é obrigatório",
+        "emailExists": "Funcionário com e-mail \"{{email}}\" já existe nesta matriz de avaliação",
+        "emailExistsShort": "Este e-mail já existe na matriz de avaliação"
+      },
+      "success": {
+        "employeeAdded": "Funcionário \"{{name}}\" foi adicionado com sucesso à avaliação!"
+      },
+      "error": {
+        "generic": "Ocorreu um erro"
+      }
+    },
+    "messages": {
+      "selectFilters": "Por favor, selecione um Ciclo de Performance e uma Matriz de Avaliação para gerenciar avaliações de funcionários."
+    }
+  },
+  "question": {
+    "title": "Gerenciamento de Perguntas",
+    "buttons": {
+      "addStandard": "Adicionar Pergunta Padrão",
+      "addCustom": "Adicionar Pergunta Personalizada",
+      "preview": "Visualizar",
+      "create": "Criar",
+      "createAndClose": "Criar e Fechar",
+      "update": "Atualizar",
+      "saving": "Salvando...",
+      "addOption": "Adicionar Opção",
+      "removeOption": "Remover opção",
+      "showPoints": "Mostrar Pontos",
+      "hidePoints": "Ocultar Pontos"
+    },
+    "filters": {
+      "title": "Filtros",
+      "performanceCycle": "Ciclo de Performance",
+      "selectPerformanceCycle": "Selecionar Ciclo de Performance",
+      "assessmentMatrix": "Matriz de Avaliação",
+      "selectAssessmentMatrix": "Selecionar Matriz de Avaliação",
+      "pillar": "Pilar",
+      "allPillars": "Todos os Pilares",
+      "category": "Categoria",
+      "allCategories": "Todas as Categorias"
+    },
+    "stats": {
+      "totalQuestions": "Total de Perguntas",
+      "questionCount": "{{count}} pergunta{{count, plural, one {} other {s}}}"
+    },
+    "details": {
+      "points": "{{points}} pontos",
+      "options": "{{count}} opção{{count, plural, one {} other {ões}}}"
+    },
+    "types": {
+      "yesNo": "Sim/Não",
+      "star3": "★★★",
+      "star5": "★★★★★",
+      "oneToTen": "1-10",
+      "goodBad": "Bom/Ruim",
+      "openAnswer": "Aberta",
+      "customized": "Personalizada"
+    },
+    "messages": {
+      "noQuestions": "Nenhuma pergunta encontrada. Adicione sua primeira pergunta!",
+      "selectFilters": "Por favor, selecione um Ciclo de Performance e uma Matriz de Avaliação para gerenciar perguntas",
+      "deleteSuccess": "Pergunta \"{{question}}\" excluída com sucesso!",
+      "deleteFailed": "Falha ao excluir pergunta. Por favor, tente novamente."
+    },
+    "dialogs": {
+      "deleteTitle": "Excluir Pergunta",
+      "deleteMessage": "Tem certeza que deseja excluir a pergunta \"{{question}}\"?"
+    },
+    "form": {
+      "createTitle": "Criar",
+      "editTitle": "Editar",
+      "customType": "Pergunta Personalizada",
+      "standardType": "Pergunta Padrão",
+      "fields": {
+        "pillar": "Pilar",
+        "category": "Categoria",
+        "questionText": "Texto da Pergunta",
+        "extraDescription": "Descrição Extra",
+        "questionType": "Tipo de Pergunta",
+        "points": "Pontos",
+        "allowMultiple": "Permitir Seleção Múltipla",
+        "showFlushed": "Mostrar Layout Alinhado",
+        "options": "Opções ({{current}} de {{max}})"
+      },
+      "placeholders": {
+        "selectPillar": "Selecionar Pilar",
+        "selectCategory": "Selecionar Categoria",
+        "questionText": "Digite sua pergunta aqui...",
+        "extraDescription": "Adicione esclarecimentos ou contexto para esta pergunta (opcional)...",
+        "points": "Pontos para esta pergunta",
+        "optionText": "Texto da opção",
+        "optionPoints": "Pontos*"
+      },
+      "sections": {
+        "customOptions": "Opções de Pergunta Personalizada"
+      },
+      "table": {
+        "number": "#",
+        "optionText": "Texto da Opção",
+        "points": "Pontos",
+        "action": "Ação"
+      },
+      "help": {
+        "extraDescription": "Use este campo para fornecer contexto adicional ou esclarecimentos para a pergunta",
+        "options": "Cada opção deve ter texto e valor de pontos. Os pontos determinam a pontuação para esta opção."
+      },
+      "types": {
+        "customized": "Pergunta Personalizada",
+        "yes_no": "Sim/Não",
+        "star_three": "Avaliação 3 Estrelas",
+        "star_five": "Avaliação 5 Estrelas",
+        "one_to_ten": "Escala 1-10",
+        "good_bad": "Bom/Ruim",
+        "open_answer": "Resposta Aberta"
+      },
+      "validation": {
+        "missingFields": "Campos obrigatórios ausentes",
+        "questionRequired": "Texto da pergunta é obrigatório",
+        "pillarRequired": "Pilar é obrigatório",
+        "categoryRequired": "Categoria é obrigatória",
+        "optionsMinimum": "Pelo menos 2 opções com texto são obrigatórias",
+        "optionsMaximum": "Máximo de 64 opções permitidas",
+        "optionTextRequired": "Texto da opção é obrigatório",
+        "pointsRequired": "Valor de pontos é obrigatório",
+        "pointsMinimum": "Pontos devem ser 0 ou maior"
+      },
+      "messages": {
+        "createSuccess": "Pergunta \"{{question}}\" criada com sucesso!",
+        "updateSuccess": "Pergunta \"{{question}}\" atualizada com sucesso!"
+      },
+      "buttons": {
+        "create": "Criar",
+        "createAndClose": "Criar e Fechar",
+        "update": "Atualizar",
+        "saving": "Salvando...",
+        "addOption": "Adicionar Opção",
+        "removeOption": "Remover opção"
+      }
+    },
+    "preview": {
+      "title": "Visualização da Pergunta",
+      "howItAppears": "Como esta pergunta aparecerá para os usuários:",
+      "context": {
+        "pillar": "Pilar",
+        "category": "Categoria"
+      },
+      "answers": {
+        "yes": "Sim",
+        "no": "Não",
+        "good": "Bom",
+        "bad": "Ruim"
+      },
+      "placeholders": {
+        "openAnswer": "Digite sua resposta aqui..."
+      },
+      "unknownType": "Tipo de pergunta desconhecido",
+      "pointsValue": "{{points}} pontos",
+      "types": {
+        "yesNo": "Pergunta Sim/Não",
+        "star3": "Avaliação 3 Estrelas",
+        "star5": "Avaliação 5 Estrelas",
+        "oneToTen": "Escala 1-10",
+        "goodBad": "Escolha Bom/Ruim",
+        "openAnswer": "Resposta de Texto Aberta",
+        "customized": "Opções Personalizadas"
+      },
+      "help": {
+        "pointsVisibility": "Mostra valores de pontos para cada opção. Isso é visível apenas para administradores para fins de verificação. Os usuários não verão esses valores de pontos."
+      },
+      "buttons": {
+        "showPoints": "Mostrar Pontos",
+        "hidePoints": "Ocultar Pontos"
+      },
+      "table": {
+        "option": "Opção",
+        "points": "Pontos"
+      },
+      "technicalDetails": "Detalhes Técnicos",
+      "details": {
+        "type": "Tipo",
+        "points": "Pontos",
+        "notApplicable": "N/A",
+        "questionId": "ID da Pergunta",
+        "options": "Opções",
+        "optionsCount": "{{count}} opção{{count, plural, one {} other {ões}}}",
+        "multiSelect": "seleção múltipla"
+      }
+    }
+  },
+  "navigation": {
+    "home": "Início",
+    "dashboard": "Painel",
+    "companies": "Empresas",
+    "departments": "Departamentos",
+    "teams": "Times",
+    "performanceCycles": "Ciclos de Performance",
+    "assessmentMatrices": "Matrizes de Avaliação",
+    "questions": "Perguntas",
+    "employeeAssessments": "Avaliações de Funcionários",
+    "settings": "Configurações"
+  },
+  "common": {
+    "actions": {
+      "add": "Adicionar",
+      "addNew": "Adicionar Novo",
+      "edit": "Editar",
+      "delete": "Excluir",
+      "save": "Salvar",
+      "cancel": "Cancelar",
+      "search": "Buscar",
+      "clear": "Limpar",
+      "close": "Fechar",
+      "confirm": "Confirmar",
+      "back": "Voltar",
+      "previous": "Anterior",
+      "next": "Próximo",
+      "copy": "Copiar"
+    },
+    "labels": {
+      "list": "Lista de",
+      "actions": "Ações"
+    },
+    "pagination": {
+      "previous": "Anterior",
+      "next": "Próximo"
+    },
+    "status": {
+      "loading": "Carregando...",
+      "saving": "Salvando...",
+      "deleting": "Excluindo...",
+      "success": "Sucesso",
+      "error": "Erro"
+    },
+    "messages": {
+      "confirmDelete": "Tem certeza que deseja excluir este item?",
+      "deleteSuccess": "Item excluído com sucesso",
+      "saveSuccess": "Item salvo com sucesso",
+      "errorOccurred": "Ocorreu um erro"
+    }
+  },
+  "sizes": {
+    "MICRO": "Microempresa",
+    "SMALL": "Pequena",
+    "MEDIUM": "Média",
+    "LARGE": "Grande",
+    "ENTERPRISE": "Grande Porte"
+  },
+  "industries": {
+    "TECHNOLOGY": "Tecnologia",
+    "FINANCE": "Finanças",
+    "HEALTHCARE": "Saúde",
+    "EDUCATION": "Educação",
+    "RETAIL": "Varejo",
+    "MANUFACTURING": "Manufatura",
+    "SERVICES": "Serviços",
+    "OTHER": "Outro"
+  },
+  "genders": {
+    "MALE": "Masculino",
+    "FEMALE": "Feminino",
+    "NON_BINARY": "Não-binário",
+    "PREFER_NOT_TO_SAY": "Prefiro não dizer",
+    "OTHER": "Outro"
+  },
+  "pronouns": {
+    "HE_HIM": "Ele/Dele",
+    "SHE_HER": "Ela/Dela",
+    "THEY_THEM": "Elu/Delu",
+    "OTHER": "Outro"
+  },
+  "language": {
+    "current": "Português",
+    "switch": "Mudar idioma"
+  },
+  "footer": {
+    "copyright": "Todos os direitos reservados",
+    "version": "Versão"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "description": "Painel de análise de desempenho para todos os ciclos de avaliação ativos.",
+    "loading": {
+      "performanceCycles": "Carregando Ciclos de Performance...",
+      "assessmentMatrices": "Carregando Matrizes de Avaliação...",
+      "completionData": "Carregando dados de conclusão..."
+    },
+    "status": {
+      "active": "Ativo",
+      "inactive": "Inativo",
+      "warning": "Aviso",
+      "completed": "Concluído",
+      "goodProgress": "Bom Progresso",
+      "needsAttention": "Precisa de Atenção",
+      "notStarted": "Não Iniciado"
+    },
+    "buttons": {
+      "retry": "Tentar Novamente",
+      "viewTeamAnalytics": "Ver Análises da Equipe"
+    },
+    "errors": {
+      "loadCyclesFailed": "Falha ao carregar ciclos de performance. Por favor, tente novamente.",
+      "loadMatricesFailed": "Falha ao carregar matrizes de avaliação. Por favor, tente novamente."
+    },
+    "matrix": {
+      "count": "{{count}} Matriz{{count, plural, one {} other {es}}} de Avaliação"
+    },
+    "dates": {
+      "startDate": "Data de Início",
+      "endDate": "Data de Término",
+      "notSet": "Não definido"
+    },
+    "progress": {
+      "completionProgress": "Progresso de Conclusão",
+      "employeesCompleted": "{{completed}} de {{total}} funcionários concluíram"
+    },
+    "summary": {
+      "teams": "Equipes",
+      "questions": "Perguntas",
+      "notAvailable": "N/A"
+    },
+    "messages": {
+      "noCompletionData": "Nenhum dado de conclusão disponível",
+      "assessmentNotStarted": "A avaliação pode não ter começado ainda"
+    },
+    "emptyState": {
+      "noMatrices": {
+        "title": "Nenhuma Matriz de Avaliação Encontrada",
+        "description": "Você tem {{count}} ciclo{{count, plural, one {} other {s}}} de performance ativo{{count, plural, one {} other {s}}}, mas nenhuma matriz de avaliação foi criada ainda. Crie matrizes de avaliação para começar a rastrear o desempenho da equipe.",
+        "button": "Criar Matriz de Avaliação"
+      },
+      "noCycles": {
+        "title": "Nenhum Ciclo de Performance Ativo",
+        "description": "Não há ciclos de performance ativos encontrados para {{companyName}}. Crie um ciclo de performance para começar a rastrear análises de equipe.",
+        "button": "Criar Ciclo de Performance"
+      }
+    },
+    "overview": {
+      "title": "Visão Geral de Desempenho da Equipe",
+      "breadcrumb": "Comparação de Equipes",
+      "defaultMatrixName": "Matriz de Avaliação",
+      "performanceCycle": "Ciclo de Performance",
+      "teamComparisonTitle": "Visão Geral da Comparação de Equipes",
+      "loading": {
+        "title": "Carregando Comparação de Equipes",
+        "subtitle": "Preparando gráficos radar para todas as equipes..."
+      },
+      "errors": {
+        "loadFailed": "Falha ao carregar dados de comparação de equipes. Por favor, tente novamente."
+      },
+      "noPillarAnalysis": "Nenhuma análise de pilares disponível",
+      "pillarsFound": "Encontrado {{count}} pilar{{count, plural, one {} other {es}}}",
+      "noPillarData": "Nenhuma estrutura de dados de pilar encontrada",
+      "assessmentProgress": "Progresso da Avaliação",
+      "stats": {
+        "employees": "Funcionários",
+        "score": "Pontuação",
+        "completion": "Conclusão"
+      },
+      "buttons": {
+        "viewDetails": "Ver Detalhes"
+      },
+      "noTeams": {
+        "title": "Nenhuma Equipe Encontrada",
+        "description": "Nenhuma equipe foi atribuída a esta matriz de avaliação ainda."
+      },
+      "noData": {
+        "title": "Nenhum Dado Disponível",
+        "description": "Nenhum dado está disponível para esta matriz de avaliação."
+      }
+    },
+    "team": {
+      "title": "Detalhes de Desempenho da Equipe",
+      "teamComparison": "Comparação de Equipes",
+      "teamDefault": "Equipe {{teamId}}",
+      "loading": {
+        "title": "Carregando Análises da Equipe",
+        "subtitle": "Preparando análise detalhada de desempenho..."
+      },
+      "errors": {
+        "loadFailed": "Falha ao carregar análises da equipe. Por favor, tente novamente."
+      },
+      "stats": {
+        "teamMembers": "Membros da Equipe",
+        "overallScore": "Pontuação Geral",
+        "completion": "Conclusão",
+        "pillars": "Pilares"
+      },
+      "pillar": {
+        "categories": "Categorias",
+        "actual": "Real",
+        "potential": "Potencial",
+        "gapFromPotential": "Diferença do potencial: {{gap}}%",
+        "noCategoryData": "Nenhum dado de categoria disponível"
+      },
+      "noPillarData": {
+        "title": "Nenhum Dado de Pilar Disponível",
+        "description": "Esta equipe não completou avaliações suficientes para gerar análise de pilares."
+      },
+      "wordCloud": {
+        "title": "Nuvem de Palavras do Feedback da Equipe",
+        "generatedFrom": "Gerado a partir de {{count}} resposta{{count, plural, one {} other {s}}} de feedback",
+        "noData": {
+          "title": "Nenhum Dado de Feedback Disponível",
+          "description": "Nenhum feedback textual foi coletado para esta equipe ainda."
+        }
+      },
+      "noData": {
+        "title": "Nenhum Dado Disponível",
+        "description": "Nenhum dado de análise está disponível para esta combinação de equipe e matriz de avaliação."
+      }
+    }
+  }
+}

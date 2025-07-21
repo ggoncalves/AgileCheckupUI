@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { AssessmentMatrix } from '@/services/assessmentMatrixService';
 
 interface AssessmentMatrixStructureModalProps {
@@ -14,6 +15,7 @@ const AssessmentMatrixStructureModal: React.FC<AssessmentMatrixStructureModalPro
   isOpen,
   onClose
 }) => {
+  const { t } = useTranslation();
   if (!isOpen) return null;
 
   const handleBackdropClick = (e: React.MouseEvent) => {
@@ -33,7 +35,7 @@ const AssessmentMatrixStructureModal: React.FC<AssessmentMatrixStructureModalPro
           <div className="modal-header">
             <h4 className="modal-title">
               <i className="fas fa-sitemap mr-2"></i>
-              {matrix.name} - Structure
+              {matrix.name} - {t('assessmentMatrix.structure.title')}
             </h4>
             <button
               type="button"
@@ -47,7 +49,7 @@ const AssessmentMatrixStructureModal: React.FC<AssessmentMatrixStructureModalPro
             {!matrix.pillarMap || Object.keys(matrix.pillarMap).length === 0 ? (
               <div className="text-center text-muted py-4">
                 <i className="fas fa-info-circle fa-3x mb-3"></i>
-                <p>No pillars defined for this assessment matrix</p>
+                <p>{t('assessmentMatrix.structure.noPillarsMessage')}</p>
               </div>
             ) : (
               <div>
@@ -58,7 +60,7 @@ const AssessmentMatrixStructureModal: React.FC<AssessmentMatrixStructureModalPro
                         <i className="fas fa-columns"></i>
                       </span>
                       <div className="info-box-content">
-                        <span className="info-box-text">Pillars</span>
+                        <span className="info-box-text">{t('assessmentMatrix.structure.pillars')}</span>
                         <span className="info-box-number">
                           {Object.keys(matrix.pillarMap).length}
                         </span>
@@ -71,7 +73,7 @@ const AssessmentMatrixStructureModal: React.FC<AssessmentMatrixStructureModalPro
                         <i className="fas fa-th-list"></i>
                       </span>
                       <div className="info-box-content">
-                        <span className="info-box-text">Categories</span>
+                        <span className="info-box-text">{t('assessmentMatrix.structure.categories')}</span>
                         <span className="info-box-number">
                           {Object.values(matrix.pillarMap).reduce((total, pillar) => {
                             return total + (pillar.categoryMap ? Object.keys(pillar.categoryMap).length : 0);
@@ -99,11 +101,11 @@ const AssessmentMatrixStructureModal: React.FC<AssessmentMatrixStructureModalPro
                           
                           <h6 className="mb-2">
                             <i className="fas fa-th-list mr-1"></i>
-                            Categories ({pillar.categoryMap ? Object.keys(pillar.categoryMap).length : 0})
+                            {t('assessmentMatrix.structure.categoriesCount', { count: pillar.categoryMap ? Object.keys(pillar.categoryMap).length : 0 })}
                           </h6>
                           
                           {!pillar.categoryMap || Object.keys(pillar.categoryMap).length === 0 ? (
-                            <div className="text-muted small">No categories defined</div>
+                            <div className="text-muted small">{t('assessmentMatrix.structure.noCategoriesMessage')}</div>
                           ) : (
                             <ul className="list-unstyled mb-0">
                               {Object.entries(pillar.categoryMap).map(([categoryId, category]) => (
@@ -133,7 +135,7 @@ const AssessmentMatrixStructureModal: React.FC<AssessmentMatrixStructureModalPro
               className="btn btn-secondary"
               onClick={onClose}
             >
-              Close
+              {t('common.actions.close')}
             </button>
           </div>
         </div>

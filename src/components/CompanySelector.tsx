@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useRouter} from 'next/navigation'; // Change to next/navigation
 import apiService from '@/services/apiService';
-import {useTenant} from '@/contexts/TenantContext';
+import {useTenant} from '@/infrastructure/auth';
 
 // Define types for our company data
 interface Company {

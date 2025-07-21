@@ -3,8 +3,10 @@
 import React from 'react';
 import Link from 'next/link';
 import {usePathname} from 'next/navigation';
+import { useTranslation } from 'react-i18next';
 
 const Sidebar: React.FC = () => {
+  const { t } = useTranslation();
   const pathname = usePathname();
 
   const isActive = (path: string) => {
@@ -38,14 +40,14 @@ const Sidebar: React.FC = () => {
             <li className="nav-item">
               <Link href="/home" className={`nav-link ${isActive('/home')}`}>
                 <i className="nav-icon fas fa-home"></i>
-                <p>Home</p>
+                <p>{t('navigation.home')}</p>
               </Link>
             </li>
 
             <li className="nav-item">
               <Link href="/admin/companies" className="nav-link">
                 <i className="nav-icon fas fa-building"></i>
-                <p>Companies</p>
+                <p>{t('navigation.companies')}</p>
               </Link>
             </li>
 
@@ -53,7 +55,7 @@ const Sidebar: React.FC = () => {
             <li className="nav-item">
               <Link href="/departments" className="nav-link">
                 <i className="nav-icon fas fa-sitemap"></i>
-                <p>Departments</p>
+                <p>{t('navigation.departments')}</p>
               </Link>
             </li>
 
@@ -61,7 +63,7 @@ const Sidebar: React.FC = () => {
             <li className="nav-item">
               <Link href="/teams" className="nav-link">
                 <i className="nav-icon fas fa-users"></i>
-                <p>Teams</p>
+                <p>{t('navigation.teams')}</p>
               </Link>
             </li>
 
@@ -69,7 +71,7 @@ const Sidebar: React.FC = () => {
             <li className="nav-item">
               <Link href="/performancecycles" className="nav-link">
                 <i className="nav-icon fas fa-sync-alt"></i>
-                <p>Performance Cycles</p>
+                <p>{t('navigation.performanceCycles')}</p>
               </Link>
             </li>
 
@@ -77,7 +79,7 @@ const Sidebar: React.FC = () => {
             <li className="nav-item">
               <Link href="/assessmentmatrices" className={`nav-link ${isActive('/assessmentmatrices')}`}>
                 <i className="nav-icon fas fa-clipboard-check"></i>
-                <p>Assessment Matrices</p>
+                <p>{t('navigation.assessmentMatrices')}</p>
               </Link>
             </li>
 
@@ -85,7 +87,7 @@ const Sidebar: React.FC = () => {
             <li className="nav-item">
               <Link href="/questions" className={`nav-link ${isActive('/questions')}`}>
                 <i className="nav-icon fas fa-question-circle"></i>
-                <p>Questions</p>
+                <p>{t('navigation.questions')}</p>
               </Link>
             </li>
 
@@ -93,7 +95,7 @@ const Sidebar: React.FC = () => {
             <li className="nav-item">
               <Link href="/employeeassessments" className={`nav-link ${isActive('/employeeassessments')}`}>
                 <i className="nav-icon fas fa-user-check"></i>
-                <p>Employee Assessments</p>
+                <p>{t('navigation.employeeAssessments')}</p>
               </Link>
             </li>
 
@@ -101,7 +103,7 @@ const Sidebar: React.FC = () => {
             <li className="nav-item">
               <Link href="/dashboard" className={`nav-link ${isActive('/dashboard')}`}>
                 <i className="nav-icon fas fa-chart-pie"></i>
-                <p>Dashboard</p>
+                <p>{t('navigation.dashboard')}</p>
               </Link>
             </li>
 
@@ -109,7 +111,7 @@ const Sidebar: React.FC = () => {
             <li className="nav-item">
               <Link href="/settings" className={`nav-link ${isActive('/settings')}`}>
                 <i className="nav-icon fas fa-cog"></i>
-                <p>Settings</p>
+                <p>{t('navigation.settings')}</p>
               </Link>
             </li>
           </ul>
