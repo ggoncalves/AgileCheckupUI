@@ -145,7 +145,7 @@ const EmployeeAssessmentPage: React.FC = () => {
         ...data,
         tenantId,
         assessmentMatrixId: selectedAssessmentMatrix,
-        teamId: selectedTeam || undefined,
+        // Don't override teamId - let the form data pass through
       };
       return employeeAssessmentService.create(newItem);
     },
