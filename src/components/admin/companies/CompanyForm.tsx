@@ -525,7 +525,8 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
               </div>
             </div>
 
-            <div className="col-md-6">
+            {/*<d-none used to hide genderPronoun in frontend. See: https://ggoncalves.youtrack.cloud/issue/AC-24/>*/}
+            <div className="col-md-6 d-none">
               <div className="form-group">
                 <label htmlFor="contactPerson.genderPronoun">{t('company.form.fields.pronouns')}</label>
                 <select
