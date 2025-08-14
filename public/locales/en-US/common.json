@@ -714,11 +714,16 @@
   "genders": {
     "MALE": "Male",
     "FEMALE": "Female",
-    "NON_BINARY": "Non-binary",
+    "NON_BINARY": "Non-Binary",
+    "GENDERQUEER": "Genderqueer",
+    "TRANSGENDER": "Transgender",
+    "INTERSEX": "Intersex",
     "PREFER_NOT_TO_SAY": "Prefer not to say",
     "OTHER": "Other"
   },
   "pronouns": {
+    "HE": "He/Him",
+    "SHE": "She/Her",
     "HE_HIM": "He/Him",
     "SHE_HER": "She/Her",
     "THEY_THEM": "They/Them",

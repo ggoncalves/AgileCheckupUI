@@ -714,14 +714,19 @@
   "genders": {
     "MALE": "Masculino",
     "FEMALE": "Feminino",
-    "NON_BINARY": "Não-binário",
+    "NON_BINARY": "Não-Binário",
+    "GENDERQUEER": "Genderqueer",
+    "TRANSGENDER": "Transgênero",
+    "INTERSEX": "Intersexo",
     "PREFER_NOT_TO_SAY": "Prefiro não dizer",
     "OTHER": "Outro"
   },
   "pronouns": {
+    "HE": "Ele/Dele",
+    "SHE": "Ela/Dela",
     "HE_HIM": "Ele/Dele",
     "SHE_HER": "Ela/Dela",
-    "THEY_THEM": "Elu/Delu",
+    "THEY_THEM": "Eles/Deles",
     "OTHER": "Outro"
   },
   "language": {
