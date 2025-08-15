@@ -1,9 +1,56 @@
 'use client'
 
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useForm} from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import {Company, CompanySize, Industry, Gender, GenderPronoun} from '@/services/companyService';
+import { generateTenantId } from '@/utils/tenantIdGenerator';
+import { getTenantIdValidationKey } from '@/utils/tenantIdValidator';
+
+// CSS styles for tooltip
+const tooltipStyles = `
+  .tenant-id-tooltip-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+
+  .tenant-id-disabled {
+    cursor: help !important;
+  }
+
+  .tenant-id-tooltip-wrapper:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 1000;
+    margin-bottom: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+
+  .tenant-id-tooltip-wrapper:hover::before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: #333;
+    z-index: 1000;
+  }
+
+  .tenant-id-tooltip-wrapper[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+  }
+`;
 
 // Type for form data derived from Company interface
 type CompanyFormData = Omit<Company, 'id' | 'createdDate' | 'lastUpdatedDate'>;
@@ -22,6 +69,7 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
   const { t } = useTranslation();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [tenantIdManuallyEdited, setTenantIdManuallyEdited] = useState(false);
 
   // Initialize form with proper typing
   const {
@@ -29,7 +77,8 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
     handleSubmit,
     formState: {errors},
     reset,
-    watch
+    watch,
+    setValue
   } = useForm<CompanyFormData>({
     defaultValues: item ? {
       name: item.name,
@@ -65,6 +114,36 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
   const hasContactPerson = watch('contactPerson.name') || watch('contactPerson.email') || 
                           watch('contactPerson.documentNumber') || watch('contactPerson.phone');
 
+  const companyName = watch('name');
+  const tenantId = watch('tenantId');
+
+  // Auto-generate tenant ID when company name changes (only if not manually edited)
+  useEffect(() => {
+    if (companyName && !tenantIdManuallyEdited && !item) {
+      const generatedTenantId = generateTenantId(companyName);
+      if (generatedTenantId && generatedTenantId !== tenantId) {
+        setValue('tenantId', generatedTenantId);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [companyName, tenantIdManuallyEdited, item, setValue]); // tenantId excluded to prevent infinite loop
+
+  // Handle manual tenant ID changes
+  const handleTenantIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setTenantIdManuallyEdited(true);
+    setValue('tenantId', value);
+  };
+
+  // Handle regenerate button click
+  const handleRegenerateTenantId = () => {
+    if (companyName) {
+      const newTenantId = generateTenantId(companyName);
+      setValue('tenantId', newTenantId);
+      setTenantIdManuallyEdited(false);
+    }
+  };
+
   const onFormSubmit = async (data: CompanyFormData) => {
     setIsSubmitting(true);
     setError(null);
@@ -89,10 +168,12 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit(onFormSubmit)}>
-      {error && (
-        <div className="alert alert-danger">{error}</div>
-      )}
+    <>
+      <style>{tooltipStyles}</style>
+      <form onSubmit={handleSubmit(onFormSubmit)}>
+        {error && (
+          <div className="alert alert-danger">{error}</div>
+        )}
 
       {/* Basic Information Section */}
       <div className="card">
@@ -159,22 +240,59 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
             <div className="col-md-6">
               <div className="form-group">
                 <label htmlFor="tenantId">{t('company.form.fields.tenantId')} <span className="text-danger">*</span></label>
-                <input
-                  id="tenantId"
-                  type="text"
-                  className={`form-control ${errors.tenantId ? 'is-invalid' : ''}`}
-                  {...register('tenantId', {
-                    required: t('company.form.validation.tenantIdRequired'),
-                    minLength: {value: 9, message: t('company.form.validation.tenantIdMinLength')},
-                    pattern: {
-                      value: /^[a-z0-9-]+$/,
-                      message: 'Tenant ID must be lowercase alphanumeric with hyphens only'
-                    }
-                  })}
-                  placeholder="tenant-company-001"
-                />
-                {errors.tenantId && (
-                  <div className="invalid-feedback">{errors.tenantId.message}</div>
+                {item ? (
+                  // Edit mode: show disabled field with CSS hover tooltip only
+                  <div 
+                    className="tenant-id-tooltip-wrapper"
+                    data-tooltip={t('company.form.help.tenantIdCannotChange')}
+                  >
+                    <input
+                      id="tenantId"
+                      type="text"
+                      className="form-control tenant-id-disabled"
+                      value={item.tenantId}
+                      disabled
+                    />
+                  </div>
+                ) : (
+                  // Create mode: show editable field with regenerate button
+                  <>
+                    <div className="input-group">
+                      <input
+                        id="tenantId"
+                        type="text"
+                        className={`form-control ${errors.tenantId ? 'is-invalid' : ''}`}
+                        {...register('tenantId', {
+                          required: t('company.form.validation.tenantIdRequired'),
+                          minLength: {value: 9, message: t('company.form.validation.tenantIdMinLength')},
+                          validate: (value) => {
+                            const validationKey = getTenantIdValidationKey(value);
+                            return validationKey ? t(validationKey) : true;
+                          }
+                        })}
+                        onChange={handleTenantIdChange}
+                        placeholder={t('company.form.placeholders.tenantId')}
+                        title={t('company.form.help.tenantIdFormat')}
+                      />
+                      <div className="input-group-append">
+                        <button
+                          type="button"
+                          className="btn btn-outline-secondary"
+                          onClick={handleRegenerateTenantId}
+                          disabled={!companyName}
+                          title={t('company.form.buttons.regenerateTenantId')}
+                        >
+                          🔄
+                        </button>
+                      </div>
+                      {errors.tenantId && (
+                        <div className="invalid-feedback">{errors.tenantId.message}</div>
+                      )}
+                    </div>
+                    <small className="form-text text-muted">
+                      {t('company.form.help.tenantIdFormat')}
+                    </small>
+                  </>
                 )}
               </div>
             </div>
@@ -576,6 +694,7 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
         </button>
       </div>
     </form>
+    </>
   );
 };
 

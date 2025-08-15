@@ -46,7 +46,7 @@
       "placeholders": {
         "legalName": "Razão social (se diferente do nome de exibição)",
         "cnpj": "00.000.000/0000-00",
-        "tenantId": "tenant-empresa-001",
+        "tenantId": "acme-corporation-x7k2m",
         "description": "Breve descrição da empresa e suas atividades",
         "selectSize": "Selecione um porte...",
         "selectIndustry": "Selecione um setor...",
@@ -70,6 +70,11 @@
         "tenantIdRequired": "ID do Tenant é obrigatório",
         "tenantIdMinLength": "ID do Tenant deve ter pelo menos 9 caracteres",
         "tenantIdPattern": "ID do Tenant deve conter apenas letras minúsculas, números e hífens",
+        "tenantIdTooShort": "ID do Tenant deve ter pelo menos 9 caracteres",
+        "tenantIdInvalidChars": "ID do Tenant deve conter apenas letras minúsculas, números e hífens",
+        "tenantIdInvalidHyphenStart": "ID do Tenant não pode começar com hífen",
+        "tenantIdInvalidHyphenEnd": "ID do Tenant não pode terminar com hífen",
+        "tenantIdConsecutiveHyphens": "ID do Tenant não pode conter hífens consecutivos",
         "descriptionRequired": "Descrição da empresa é obrigatória",
         "descriptionMinLength": "Descrição deve ter pelo menos 10 caracteres",
         "sizeRequired": "Porte da empresa é obrigatório",
@@ -89,7 +94,12 @@
         "create": "Criar Empresa",
         "update": "Atualizar Empresa",
         "creating": "Criando...",
-        "updating": "Atualizando..."
+        "updating": "Atualizando...",
+        "regenerateTenantId": "Gerar novo ID de Inquilino baseado no nome da empresa"
+      },
+      "help": {
+        "tenantIdFormat": "Formato: apenas letras minúsculas, números e hífens",
+        "tenantIdCannotChange": "ID do Inquilino não pode ser alterado após a criação da empresa"
       },
       "errors": {
         "generic": "Ocorreu um erro. Por favor, tente novamente."

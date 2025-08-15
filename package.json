@@ -7,7 +7,10 @@
     "dev": "npm run copy-scripts && next dev",
     "build": "npm run copy-scripts && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.7.2",
@@ -33,11 +36,14 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@types/bootstrap": "^5.2.10",
+    "@types/jest": "^30.0.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.3.2",
+    "jest": "^30.0.5",
+    "ts-jest": "^29.4.1",
     "typescript": "^5"
   }
 }

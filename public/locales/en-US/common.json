@@ -46,7 +46,7 @@
       "placeholders": {
         "legalName": "Legal company name (if different from display name)",
         "cnpj": "00.000.000/0000-00",
-        "tenantId": "tenant-company-001",
+        "tenantId": "acme-corporation-x7k2m",
         "description": "Brief description of the company and its activities",
         "selectSize": "Select a size...",
         "selectIndustry": "Select an industry...",
@@ -70,6 +70,11 @@
         "tenantIdRequired": "Tenant ID is required",
         "tenantIdMinLength": "Tenant ID must be at least 9 characters",
         "tenantIdPattern": "Tenant ID must be lowercase alphanumeric with hyphens only",
+        "tenantIdTooShort": "Tenant ID must be at least 9 characters long",
+        "tenantIdInvalidChars": "Tenant ID must contain only lowercase letters, numbers, and hyphens",
+        "tenantIdInvalidHyphenStart": "Tenant ID cannot start with a hyphen",
+        "tenantIdInvalidHyphenEnd": "Tenant ID cannot end with a hyphen",
+        "tenantIdConsecutiveHyphens": "Tenant ID cannot contain consecutive hyphens",
         "descriptionRequired": "Company description is required",
         "descriptionMinLength": "Description must be at least 10 characters",
         "sizeRequired": "Company size is required",
@@ -89,7 +94,12 @@
         "create": "Create Company",
         "update": "Update Company",
         "creating": "Creating...",
-        "updating": "Updating..."
+        "updating": "Updating...",
+        "regenerateTenantId": "Generate new Tenant ID based on company name"
+      },
+      "help": {
+        "tenantIdFormat": "Format: lowercase letters, numbers, and hyphens only",
+        "tenantIdCannotChange": "Tenant ID cannot be changed after company creation"
       },
       "errors": {
         "generic": "An error occurred. Please try again."
