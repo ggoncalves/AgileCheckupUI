@@ -14,6 +14,7 @@ interface QuestionFormProps {
   onClose: () => void;
   onSuccess: (message?: string) => void;
   onError?: (message: string) => void;
+  isModal?: boolean;
 }
 
 export default function QuestionForm({
@@ -23,7 +24,8 @@ export default function QuestionForm({
   assessmentMatrix,
   onClose,
   onSuccess,
-  onError
+  onError,
+  isModal = false
 }: QuestionFormProps) {
   const { t } = useTranslation();
   const { tenantId } = useTenant();

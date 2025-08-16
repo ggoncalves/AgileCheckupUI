@@ -14,12 +14,14 @@ interface DepartmentFormProps {
   item?: Department;
   onSubmit: (data: DepartmentFormData) => Promise<void>;
   onCancel: () => void;
+  isModal?: boolean;
 }
 
 const DepartmentForm: React.FC<DepartmentFormProps> = ({
                                                          item,
                                                          onSubmit,
-                                                         onCancel
+                                                         onCancel,
+                                                         isModal = false
                                                        }) => {
   const { t } = useTranslation();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -157,18 +159,20 @@ const DepartmentForm: React.FC<DepartmentFormProps> = ({
         )}
       </div>
 
-      <div className="form-group d-flex justify-content-end">
-        <button
-          type="button"
-          className="btn btn-secondary mr-2"
-          onClick={onCancel}
-          disabled={isSubmitting}
-        >
-          {t('common.actions.cancel')}
-        </button>
+      <div className={`form-group ${isModal ? 'modal-footer border-top-0 bg-transparent px-0' : 'd-flex justify-content-end'}`}>
+        {!isModal && (
+          <button
+            type="button"
+            className="btn btn-secondary mr-2"
+            onClick={onCancel}
+            disabled={isSubmitting}
+          >
+            {t('common.actions.cancel')}
+          </button>
+        )}
         <button
           type="submit"
-          className="btn btn-primary"
+          className={`btn btn-primary ${isModal ? 'mr-2' : ''}`}
           disabled={isSubmitting}
         >
           {isSubmitting ? (
@@ -180,6 +184,16 @@ const DepartmentForm: React.FC<DepartmentFormProps> = ({
             item ? t('department.form.buttons.update') : t('department.form.buttons.create')
           )}
         </button>
+        {isModal && (
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={onCancel}
+            disabled={isSubmitting}
+          >
+            {t('common.actions.cancel')}
+          </button>
+        )}
       </div>
     </form>
   );

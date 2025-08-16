@@ -8,17 +8,19 @@ import { useTenant } from '@/infrastructure/auth';
 import ConfirmationDialog from '@/components/common/ConfirmationDialog';
 
 interface AssessmentMatrixFormProps {
-  matrix?: AssessmentMatrix;
+  item?: AssessmentMatrix;
   onSubmit: (data: AssessmentMatrixCreateDto) => void;
   onCancel: () => void;
   selectedPerformanceCycleId?: string;
+  isModal?: boolean;
 }
 
 const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
-  matrix,
+  item,
   onSubmit,
   onCancel,
-  selectedPerformanceCycleId
+  selectedPerformanceCycleId,
+  isModal = false
 }) => {
   const { t } = useTranslation();
   const { tenantId } = useTenant();
@@ -44,14 +46,14 @@ const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
   });
 
   useEffect(() => {
-    if (matrix) {
+    if (item) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { id, createdDate, lastUpdatedDate, questionCount, potentialScore, ...createDto } = matrix;
+      const { id, createdDate, lastUpdatedDate, questionCount, potentialScore, ...createDto } = item;
       // Ensure all descriptions are at least empty strings when loading
       const sanitizedDto = {
         ...createDto,
         description: createDto.description || '',
-        tenantId: tenantId || matrix.tenantId || '',
+        tenantId: tenantId || item.tenantId || '',
         pillarMap: Object.entries(createDto.pillarMap || {}).reduce((acc, [pillarId, pillar]) => ({
           ...acc,
           [pillarId]: {
@@ -75,7 +77,7 @@ const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
         tenantId: tenantId || ''
       }));
     }
-  }, [matrix, selectedPerformanceCycleId, tenantId]);
+  }, [item, selectedPerformanceCycleId, tenantId]);
 
   useEffect(() => {
     const fetchPerformanceCycles = async () => {
@@ -270,13 +272,15 @@ const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="card">
-        <div className="card-header">
-          <h3 className="card-title">
-            {matrix ? t('assessmentMatrix.form.editTitle') : t('assessmentMatrix.form.createTitle')}
-          </h3>
-        </div>
-        <div className="card-body">
+      <div className={isModal ? '' : 'card'}>
+        {!isModal && (
+          <div className="card-header">
+            <h3 className="card-title">
+              {item ? t('assessmentMatrix.form.editTitle') : t('assessmentMatrix.form.createTitle')}
+            </h3>
+          </div>
+        )}
+        <div className={isModal ? '' : 'card-body'}>
           <div className="row">
             <div className="col-md-6">
               <div className="form-group">
@@ -424,21 +428,32 @@ const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
           </div>
         </div>
         
-        <div className="card-footer">
+        <div className={`${isModal ? 'modal-footer border-top-0 bg-transparent px-0' : 'card-footer'}`}>
+          {!isModal && (
+            <button
+              type="button"
+              className="btn btn-secondary mr-2"
+              onClick={onCancel}
+            >
+              {t('common.actions.cancel')}
+            </button>
+          )}
           <button
             type="submit"
-            className="btn btn-primary"
+            className={`btn btn-primary ${isModal ? 'mr-2' : ''}`}
             disabled={loading}
           >
             {loading ? t('assessmentMatrix.form.buttons.saving') : t('assessmentMatrix.form.buttons.save')}
           </button>
-          <button
-            type="button"
-            className="btn btn-secondary ml-2"
-            onClick={onCancel}
-          >
-            {t('common.actions.cancel')}
-          </button>
+          {isModal && (
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={onCancel}
+            >
+              {t('common.actions.cancel')}
+            </button>
+          )}
         </div>
       </div>
 

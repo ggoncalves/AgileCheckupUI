@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, ReactNode, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import Modal from './Modal';
 
 
 // Generic types
@@ -35,10 +36,12 @@ interface AbstractCRUDProps<T extends CrudItem> {
     onSubmit: (data: Omit<T, 'id'>) => Promise<void>;
     onCancel: () => void;
     existingItems?: T[];
+    isModal?: boolean;
   }>;
   itemName: string;
   canEdit?: (item: T) => boolean;
   canDelete?: (item: T) => boolean;
+  modalSize?: 'sm' | 'lg' | 'xl';
 }
 
 function AbstractCRUD<T extends CrudItem>({
@@ -48,7 +51,8 @@ function AbstractCRUD<T extends CrudItem>({
                                             FormComponent,
                                             itemName,
                                             canEdit,
-                                            canDelete
+                                            canDelete,
+                                            modalSize = 'xl'
                                           }: AbstractCRUDProps<T>) {
   const { t } = useTranslation();
   const [items, setItems] = useState<T[]>([]);
@@ -56,6 +60,7 @@ function AbstractCRUD<T extends CrudItem>({
   const [error, setError] = useState<string | null>(null);
   const [editingItem, setEditingItem] = useState<T | undefined>(undefined);
   const [showForm, setShowForm] = useState(false);
+  const [isModalAnimating, setIsModalAnimating] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
@@ -80,14 +85,21 @@ function AbstractCRUD<T extends CrudItem>({
     loadItems();
   }, [loadItems]);
 
+
   const handleAddNew = () => {
     setEditingItem(undefined);
+    setIsModalAnimating(true);
     setShowForm(true);
+    // Remove animation class after animation completes
+    setTimeout(() => setIsModalAnimating(false), 300);
   };
 
   const handleEdit = (item: T) => {
     setEditingItem(item);
+    setIsModalAnimating(true);
     setShowForm(true);
+    // Remove animation class after animation completes
+    setTimeout(() => setIsModalAnimating(false), 300);
   };
 
   const handleDelete = async (id: string) => {
@@ -124,9 +136,15 @@ function AbstractCRUD<T extends CrudItem>({
   };
 
   const handleFormCancel = () => {
-    setShowForm(false);
-    setEditingItem(undefined);
+    setIsModalAnimating(true);
+    // Start hide animation
+    setTimeout(() => {
+      setShowForm(false);
+      setEditingItem(undefined);
+      setIsModalAnimating(false);
+    }, 150); // Shorter delay for closing
   };
+
 
   // Filter items based on search term
   const filterItems = (items: T[]) => {
@@ -342,23 +360,21 @@ function AbstractCRUD<T extends CrudItem>({
             </div>
           </div>
 
-          {showForm && (
-            <div className="card mt-4">
-              <div className="card-header">
-                <h3 className="card-title">
-                  {editingItem ? `${t('common.actions.edit')} ${itemName}` : `${t('common.actions.addNew')} ${itemName}`}
-                </h3>
-              </div>
-              <div className="card-body">
-                <FormComponent
-                  item={editingItem}
-                  onSubmit={handleFormSubmit}
-                  onCancel={handleFormCancel}
-                  existingItems={items}
-                />
-              </div>
-            </div>
-          )}
+          <Modal
+            isOpen={showForm}
+            onClose={handleFormCancel}
+            title={editingItem ? `${t('common.actions.edit')} ${itemName}` : `${t('common.actions.addNew')} ${itemName}`}
+            size={modalSize}
+            isAnimating={isModalAnimating}
+          >
+            <FormComponent
+              item={editingItem}
+              onSubmit={handleFormSubmit}
+              onCancel={handleFormCancel}
+              existingItems={items}
+              isModal={true}
+            />
+          </Modal>
         </div>
       </section>
     </div>

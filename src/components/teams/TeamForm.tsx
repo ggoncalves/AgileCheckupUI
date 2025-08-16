@@ -12,9 +12,10 @@ interface TeamFormProps {
   item?: Team;
   onSubmit: (data: TeamCreateDto) => Promise<void>;
   onCancel: () => void;
+  isModal?: boolean;
 }
 
-export const TeamForm: React.FC<TeamFormProps> = ({ item, onSubmit, onCancel }) => {
+export const TeamForm: React.FC<TeamFormProps> = ({ item, onSubmit, onCancel, isModal = false }) => {
   const { t } = useTranslation();
   const { tenantId, companyId } = useTenant();
   const [departments, setDepartments] = useState<Department[]>([]);
@@ -76,15 +77,17 @@ export const TeamForm: React.FC<TeamFormProps> = ({ item, onSubmit, onCancel }) 
   };
 
   return (
-    <div className="card">
-      <div className="card-header">
-        <h3 className="card-title">
-          <i className="fas fa-users mr-2"></i>
-          {item ? t('team.form.editTitle') : t('team.form.newTitle')}
-        </h3>
-      </div>
+    <div className={isModal ? '' : 'card'}>
+      {!isModal && (
+        <div className="card-header">
+          <h3 className="card-title">
+            <i className="fas fa-users mr-2"></i>
+            {item ? t('team.form.editTitle') : t('team.form.newTitle')}
+          </h3>
+        </div>
+      )}
       <form onSubmit={handleSubmit(onFormSubmit)}>
-        <div className="card-body">
+        <div className={isModal ? '' : 'card-body'}>
           {/* Hidden fields for tenant context */}
           <input type="hidden" {...register('tenantId')} />
           <input type="hidden" {...register('companyId')} />
@@ -145,18 +148,20 @@ export const TeamForm: React.FC<TeamFormProps> = ({ item, onSubmit, onCancel }) 
           </div>
         </div>
 
-        <div className="form-group d-flex justify-content-end">
-          <button
-            type="button"
-            className="btn btn-secondary mr-2"
-            onClick={onCancel}
-            disabled={isSubmitting}
-          >
-            {t('common.actions.cancel')}
-          </button>
+        <div className={`form-group ${isModal ? 'modal-footer border-top-0 bg-transparent px-0' : 'd-flex justify-content-end'}`}>
+          {!isModal && (
+            <button
+              type="button"
+              className="btn btn-secondary mr-2"
+              onClick={onCancel}
+              disabled={isSubmitting}
+            >
+              {t('common.actions.cancel')}
+            </button>
+          )}
           <button
             type="submit"
-            className="btn btn-primary"
+            className={`btn btn-primary ${isModal ? 'mr-2' : ''}`}
             disabled={isSubmitting || loadingDepartments}
           >
             {isSubmitting ? (
@@ -168,6 +173,16 @@ export const TeamForm: React.FC<TeamFormProps> = ({ item, onSubmit, onCancel }) 
               <>{item ? t('team.form.buttons.update') : t('team.form.buttons.create')} {t('team.singular')}</>
             )}
           </button>
+          {isModal && (
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={onCancel}
+              disabled={isSubmitting}
+            >
+              {t('common.actions.cancel')}
+            </button>
+          )}
         </div>
       </form>
     </div>

@@ -10,9 +10,10 @@ interface PerformanceCycleFormProps {
   item?: PerformanceCycle;
   onSubmit: (data: PerformanceCycleCreateDto) => Promise<void>;
   onCancel: () => void;
+  isModal?: boolean;
 }
 
-export const PerformanceCycleForm: React.FC<PerformanceCycleFormProps> = ({ item, onSubmit, onCancel }) => {
+export const PerformanceCycleForm: React.FC<PerformanceCycleFormProps> = ({ item, onSubmit, onCancel, isModal = false }) => {
   const { t } = useTranslation();
   const { tenantId, companyId } = useTenant();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -218,19 +219,21 @@ export const PerformanceCycleForm: React.FC<PerformanceCycleFormProps> = ({ item
           )}
         </div>
 
-        <div className="card-footer">
-          <div className="d-flex justify-content-end">
-            <button
-              type="button"
-              className="btn btn-secondary mr-2"
-              onClick={onCancel}
-              disabled={isSubmitting}
-            >
-              {t('common.actions.cancel')}
-            </button>
+        <div className={`${isModal ? 'modal-footer border-top-0 bg-transparent px-0' : 'card-footer'}`}>
+          <div className={`${isModal ? '' : 'd-flex justify-content-end'}`}>
+            {!isModal && (
+              <button
+                type="button"
+                className="btn btn-secondary mr-2"
+                onClick={onCancel}
+                disabled={isSubmitting}
+              >
+                {t('common.actions.cancel')}
+              </button>
+            )}
             <button
               type="submit"
-              className="btn btn-primary"
+              className={`btn btn-primary ${isModal ? 'mr-2' : ''}`}
               disabled={isSubmitting || !!errors.endDate}
             >
               {isSubmitting ? (
@@ -242,6 +245,16 @@ export const PerformanceCycleForm: React.FC<PerformanceCycleFormProps> = ({ item
                 <>{item ? t('performanceCycle.form.buttons.update') : t('performanceCycle.form.buttons.create')} {t('performanceCycle.singular')}</>
               )}
             </button>
+            {isModal && (
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={onCancel}
+                disabled={isSubmitting}
+              >
+                {t('common.actions.cancel')}
+              </button>
+            )}
           </div>
         </div>
       </form>
