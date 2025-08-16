@@ -545,7 +545,7 @@
         "questionType": "Question Type",
         "points": "Points",
         "allowMultiple": "Allow Multiple Selection",
-        "showFlushed": "Show Flushed Layout",
+        "showFlushed": "Show Flushed Layout"
       },
       "placeholders": {
         "selectPillar": "Select Pillar",
@@ -683,7 +683,7 @@
     },
     "labels": {
       "list": "List",
-      "actions": "Actions"
+      "actions": "Options"
     },
     "pagination": {
       "previous": "Previous",

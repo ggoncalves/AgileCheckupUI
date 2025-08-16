@@ -545,7 +545,7 @@
         "questionType": "Tipo de Pergunta",
         "points": "Pontos",
         "allowMultiple": "Permitir Seleção Múltipla",
-        "showFlushed": "Mostrar Layout Alinhado",
+        "showFlushed": "Mostrar Layout Alinhado"
       },
       "placeholders": {
         "selectPillar": "Selecionar Pilar",
@@ -683,7 +683,7 @@
     },
     "labels": {
       "list": "Lista de",
-      "actions": "Ações"
+      "actions": "Opções"
     },
     "pagination": {
       "previous": "Anterior",

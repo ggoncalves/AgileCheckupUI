@@ -1,9 +1,8 @@
-'use client'
+"use client";
 
-import React, { useState, useEffect, ReactNode, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
-import Modal from './Modal';
-
+import React, { useState, useEffect, ReactNode, useCallback } from "react";
+import { useTranslation } from "react-i18next";
+import Modal from "./Modal";
 
 // Generic types
 export interface CrudItem {
@@ -22,7 +21,7 @@ export interface CrudColumn<T extends CrudItem> {
 export interface CrudApi<T extends CrudItem> {
   getAll: () => Promise<T[]>;
   getById: (id: string) => Promise<T>;
-  create: (data: Omit<T, 'id'>) => Promise<T>;
+  create: (data: Omit<T, "id">) => Promise<T>;
   update: (id: string, data: Partial<T>) => Promise<T>;
   delete: (id: string) => Promise<void>;
 }
@@ -33,7 +32,7 @@ interface AbstractCRUDProps<T extends CrudItem> {
   api: CrudApi<T>;
   FormComponent: React.ComponentType<{
     item?: T;
-    onSubmit: (data: Omit<T, 'id'>) => Promise<void>;
+    onSubmit: (data: Omit<T, "id">) => Promise<void>;
     onCancel: () => void;
     existingItems?: T[];
     isModal?: boolean;
@@ -41,19 +40,21 @@ interface AbstractCRUDProps<T extends CrudItem> {
   itemName: string;
   canEdit?: (item: T) => boolean;
   canDelete?: (item: T) => boolean;
-  modalSize?: 'sm' | 'lg' | 'xl';
+  modalSize?: "sm" | "lg" | "xl";
+  hideActionsColumnWhenEmpty?: boolean;
 }
 
 function AbstractCRUD<T extends CrudItem>({
-                                            title,
-                                            columns,
-                                            api,
-                                            FormComponent,
-                                            itemName,
-                                            canEdit,
-                                            canDelete,
-                                            modalSize = 'xl'
-                                          }: AbstractCRUDProps<T>) {
+  title,
+  columns,
+  api,
+  FormComponent,
+  itemName,
+  canEdit,
+  canDelete,
+  modalSize = "xl",
+  hideActionsColumnWhenEmpty = false,
+}: AbstractCRUDProps<T>) {
   const { t } = useTranslation();
   const [items, setItems] = useState<T[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -61,11 +62,11 @@ function AbstractCRUD<T extends CrudItem>({
   const [editingItem, setEditingItem] = useState<T | undefined>(undefined);
   const [showForm, setShowForm] = useState(false);
   const [isModalAnimating, setIsModalAnimating] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
-  const [sortField, setSortField] = useState<keyof T | ''>('');
-  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+  const [sortField, setSortField] = useState<keyof T | "">("");
+  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
 
   const loadItems = useCallback(async () => {
     setIsLoading(true);
@@ -85,7 +86,6 @@ function AbstractCRUD<T extends CrudItem>({
     loadItems();
   }, [loadItems]);
 
-
   const handleAddNew = () => {
     setEditingItem(undefined);
     setIsModalAnimating(true);
@@ -103,10 +103,10 @@ function AbstractCRUD<T extends CrudItem>({
   };
 
   const handleDelete = async (id: string) => {
-    if (window.confirm(t('common.messages.confirmDelete'))) {
+    if (window.confirm(t("common.messages.confirmDelete"))) {
       try {
         await api.delete(id);
-        setItems(items.filter(item => item.id !== id));
+        setItems(items.filter((item) => item.id !== id));
       } catch (err) {
         setError(`Failed to delete ${itemName}. Please try again.`);
         console.error(err);
@@ -145,17 +145,16 @@ function AbstractCRUD<T extends CrudItem>({
     }, 150); // Shorter delay for closing
   };
 
-
   // Filter items based on search term
   const filterItems = (items: T[]) => {
     if (!searchTerm) return items;
 
-    return items.filter(item =>
+    return items.filter((item) =>
       Object.values(item).some(
-        value =>
+        (value) =>
           value &&
-          value.toString().toLowerCase().includes(searchTerm.toLowerCase())
-      )
+          value.toString().toLowerCase().includes(searchTerm.toLowerCase()),
+      ),
     );
   };
 
@@ -170,13 +169,13 @@ function AbstractCRUD<T extends CrudItem>({
       if (aValue === bValue) return 0;
 
       const comparison = aValue < bValue ? -1 : 1;
-      return sortDirection === 'asc' ? comparison : -comparison;
+      return sortDirection === "asc" ? comparison : -comparison;
     });
   };
 
   const handleSort = (field: keyof T) => {
     setSortDirection(
-      field === sortField && sortDirection === 'asc' ? 'desc' : 'asc'
+      field === sortField && sortDirection === "asc" ? "desc" : "asc",
     );
     setSortField(field);
   };
@@ -198,6 +197,15 @@ function AbstractCRUD<T extends CrudItem>({
     setCurrentPage(page);
   };
 
+  const hasAnyActions = (itemsToCheck: T[]) => {
+    return itemsToCheck.some(
+      (item) => !canEdit || canEdit(item) || !canDelete || canDelete(item),
+    );
+  };
+
+  const showActionsColumn =
+    !hideActionsColumnWhenEmpty || hasAnyActions(processedItems());
+
   return (
     <div>
       <div className="content-header">
@@ -214,7 +222,9 @@ function AbstractCRUD<T extends CrudItem>({
         <div className="container-fluid">
           <div className="card">
             <div className="card-header">
-              <h3 className="card-title">{t('common.labels.list')} {itemName}s</h3>
+              <h3 className="card-title">
+                {t("common.labels.list")} {itemName}s
+              </h3>
               <div className="card-tools">
                 <button
                   type="button"
@@ -222,20 +232,19 @@ function AbstractCRUD<T extends CrudItem>({
                   onClick={handleAddNew}
                   disabled={showForm}
                 >
-                  <i className="fas fa-plus mr-1"></i> {t('common.actions.addNew')} {itemName}
+                  <i className="fas fa-plus mr-1"></i>{" "}
+                  {t("common.actions.addNew")} {itemName}
                 </button>
               </div>
             </div>
             <div className="card-body">
-              {error && (
-                <div className="alert alert-danger">{error}</div>
-              )}
+              {error && <div className="alert alert-danger">{error}</div>}
 
               <div className="input-group mb-3">
                 <input
                   type="text"
                   className="form-control"
-                  placeholder={`${t('common.actions.search')} ${itemName}s...`}
+                  placeholder={`${t("common.actions.search")} ${itemName}s...`}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
@@ -249,73 +258,106 @@ function AbstractCRUD<T extends CrudItem>({
               <div className="table-responsive">
                 <table className="table table-bordered table-striped">
                   <thead>
-                  <tr>
-                    {columns.map((column) => (
-                      <th
-                        key={column.key.toString()}
-                        className={column.className || ''}
-                        onClick={() => column.sortable ? handleSort(column.key as keyof T) : null}
-                        style={{ cursor: column.sortable ? 'pointer' : 'default' }}
-                      >
-                        {column.label}
-                        {column.sortable && sortField === column.key && (
-                          <i
-                            className={`ml-1 fas fa-sort-${sortDirection === 'asc' ? 'up' : 'down'}`}
-                          ></i>
-                        )}
-                      </th>
-                    ))}
-                    <th className="text-nowrap" style={{ minWidth: '140px' }}>{t('common.labels.actions')}</th>
-                  </tr>
+                    <tr>
+                      {columns.map((column) => (
+                        <th
+                          key={column.key.toString()}
+                          className={column.className || ""}
+                          onClick={() =>
+                            column.sortable
+                              ? handleSort(column.key as keyof T)
+                              : null
+                          }
+                          style={{
+                            cursor: column.sortable ? "pointer" : "default",
+                          }}
+                        >
+                          {column.label}
+                          {column.sortable && sortField === column.key && (
+                            <i
+                              className={`ml-1 fas fa-sort-${sortDirection === "asc" ? "up" : "down"}`}
+                            ></i>
+                          )}
+                        </th>
+                      ))}
+                      {showActionsColumn && (
+                        <th
+                          className="text-nowrap"
+                          style={{ minWidth: "140px" }}
+                        >
+                          {t("common.labels.actions")}
+                        </th>
+                      )}
+                    </tr>
                   </thead>
                   <tbody>
-                  {isLoading ? (
-                    <tr>
-                      <td colSpan={columns.length + 1} className="text-center">
-                        <div className="spinner-border text-primary" role="status">
-                          <span className="sr-only">Loading...</span>
-                        </div>
-                      </td>
-                    </tr>
-                  ) : processedItems().length === 0 ? (
-                    <tr>
-                      <td colSpan={columns.length + 1} className="text-center">
-                        No {itemName}s found
-                      </td>
-                    </tr>
-                  ) : (
-                    processedItems().map((item) => (
-                      <tr key={item.id}>
-                        {columns.map((column) => (
-                          <td key={`${item.id}-${column.key.toString()}`} className={column.className || ''}>
-                            {column.render
-                              ? column.render(item)
-                              : item[column.key as keyof T]?.toString() || '-'}
-                          </td>
-                        ))}
-                        <td className="text-nowrap" style={{ minWidth: '140px' }}>
-                          {(!canEdit || canEdit(item)) && (
-                            <button
-                              className="btn btn-info btn-sm mr-2"
-                              onClick={() => handleEdit(item)}
-                              disabled={showForm}
-                            >
-                              <i className="fas fa-edit"></i> {t('common.actions.edit')}
-                            </button>
-                          )}
-                          {(!canDelete || canDelete(item)) && (
-                            <button
-                              className="btn btn-danger btn-sm"
-                              onClick={() => handleDelete(item.id)}
-                              disabled={showForm}
-                            >
-                              <i className="fas fa-trash"></i> {t('common.actions.delete')}
-                            </button>
-                          )}
+                    {isLoading ? (
+                      <tr>
+                        <td
+                          colSpan={columns.length + (showActionsColumn ? 1 : 0)}
+                          className="text-center"
+                        >
+                          <div
+                            className="spinner-border text-primary"
+                            role="status"
+                          >
+                            <span className="sr-only">Loading...</span>
+                          </div>
                         </td>
                       </tr>
-                    ))
-                  )}
+                    ) : processedItems().length === 0 ? (
+                      <tr>
+                        <td
+                          colSpan={columns.length + (showActionsColumn ? 1 : 0)}
+                          className="text-center"
+                        >
+                          No {itemName}s found
+                        </td>
+                      </tr>
+                    ) : (
+                      processedItems().map((item) => (
+                        <tr key={item.id}>
+                          {columns.map((column) => (
+                            <td
+                              key={`${item.id}-${column.key.toString()}`}
+                              className={column.className || ""}
+                            >
+                              {column.render
+                                ? column.render(item)
+                                : item[column.key as keyof T]?.toString() ||
+                                  "-"}
+                            </td>
+                          ))}
+                          {showActionsColumn && (
+                            <td
+                              className="text-nowrap"
+                              style={{ minWidth: "140px" }}
+                            >
+                              {(!canEdit || canEdit(item)) && (
+                                <button
+                                  className="btn btn-info btn-sm mr-2"
+                                  onClick={() => handleEdit(item)}
+                                  disabled={showForm}
+                                >
+                                  <i className="fas fa-edit"></i>{" "}
+                                  {t("common.actions.edit")}
+                                </button>
+                              )}
+                              {(!canDelete || canDelete(item)) && (
+                                <button
+                                  className="btn btn-danger btn-sm"
+                                  onClick={() => handleDelete(item.id)}
+                                  disabled={showForm}
+                                >
+                                  <i className="fas fa-trash"></i>{" "}
+                                  {t("common.actions.delete")}
+                                </button>
+                              )}
+                            </td>
+                          )}
+                        </tr>
+                      ))
+                    )}
                   </tbody>
                 </table>
               </div>
@@ -323,35 +365,41 @@ function AbstractCRUD<T extends CrudItem>({
               {totalPages > 1 && (
                 <div className="d-flex justify-content-center mt-3">
                   <ul className="pagination">
-                    <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                    <li
+                      className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
+                    >
                       <button
                         className="page-link"
                         onClick={() => handlePageChange(currentPage - 1)}
                         disabled={currentPage === 1}
                       >
-                        {t('common.actions.previous')}
+                        {t("common.actions.previous")}
                       </button>
                     </li>
-                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                      <li
-                        key={page}
-                        className={`page-item ${currentPage === page ? 'active' : ''}`}
-                      >
-                        <button
-                          className="page-link"
-                          onClick={() => handlePageChange(page)}
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                      (page) => (
+                        <li
+                          key={page}
+                          className={`page-item ${currentPage === page ? "active" : ""}`}
                         >
-                          {page}
-                        </button>
-                      </li>
-                    ))}
-                    <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+                          <button
+                            className="page-link"
+                            onClick={() => handlePageChange(page)}
+                          >
+                            {page}
+                          </button>
+                        </li>
+                      ),
+                    )}
+                    <li
+                      className={`page-item ${currentPage === totalPages ? "disabled" : ""}`}
+                    >
                       <button
                         className="page-link"
                         onClick={() => handlePageChange(currentPage + 1)}
                         disabled={currentPage === totalPages}
                       >
-                        {t('common.actions.next')}
+                        {t("common.actions.next")}
                       </button>
                     </li>
                   </ul>
@@ -363,7 +411,11 @@ function AbstractCRUD<T extends CrudItem>({
           <Modal
             isOpen={showForm}
             onClose={handleFormCancel}
-            title={editingItem ? `${t('common.actions.edit')} ${itemName}` : `${t('common.actions.addNew')} ${itemName}`}
+            title={
+              editingItem
+                ? `${t("common.actions.edit")} ${itemName}`
+                : `${t("common.actions.addNew")} ${itemName}`
+            }
             size={modalSize}
             isAnimating={isModalAnimating}
           >
