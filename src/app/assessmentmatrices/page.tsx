@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AdminLayout } from '@/infrastructure/layouts';
 import AbstractCRUD, { CrudColumn } from '@/components/common/AbstractCRUD';
@@ -14,7 +14,7 @@ import { useTenant } from '@/infrastructure/auth';
 
 const AssessmentMatrixPage: React.FC = () => {
   const { t } = useTranslation();
-  const { tenantId } = useTenant();
+  const { } = useTenant();
   const [performanceCycles, setPerformanceCycles] = useState<PerformanceCycle[]>([]);
   const [selectedMatrixForStructure, setSelectedMatrixForStructure] = useState<AssessmentMatrix | null>(null);
   const [showStructureModal, setShowStructureModal] = useState(false);

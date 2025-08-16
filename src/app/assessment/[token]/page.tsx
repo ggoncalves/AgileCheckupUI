@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import AssessmentTaking from '../../../components/assessment/AssessmentTaking';
 import AssessmentComplete from '../../../components/assessment/AssessmentComplete';
 
@@ -26,6 +26,7 @@ interface AssessmentMatrix {
 
 const AssessmentPage: React.FC = () => {
   const params = useParams();
+  const router = useRouter();
   const token = params.token as string;
   
   const [isValidating, setIsValidating] = useState(true);

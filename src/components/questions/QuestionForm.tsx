@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useTenant } from '@/infrastructure/auth';
 import questionService, { Question, QuestionFormData, QuestionType, QuestionOption } from '@/services/questionService';
 import { AssessmentMatrix } from '@/services/assessmentMatrixService';
+import Modal from '@/components/common/Modal';
 
 interface QuestionFormProps {
   question: Question | null;
@@ -14,7 +15,6 @@ interface QuestionFormProps {
   onClose: () => void;
   onSuccess: (message?: string) => void;
   onError?: (message: string) => void;
-  isModal?: boolean;
 }
 
 export default function QuestionForm({
@@ -24,8 +24,7 @@ export default function QuestionForm({
   assessmentMatrix,
   onClose,
   onSuccess,
-  onError,
-  isModal = false
+  onError
 }: QuestionFormProps) {
   const { t } = useTranslation();
   const { tenantId } = useTenant();
@@ -56,6 +55,26 @@ export default function QuestionForm({
   const pillars = assessmentMatrix ? Object.values(assessmentMatrix.pillarMap || {}) : [];
   const selectedPillar = pillars.find(p => p.id === selectedPillarId);
   const categories = selectedPillar ? Object.values(selectedPillar.categoryMap || {}) : [];
+
+  // ESC key handling and body scroll management
+  useEffect(() => {
+    const handleEscKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    // Add event listener for ESC key
+    document.addEventListener('keydown', handleEscKey);
+    
+    // Prevent body scroll when modal is open
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.removeEventListener('keydown', handleEscKey);
+      document.body.style.overflow = '';
+    };
+  }, [onClose]);
 
   useEffect(() => {
     if (question) {
@@ -327,28 +346,21 @@ export default function QuestionForm({
         </div>
       )}
 
-      <div className="modal fade show" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}>
-        <div className="modal-dialog modal-lg">
-          <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title">
-              <i className={`fas fa-${question ? 'edit' : 'plus'} mr-2`}></i>
-              {question ? t('question.form.editTitle') : t('question.form.createTitle')} {isCustom ? t('question.form.customType') : t('question.form.standardType')}
-            </h5>
-            <button type="button" className="close" onClick={onClose}>
-              <span>&times;</span>
-            </button>
-          </div>
-          
-          <form onSubmit={(e) => {
-            e.preventDefault();
-            // Default to save and close when form is submitted naturally (Enter key)
-            handleSubmit(e, true);
-          }}>
-            <div className="modal-body">
-              {errors.submit && (
-                <div className="alert alert-danger">{errors.submit}</div>
-              )}
+      <Modal
+        isOpen={true}
+        onClose={onClose}
+        title={`${question ? t('question.form.editTitle') : t('question.form.createTitle')} ${isCustom ? t('question.form.customType') : t('question.form.standardType')}`}
+        size="xl"
+      >
+        <form onSubmit={(e) => {
+          e.preventDefault();
+          // Default to save and close when form is submitted naturally (Enter key)
+          handleSubmit(e, true);
+        }}>
+          <div>
+            {errors.submit && (
+              <div className="alert alert-danger">{errors.submit}</div>
+            )}
               
               <div className="row">
                 <div className="col-md-6">
@@ -497,7 +509,8 @@ export default function QuestionForm({
                           checked={showFlushed}
                           onChange={(e) => setShowFlushed(e.target.checked)}
                         />
-                        <label className="custom-control-label" htmlFor="showFlushed">
+                        {/*<> Using d-none to hide the label </>*/}
+                        <label className="custom-control-label d-none" htmlFor="showFlushed">
                           {t('question.form.fields.showFlushed')}
                         </label>
                       </div>
@@ -506,7 +519,6 @@ export default function QuestionForm({
                   
                   <div className="form-group">
                     <label>
-                      {t('question.form.fields.options', { current: options.length, max: 64 })} <span className="text-danger">*</span>
                       {errors.options && (
                         <span className="text-danger ml-2">- {errors.options}</span>
                       )}
@@ -612,7 +624,6 @@ export default function QuestionForm({
                   </div>
                 </div>
               )}
-            </div>
             
             <div className="modal-footer">
               <button type="button" className="btn btn-secondary" onClick={onClose}>
@@ -667,10 +678,9 @@ export default function QuestionForm({
                 </button>
               )}
             </div>
-          </form>
-        </div>
-      </div>
-    </div>
+          </div>
+        </form>
+      </Modal>
     </>
   );
 }

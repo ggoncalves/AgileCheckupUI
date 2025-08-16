@@ -546,7 +546,6 @@
         "points": "Pontos",
         "allowMultiple": "Permitir Seleção Múltipla",
         "showFlushed": "Mostrar Layout Alinhado",
-        "options": "Opções ({{current}} de {{max}})"
       },
       "placeholders": {
         "selectPillar": "Selecionar Pilar",
