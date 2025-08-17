@@ -59,12 +59,14 @@ interface CompanyFormProps {
   item?: Company;
   onSubmit: (data: CompanyFormData) => Promise<void>;
   onCancel: () => void;
+  isModal?: boolean;
 }
 
 const CompanyForm: React.FC<CompanyFormProps> = ({
                                                    item,
                                                    onSubmit,
-                                                   onCancel
+                                                   onCancel,
+                                                   isModal = false
                                                  }) => {
   const { t } = useTranslation();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -669,18 +671,20 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
       </div>
 
       {/* Form Actions */}
-      <div className="form-group d-flex justify-content-end mt-4">
-        <button
-          type="button"
-          className="btn btn-secondary mr-2"
-          onClick={onCancel}
-          disabled={isSubmitting}
-        >
-          {t('company.form.buttons.cancel')}
-        </button>
+      <div className={`form-group ${isModal ? 'modal-footer border-top-0 bg-transparent px-0' : 'd-flex justify-content-end'} mt-4`}>
+        {!isModal && (
+          <button
+            type="button"
+            className="btn btn-secondary mr-2"
+            onClick={onCancel}
+            disabled={isSubmitting}
+          >
+            {t('company.form.buttons.cancel')}
+          </button>
+        )}
         <button
           type="submit"
-          className="btn btn-primary"
+          className={`btn btn-primary ${isModal ? 'mr-2' : ''}`}
           disabled={isSubmitting}
         >
           {isSubmitting ? (
@@ -692,6 +696,16 @@ const CompanyForm: React.FC<CompanyFormProps> = ({
             item ? t('company.form.buttons.update') : t('company.form.buttons.create')
           )}
         </button>
+        {isModal && (
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={onCancel}
+            disabled={isSubmitting}
+          >
+            {t('company.form.buttons.cancel')}
+          </button>
+        )}
       </div>
     </form>
     </>

@@ -12,13 +12,15 @@ interface EmployeeAssessmentFormProps {
   onSubmit: (data: CreateEmployeeAssessmentDTO) => Promise<void>;
   onCancel: () => void;
   existingItems?: EmployeeAssessment[];
+  isModal?: boolean;
 }
 
 const EmployeeAssessmentForm: React.FC<EmployeeAssessmentFormProps> = ({
   item,
   onSubmit,
   onCancel,
-  existingItems = []
+  existingItems = [],
+  isModal = false
 }) => {
   const { t } = useTranslation();
   const { tenantId } = useTenant();
@@ -316,12 +318,23 @@ const EmployeeAssessmentForm: React.FC<EmployeeAssessmentFormProps> = ({
 
 
         {/* Action Buttons */}
-        <div className="row">
-          <div className="col-12">
+        <div className={`${isModal ? 'modal-footer border-top-0 bg-transparent px-0' : 'row'}`}>
+          <div className={`${isModal ? '' : 'col-12'}`}>
+            {!isModal && item && (
+              <button
+                type="button"
+                className="btn btn-secondary mr-2"
+                onClick={onCancel}
+                disabled={isSubmitting}
+              >
+                <i className="fas fa-times mr-1"></i>
+                {t('common.actions.close')}
+              </button>
+            )}
             {item && (
               <button
                 type="submit"
-                className="btn btn-primary mr-2"
+                className={`btn btn-primary ${isModal ? 'mr-2' : ''}`}
                 disabled={isSubmitting}
               >
                 {isSubmitting ? (
@@ -337,15 +350,17 @@ const EmployeeAssessmentForm: React.FC<EmployeeAssessmentFormProps> = ({
                 )}
               </button>
             )}
-            <button
-              type="button"
-              className="btn btn-secondary"
-              onClick={onCancel}
-              disabled={isSubmitting}
-            >
-              <i className="fas fa-times mr-1"></i>
-              {t('common.actions.close')}
-            </button>
+            {isModal && (
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={onCancel}
+                disabled={isSubmitting}
+              >
+                <i className="fas fa-times mr-1"></i>
+                {t('common.actions.close')}
+              </button>
+            )}
           </div>
         </div>
       </form>
