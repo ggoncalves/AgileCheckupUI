@@ -44,6 +44,7 @@ const Sidebar: React.FC = () => {
               </Link>
             </li>
 
+            {/* Companies */}
             <li className="nav-item">
               <Link href="/admin/companies" className="nav-link">
                 <i className="nav-icon fas fa-building"></i>
@@ -107,8 +108,8 @@ const Sidebar: React.FC = () => {
               </Link>
             </li>
 
-            {/* Settings */}
-            <li className="nav-item">
+            {/* Settings - Using d-none temporary while there are no configuration options */}
+            <li className="nav-item d-none">
               <Link href="/settings" className={`nav-link ${isActive('/settings')}`}>
                 <i className="nav-icon fas fa-cog"></i>
                 <p>{t('navigation.settings')}</p>
