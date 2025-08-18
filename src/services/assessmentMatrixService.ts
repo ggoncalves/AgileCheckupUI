@@ -1,5 +1,5 @@
 import apiService from './apiService';
-import { CrudApi } from '@/components/common/AbstractCRUD';
+import { CrudApi, CrudItem } from '@/components/common/AbstractCRUD';
 
 export interface Category {
   id: string;
@@ -14,8 +14,7 @@ export interface Pillar {
   categoryMap: { [key: string]: Category };
 }
 
-export interface AssessmentMatrix {
-  id: string;
+export interface AssessmentMatrix extends CrudItem {
   tenantId: string;
   name: string;
   description?: string;

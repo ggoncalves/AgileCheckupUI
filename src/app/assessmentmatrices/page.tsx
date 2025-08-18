@@ -154,7 +154,6 @@ const AssessmentMatrixPage: React.FC = () => {
       setDashboardData(data);
     } catch (error) {
       console.error('Error loading dashboard data:', error);
-      setError(t('assessmentMatrix.errors.dashboardLoadFailed'));
     } finally {
       setIsDashboardLoading(false);
     }
