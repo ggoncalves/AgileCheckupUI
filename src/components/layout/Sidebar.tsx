@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import {usePathname} from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 
@@ -17,7 +18,7 @@ const Sidebar: React.FC = () => {
     <aside className="main-sidebar sidebar-dark-primary elevation-4">
       {/* Brand Logo */}
       <Link href="/" className="brand-link">
-        <img src="/img/logo.png" alt="AgileCheckup Logo" className="brand-image img-circle elevation-3" style={{ opacity: 0.8 }} />
+        <Image src="/img/logo.png" alt="AgileCheckup Logo" width={32} height={32} className="brand-image img-circle elevation-3" style={{ opacity: 0.8 }} />
         <span className="brand-text font-weight-light">AgileCheckup</span>
       </Link>
 
@@ -26,7 +27,7 @@ const Sidebar: React.FC = () => {
         {/* Sidebar user panel */}
         <div className="user-panel mt-3 pb-3 mb-3 d-flex">
           <div className="image">
-            <img src="/img/user.png" className="img-circle elevation-2" alt="User Image" />
+            <Image src="/img/user.png" width={40} height={40} className="img-circle elevation-2" alt="User Image" />
           </div>
           <div className="info">
             <a href="#" className="d-block">Administrator</a>

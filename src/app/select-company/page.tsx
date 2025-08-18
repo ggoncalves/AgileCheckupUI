@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation'; // Change to next/navigation
+import Image from 'next/image';
 import CompanySelector from '@/components/CompanySelector';
 import { useTenant } from '@/infrastructure/auth';
 
@@ -35,7 +36,7 @@ export default function SelectCompany() {
             <div className="row justify-content-center">
               <div className="col-md-8 col-lg-6">
                 <div className="text-center mb-4">
-                  <img src="/img/logo.png" alt="AgileCheckup Logo" style={{ maxWidth: '200px' }} />
+                  <Image src="/img/logo.png" alt="AgileCheckup Logo" width={200} height={100} style={{ maxWidth: '200px' }} />
                   <h1 className="mt-3 mb-4">AgileCheckup</h1>
                 </div>
                 <CompanySelector />
