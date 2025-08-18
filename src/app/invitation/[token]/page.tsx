@@ -1,7 +1,8 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'next/navigation';
+import React, { useState, useEffect } from "react";
+import { useParams } from "next/navigation";
+import { useSSRTranslation } from "@/hooks/useSSRTranslation";
 
 interface TokenData {
   tenantId: string;
@@ -25,15 +26,18 @@ interface EmployeeValidationResponse {
 const InvitationPage: React.FC = () => {
   const params = useParams();
   const token = params.token as string;
-  
+  const { t, ready } = useSSRTranslation();
+
   const [isValidatingToken, setIsValidatingToken] = useState(true);
   const [tokenData, setTokenData] = useState<TokenData | null>(null);
-  const [assessmentMatrix, setAssessmentMatrix] = useState<AssessmentMatrix | null>(null);
+  const [assessmentMatrix, setAssessmentMatrix] =
+    useState<AssessmentMatrix | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [isValidatingEmail, setIsValidatingEmail] = useState(false);
   const [emailError, setEmailError] = useState<string | null>(null);
-  const [validationResponse, setValidationResponse] = useState<EmployeeValidationResponse | null>(null);
+  const [validationResponse, setValidationResponse] =
+    useState<EmployeeValidationResponse | null>(null);
   const [showStartAssessment, setShowStartAssessment] = useState(false);
 
   // Validate token on page load
@@ -51,27 +55,33 @@ const InvitationPage: React.FC = () => {
   const validateToken = async () => {
     try {
       setIsValidatingToken(true);
-      
-      const response = await fetch('/api/invitation/validate-token', {
-        method: 'POST',
+
+      const response = await fetch("/api/invitation/validate-token", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ token })
+        body: JSON.stringify({ token }),
       });
 
       if (!response.ok) {
-        throw new Error('Invalid or expired invitation link');
+        throw new Error(t("assessment.invitation.validation.invalidMessage"));
       }
 
       const data = await response.json();
       setTokenData(data);
       
+      // Save tenantId to localStorage for API service to use (critical for private tabs)
+      localStorage.setItem('tenantId', data.tenantId);
+
       // Load assessment matrix details
       await loadAssessmentMatrix(data.assessmentMatrixId);
-      
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to validate invitation link');
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Failed to validate invitation link",
+      );
     } finally {
       setIsValidatingToken(false);
     }
@@ -79,25 +89,26 @@ const InvitationPage: React.FC = () => {
 
   const loadAssessmentMatrix = async (assessmentMatrixId: string) => {
     try {
-      const response = await fetch(`/api/assessmentmatrices/${assessmentMatrixId}`);
-      
+      const response = await fetch(
+        `/api/assessmentmatrices/${assessmentMatrixId}`,
+      );
+
       if (!response.ok) {
-        throw new Error('Failed to load assessment details');
+        throw new Error(t("assessment.invitation.validation.failedToLoadMatrix"));
       }
-      
+
       const matrix = await response.json();
       setAssessmentMatrix(matrix);
-      
     } catch (err) {
-      console.error('Error loading assessment matrix:', err);
+      console.error("Error loading assessment matrix:", err);
     }
   };
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!email.trim()) {
-      setEmailError('Email is required');
+      setEmailError(t("assessment.invitation.form.emailRequired"));
       return;
     }
 
@@ -106,38 +117,45 @@ const InvitationPage: React.FC = () => {
       setEmailError(null);
 
       // Call the new validation API
-      const response = await fetch('/api/employeeassessments/validate', {
-        method: 'POST',
+      const response = await fetch("/api/employeeassessments/validate", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           email: email.trim(),
           assessmentMatrixId: tokenData?.assessmentMatrixId,
-          tenantId: tokenData?.tenantId
-        })
+          tenantId: tokenData?.tenantId,
+        }),
       });
 
       if (!response.ok) {
         if (response.status === 404) {
-          throw new Error('We couldn\'t find your assessment invitation. Please check that you\'re using the same email address that HR used to invite you, or contact your HR department for assistance.');
+          throw new Error(
+            t("assessment.invitation.validation.employeeNotFound"),
+          );
         }
-        throw new Error('Failed to validate email');
+        throw new Error(t("assessment.invitation.validation.validationFailed"));
       }
 
-      const validationResult: EmployeeValidationResponse = await response.json();
-      
-      if (validationResult.status === 'SUCCESS' || validationResult.status === 'INFO') {
+      const validationResult: EmployeeValidationResponse =
+        await response.json();
+
+      if (
+        validationResult.status === "SUCCESS" ||
+        validationResult.status === "INFO"
+      ) {
         // Save email to localStorage for future visits
         localStorage.setItem(`assessment-email-${token}`, email.trim());
-        
+
         // Check if assessment is already completed
-        if (validationResult.assessmentStatus === 'COMPLETED') {
+        if (validationResult.assessmentStatus === "COMPLETED") {
           // Redirect directly to assessment complete page
-          window.location.href = `/assessment/${token}`;
+          const encodedEmail = encodeURIComponent(email.trim());
+          window.location.href = `/assessment/${token}?email=${encodedEmail}`;
           return;
         }
-        
+
         // Both SUCCESS and INFO should show the start assessment page
         setValidationResponse(validationResult);
         setShowStartAssessment(true);
@@ -145,13 +163,14 @@ const InvitationPage: React.FC = () => {
         setEmailError(null);
       } else {
         // For ERROR status, show the message as an error
-        throw new Error(validationResult.message || 'Validation failed');
+        throw new Error(validationResult.message || "Validation failed");
       }
-      
     } catch (err) {
       // Only show error if we're not already showing the start assessment page
       if (!showStartAssessment) {
-        setEmailError(err instanceof Error ? err.message : 'Failed to validate email');
+        setEmailError(
+          err instanceof Error ? err.message : t("assessment.invitation.validation.validationFailed"),
+        );
       }
     } finally {
       setIsValidatingEmail(false);
@@ -168,30 +187,35 @@ const InvitationPage: React.FC = () => {
 
   const validateExistingEmployee = async (emailToValidate: string) => {
     try {
-      const response = await fetch('/api/employeeassessments/validate', {
-        method: 'POST',
+      const response = await fetch("/api/employeeassessments/validate", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           email: emailToValidate,
           assessmentMatrixId: tokenData?.assessmentMatrixId,
-          tenantId: tokenData?.tenantId
-        })
+          tenantId: tokenData?.tenantId,
+        }),
       });
 
       if (response.ok) {
-        const validationResult: EmployeeValidationResponse = await response.json();
-        
-        if (validationResult.status === 'SUCCESS' || validationResult.status === 'INFO') {
+        const validationResult: EmployeeValidationResponse =
+          await response.json();
+
+        if (
+          validationResult.status === "SUCCESS" ||
+          validationResult.status === "INFO"
+        ) {
           // Check if assessment is already completed
-          if (validationResult.assessmentStatus === 'COMPLETED') {
+          if (validationResult.assessmentStatus === "COMPLETED") {
             // Redirect directly to assessment complete page
-            window.location.href = `/assessment/${token}`;
+            const encodedEmail = encodeURIComponent(emailToValidate);
+            window.location.href = `/assessment/${token}?email=${encodedEmail}`;
             return;
           }
-          
-          if (validationResult.assessmentStatus === 'CONFIRMED') {
+
+          if (validationResult.assessmentStatus === "CONFIRMED") {
             setEmail(emailToValidate);
             setValidationResponse(validationResult);
             setShowStartAssessment(true);
@@ -200,25 +224,36 @@ const InvitationPage: React.FC = () => {
       }
     } catch {
       // Silently fail - user will need to enter email again
-      console.log('No existing confirmed employee found');
+      console.log("No existing confirmed employee found");
       // Clear localStorage if validation fails
       localStorage.removeItem(`assessment-email-${token}`);
     }
   };
 
   const handleStartAssessment = () => {
-    // Navigate to the assessment taking page
-    window.location.href = `/assessment/${token}`;
+    // Navigate to the assessment taking page with email parameter
+    const encodedEmail = encodeURIComponent(email.trim());
+    window.location.href = `/assessment/${token}?email=${encodedEmail}`;
   };
+
+  // Wait for i18n to be ready
+  if (!ready) {
+    return null;
+  }
 
   if (isValidatingToken) {
     return (
       <div className="min-vh-100 d-flex align-items-center justify-content-center bg-light">
-        <div className="card shadow" style={{ maxWidth: '500px', width: '100%' }}>
+        <div
+          className="card shadow"
+          style={{ maxWidth: "500px", width: "100%" }}
+        >
           <div className="card-body text-center py-5">
             <i className="fas fa-spinner fa-spin fa-3x text-primary mb-4"></i>
-            <h4>Validating Invitation</h4>
-            <p className="text-muted">Please wait while we validate your invitation link...</p>
+            <h4>{t("assessment.invitation.validation.validating")}</h4>
+            <p className="text-muted">
+              {t("assessment.invitation.validation.validatingMessage")}
+            </p>
           </div>
         </div>
       </div>
@@ -228,13 +263,16 @@ const InvitationPage: React.FC = () => {
   if (error) {
     return (
       <div className="min-vh-100 d-flex align-items-center justify-content-center bg-light">
-        <div className="card shadow" style={{ maxWidth: '500px', width: '100%' }}>
+        <div
+          className="card shadow"
+          style={{ maxWidth: "500px", width: "100%" }}
+        >
           <div className="card-body text-center py-5">
             <i className="fas fa-exclamation-triangle fa-3x text-danger mb-4"></i>
-            <h4>Invalid Invitation</h4>
+            <h4>{t("assessment.invitation.validation.invalid")}</h4>
             <p className="text-muted mb-4">{error}</p>
             <p className="small text-muted">
-              Please contact your HR department for a new invitation link.
+              {t("assessment.invitation.validation.contactHR")}
             </p>
           </div>
         </div>
@@ -246,19 +284,27 @@ const InvitationPage: React.FC = () => {
   if (showStartAssessment && validationResponse) {
     return (
       <div className="min-vh-100 d-flex align-items-center justify-content-center bg-light">
-        <div className="card shadow" style={{ maxWidth: '600px', width: '100%' }}>
+        <div
+          className="card shadow"
+          style={{ maxWidth: "600px", width: "100%" }}
+        >
           <div className="card-header bg-success text-white text-center">
             <h4 className="mb-0">
               <i className="fas fa-check-circle mr-2"></i>
-              Welcome to Your Assessment
+              {t("assessment.invitation.welcome.title")}
             </h4>
           </div>
           <div className="card-body p-4">
             <div className="text-center mb-4">
               <i className="fas fa-user-check fa-4x text-success mb-3"></i>
-              <h5 className="text-success">Hello, {validationResponse.name}!</h5>
+              <h5 className="text-success">
+                {t("assessment.invitation.welcome.greeting", { name: validationResponse.name })}
+              </h5>
               <p className="text-muted">
-                {validationResponse.message}
+                {validationResponse.assessmentStatus === "IN_PROGRESS" 
+                  ? t("assessment.invitation.welcome.continueMessage")
+                  : t("assessment.invitation.welcome.startMessage")
+                }
               </p>
             </div>
 
@@ -275,12 +321,12 @@ const InvitationPage: React.FC = () => {
             <div className="alert alert-warning">
               <h6 className="alert-heading">
                 <i className="fas fa-info-circle mr-2"></i>
-                Before You Begin
+                {t("assessment.invitation.welcome.beforeYouBegin")}
               </h6>
               <ul className="mb-0">
-                <li>Set aside adequate time to complete the assessment</li>
-                <li>Answer all questions honestly and thoughtfully</li>
-                <li>You can save and return to complete it later if needed</li>
+                <li>{t("assessment.invitation.welcome.instructions.time")}</li>
+                <li>{t("assessment.invitation.welcome.instructions.honesty")}</li>
+                <li>{t("assessment.invitation.welcome.instructions.save")}</li>
               </ul>
             </div>
 
@@ -289,20 +335,27 @@ const InvitationPage: React.FC = () => {
                 onClick={handleStartAssessment}
                 className="btn btn-success btn-lg"
               >
-                <i className={`fas ${validationResponse.assessmentStatus === 'IN_PROGRESS' ? 'fa-play-circle' : 'fa-play'} mr-2`}></i>
-                {validationResponse.assessmentStatus === 'IN_PROGRESS' ? 'Continue Assessment' : 'Start Assessment'}
+                <i
+                  className={`fas ${validationResponse.assessmentStatus === "IN_PROGRESS" ? "fa-play-circle" : "fa-play"} mr-2`}
+                ></i>
+                {validationResponse.assessmentStatus === "IN_PROGRESS"
+                  ? t("assessment.invitation.buttons.continueAssessment")
+                  : t("assessment.invitation.buttons.startAssessment")}
               </button>
             </div>
 
             <div className="text-center mt-4">
               <small className="text-muted">
-                Assessment Status: <span className="badge badge-info">{validationResponse.assessmentStatus}</span>
+                {t("assessment.invitation.welcome.assessmentStatus")}:{" "}
+                <span className="badge badge-info">
+                  {t(`assessment.status.${validationResponse.assessmentStatus?.toLowerCase()}`)}
+                </span>
               </small>
             </div>
 
             <div className="text-center mt-3">
               <small className="text-muted">
-                Need help? Contact your HR department.
+                {t("assessment.invitation.welcome.needHelp")}
               </small>
             </div>
           </div>
@@ -313,11 +366,11 @@ const InvitationPage: React.FC = () => {
 
   return (
     <div className="min-vh-100 d-flex align-items-center justify-content-center bg-light">
-      <div className="card shadow" style={{ maxWidth: '500px', width: '100%' }}>
+      <div className="card shadow" style={{ maxWidth: "500px", width: "100%" }}>
         <div className="card-header bg-primary text-white text-center">
           <h4 className="mb-0">
             <i className="fas fa-clipboard-check mr-2"></i>
-            Employee Assessment Invitation
+            {t("assessment.invitation.title")}
           </h4>
         </div>
         <div className="card-body p-4">
@@ -325,7 +378,7 @@ const InvitationPage: React.FC = () => {
             <div className="alert alert-info">
               <h5 className="alert-heading">
                 <i className="fas fa-clipboard-check mr-2"></i>
-                Assessment: {assessmentMatrix.name}
+                {t("assessment.invitation.form.title", { matrixName: assessmentMatrix.name })}
               </h5>
               <p className="mb-0">{assessmentMatrix.description}</p>
             </div>
@@ -334,15 +387,15 @@ const InvitationPage: React.FC = () => {
           <form onSubmit={handleEmailSubmit}>
             <div className="form-group">
               <label htmlFor="email" className="font-weight-bold">
-                Enter your email address to access your assessment:
+                {t("assessment.invitation.form.emailLabel")}
               </label>
               <input
                 type="email"
-                className={`form-control ${emailError ? 'is-invalid' : ''}`}
+                className={`form-control ${emailError ? "is-invalid" : ""}`}
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="your.email@company.com"
+                placeholder={t("assessment.invitation.form.emailPlaceholder")}
                 required
                 disabled={isValidatingEmail}
               />
@@ -350,7 +403,7 @@ const InvitationPage: React.FC = () => {
                 <div className="invalid-feedback">{emailError}</div>
               )}
               <small className="form-text text-muted">
-                Use the same email address that HR used to send you this invitation.
+                {t("assessment.invitation.form.helpText")}
               </small>
             </div>
 
@@ -362,12 +415,12 @@ const InvitationPage: React.FC = () => {
               {isValidatingEmail ? (
                 <>
                   <i className="fas fa-spinner fa-spin mr-2"></i>
-                  Validating...
+                  {t("assessment.invitation.buttons.validating")}
                 </>
               ) : (
                 <>
                   <i className="fas fa-sign-in-alt mr-2"></i>
-                  Access My Assessment
+                  {t("assessment.invitation.buttons.accessAssessment")}
                 </>
               )}
             </button>
@@ -375,7 +428,7 @@ const InvitationPage: React.FC = () => {
 
           <div className="text-center mt-4">
             <small className="text-muted">
-              Need help? Contact your HR department.
+              {t("assessment.invitation.form.needHelp")}
             </small>
           </div>
         </div>

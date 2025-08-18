@@ -57,9 +57,9 @@ class AssessmentService {
   /**
    * Get the next unanswered question for an employee assessment
    */
-  async getNextQuestion(employeeAssessmentId: string): Promise<AnswerWithProgressResponse> {
+  async getNextQuestion(employeeAssessmentId: string, tenantId: string): Promise<AnswerWithProgressResponse> {
     return await apiService.get<AnswerWithProgressResponse>(
-      `/questions/next?employeeAssessmentId=${employeeAssessmentId}`
+      `/questions/next?employeeAssessmentId=${employeeAssessmentId}&tenantId=${tenantId}`
     );
   }
 

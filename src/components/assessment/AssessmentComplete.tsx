@@ -1,6 +1,7 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
+import { useSSRTranslation } from "@/hooks/useSSRTranslation";
 
 interface AssessmentCompleteProps {
   employeeName?: string;
@@ -9,15 +10,16 @@ interface AssessmentCompleteProps {
 
 const AssessmentComplete: React.FC<AssessmentCompleteProps> = ({
   employeeName,
-  assessmentName
+  assessmentName,
 }) => {
+  const { t } = useSSRTranslation();
   return (
     <div className="min-vh-100 d-flex align-items-center justify-content-center bg-light">
-      <div className="card shadow" style={{ maxWidth: '600px', width: '100%' }}>
+      <div className="card shadow" style={{ maxWidth: "600px", width: "100%" }}>
         <div className="card-header bg-success text-white text-center">
           <h4 className="mb-0">
             <i className="fas fa-check-circle mr-2"></i>
-            Assessment Complete!
+            {t("assessment.complete.title")}
           </h4>
         </div>
         <div className="card-body text-center p-5">
@@ -28,30 +30,24 @@ const AssessmentComplete: React.FC<AssessmentCompleteProps> = ({
 
           {/* Completion Message */}
           <h5 className="text-success mb-3">
-            Congratulations{employeeName ? `, ${employeeName}` : ''}!
+            {employeeName ? t("assessment.complete.congratulationsWithName", { name: employeeName }) : t("assessment.complete.congratulations")}
           </h5>
-          
+
           <p className="lead mb-4">
-            You have successfully completed your assessment
-            {assessmentName && (
-              <>
-                {' '}for <strong>{assessmentName}</strong>
-              </>
-            )}
-            .
+            {assessmentName ? t("assessment.complete.messageWithAssessment", { assessmentName }) : t("assessment.complete.message")}
           </p>
 
           {/* Next Steps */}
           <div className="alert alert-info">
             <h6 className="alert-heading">
               <i className="fas fa-info-circle mr-2"></i>
-              What&apos;s Next?
+              {t("assessment.complete.whatsNext.title")}
             </h6>
             <ul className="mb-0 text-left">
-              <li>Your responses have been securely saved</li>
-              <li>Your HR team will review the results</li>
-              <li>You may be contacted for follow-up discussions</li>
-              <li>Thank you for your honest and thoughtful responses</li>
+              <li>{t("assessment.complete.whatsNext.saved")}</li>
+              <li>{t("assessment.complete.whatsNext.review")}</li>
+              <li>{t("assessment.complete.whatsNext.contact")}</li>
+              <li>{t("assessment.complete.whatsNext.thanks")}</li>
             </ul>
           </div>
 
@@ -59,7 +55,7 @@ const AssessmentComplete: React.FC<AssessmentCompleteProps> = ({
           <div className="bg-light p-3 rounded mb-4">
             <p className="mb-0 text-muted">
               <i className="fas fa-heart text-danger mr-2"></i>
-              Your feedback is valuable and helps improve our organization&apos;s agile practices.
+              {t("assessment.complete.feedback")}
             </p>
           </div>
 
@@ -70,7 +66,7 @@ const AssessmentComplete: React.FC<AssessmentCompleteProps> = ({
               className="btn btn-success btn-lg"
             >
               <i className="fas fa-times mr-2"></i>
-              Close Window
+              {t("assessment.complete.buttons.closeWindow")}
             </button>
           </div>
 
@@ -78,7 +74,7 @@ const AssessmentComplete: React.FC<AssessmentCompleteProps> = ({
           <div className="mt-4 pt-4 border-top">
             <small className="text-muted">
               <i className="fas fa-question-circle mr-1"></i>
-              Questions or concerns? Contact your HR department for assistance.
+              {t("assessment.complete.footer")}
             </small>
           </div>
         </div>

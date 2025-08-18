@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useSSRTranslation } from '@/hooks/useSSRTranslation';
 import { Question, QuestionType, QuestionOption } from '../../services/questionService';
 import styles from './QuestionRenderer.module.css';
 
@@ -11,6 +12,7 @@ interface QuestionRendererProps {
 }
 
 const QuestionRenderer: React.FC<QuestionRendererProps> = ({ question, value, onChange }) => {
+  const { t } = useSSRTranslation();
   const renderStarRating = (maxStars: number) => {
     const currentRating = parseInt(value) || 0;
 
@@ -32,11 +34,11 @@ const QuestionRenderer: React.FC<QuestionRendererProps> = ({ question, value, on
             );
           })}
           <span className="ml-3 h5 mb-0">
-            {currentRating > 0 ? `${currentRating} / ${maxStars}` : 'Select rating'}
+            {currentRating > 0 ? `${currentRating} / ${maxStars}` : t('assessment.taking.question.selectRating')}
           </span>
         </div>
         <small className="form-text text-muted">
-          Click on the stars to rate from 1 to {maxStars}
+          {t('assessment.taking.question.starRatingHint', { maxStars })}
         </small>
       </div>
     );

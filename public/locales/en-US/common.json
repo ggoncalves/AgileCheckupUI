@@ -879,5 +879,120 @@
         "description": "No analytics data is available for this team and assessment matrix combination."
       }
     }
+  },
+  "assessment": {
+    "invitation": {
+      "title": "Employee Assessment Invitation",
+      "validation": {
+        "validating": "Validating Invitation",
+        "validatingMessage": "Please wait while we validate your invitation link...",
+        "invalid": "Invalid Invitation",
+        "invalidMessage": "Invalid or expired invitation link",
+        "contactHR": "Please contact your HR department for a new invitation link.",
+        "error": "Failed to validate invitation link",
+        "failedToLoadMatrix": "Failed to load assessment details",
+        "employeeNotFound": "We couldn't find your assessment invitation. Please check that you're using the same email address that HR used to invite you, or contact your HR department for assistance.",
+        "validationFailed": "Failed to validate email"
+      },
+      "form": {
+        "title": "Assessment: {{matrixName}}",
+        "description": "{{matrixDescription}}",
+        "emailLabel": "Enter your email address to access your assessment:",
+        "emailPlaceholder": "your.email@company.com",
+        "emailRequired": "Email is required",
+        "emailInvalid": "Invalid email address",
+        "emailNotFound": "We couldn't find your assessment invitation. Please check that you're using the same email address that HR used to invite you, or contact your HR department for assistance.",
+        "validationFailed": "Failed to validate email",
+        "helpText": "Use the same email address that HR used to send you this invitation.",
+        "needHelp": "Need help? Contact your HR department."
+      },
+      "welcome": {
+        "title": "Welcome to Your Assessment",
+        "greeting": "Hello, {{name}}!",
+        "message": "{{message}}",
+        "startMessage": "You can now begin your assessment. Please set aside adequate time to complete it thoughtfully.",
+        "continueMessage": "Welcome back! You can continue your assessment where you left off.",
+        "beforeYouBegin": "Before You Begin",
+        "instructions": {
+          "time": "Set aside adequate time to complete the assessment",
+          "honesty": "Answer all questions honestly and thoughtfully",
+          "save": "You can save and return to complete it later if needed"
+        },
+        "assessmentStatus": "Assessment Status",
+        "needHelp": "Need help? Contact your HR department."
+      },
+      "buttons": {
+        "accessAssessment": "Access My Assessment",
+        "validating": "Validating...",
+        "startAssessment": "Start Assessment",
+        "continueAssessment": "Continue Assessment"
+      }
+    },
+    "taking": {
+      "loading": "Loading Assessment",
+      "loadingMessage": "Please wait while we load your assessment...",
+      "error": "Error Loading Assessment",
+      "errorMessage": "Failed to load assessment",
+      "progress": {
+        "title": "Assessment Progress",
+        "current": "{{current}} of {{total}}",
+        "percentage": "{{percentage}}% Complete"
+      },
+      "question": {
+        "number": "Question {{number}}",
+        "category": "Category",
+        "pillar": "Pillar",
+        "required": "Please provide an answer before continuing.",
+        "notes": "Additional Notes (Optional)",
+        "notesPlaceholder": "Add any additional comments or context...",
+        "selectRating": "Select rating",
+        "starRatingHint": "Click on the stars to rate from 1 to {{maxStars}}"
+      },
+      "buttons": {
+        "tryAgain": "Try Again",
+        "next": "Next Question",
+        "complete": "Complete Assessment",
+        "saving": "Saving..."
+      }
+    },
+    "complete": {
+      "title": "Assessment Complete!",
+      "congratulations": "Congratulations{{name}}!",
+      "congratulationsWithName": "Congratulations, {{name}}!",
+      "message": "You have successfully completed your assessment{{assessmentName}}.",
+      "messageWithAssessment": "You have successfully completed your assessment for {{assessmentName}}.",
+      "whatsNext": {
+        "title": "What's Next?",
+        "saved": "Your responses have been securely saved",
+        "review": "Your HR team will review the results",
+        "contact": "You may be contacted for follow-up discussions",
+        "thanks": "Thank you for your honest and thoughtful responses"
+      },
+      "feedback": "Your feedback is valuable and helps improve our organization's agile practices.",
+      "buttons": {
+        "closeWindow": "Close Window"
+      },
+      "footer": "Questions or concerns? Contact your HR department for assistance."
+    },
+    "status": {
+      "invited": "Invited",
+      "confirmed": "Confirmed",
+      "in_progress": "In Progress",
+      "inProgress": "In Progress",
+      "completed": "Completed"
+    },
+    "errors": {
+      "loadFailed": "Failed to load assessment",
+      "saveFailed": "Failed to save answer",
+      "networkError": "Network error. Please check your connection.",
+      "sessionExpired": "Your session has expired. Please refresh the page.",
+      "notReady": "Assessment Not Ready",
+      "notReadyMessage": "We couldn't prepare your assessment. Please try again.",
+      "returnToInvitation": "Return to Invitation",
+      "invalidInvitation": "Invalid or expired invitation link",
+      "employeeValidationFailed": "Failed to validate employee for assessment",
+      "noAssessmentFound": "No assessment found for this employee",
+      "validationFailed": "Validation failed"
+    }
   }
 }

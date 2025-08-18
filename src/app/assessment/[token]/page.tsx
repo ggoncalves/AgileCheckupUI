@@ -1,9 +1,10 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import AssessmentTaking from '../../../components/assessment/AssessmentTaking';
-import AssessmentComplete from '../../../components/assessment/AssessmentComplete';
+import React, { useState, useEffect } from "react";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useSSRTranslation } from "@/hooks/useSSRTranslation";
+import AssessmentTaking from "../../../components/assessment/AssessmentTaking";
+import AssessmentComplete from "../../../components/assessment/AssessmentComplete";
 
 interface TokenData {
   tenantId: string;
@@ -27,13 +28,19 @@ interface AssessmentMatrix {
 const AssessmentPage: React.FC = () => {
   const params = useParams();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const token = params.token as string;
-  
+  const { t, ready } = useSSRTranslation();
+
   const [isValidating, setIsValidating] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [employeeAssessmentId, setEmployeeAssessmentId] = useState<string | null>(null);
+  const [employeeAssessmentId, setEmployeeAssessmentId] = useState<
+    string | null
+  >(null);
+  const [tenantId, setTenantId] = useState<string | null>(null);
   const [employeeName, setEmployeeName] = useState<string | null>(null);
-  const [assessmentMatrix, setAssessmentMatrix] = useState<AssessmentMatrix | null>(null);
+  const [assessmentMatrix, setAssessmentMatrix] =
+    useState<AssessmentMatrix | null>(null);
   const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
@@ -41,78 +48,121 @@ const AssessmentPage: React.FC = () => {
   }, [token]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const validateAndLoadAssessment = async () => {
-    try {
-      setIsValidating(true);
-      setError(null);
+    setIsValidating(true);
+    setError(null);
 
+    try {
       // First, validate the token
-      const tokenResponse = await fetch('/api/invitation/validate-token', {
-        method: 'POST',
+      const tokenResponse = await fetch("/api/invitation/validate-token", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ token })
+        body: JSON.stringify({ token }),
       });
 
       if (!tokenResponse.ok) {
-        throw new Error('Invalid or expired invitation link');
+        throw new Error(t("assessment.errors.invalidInvitation"));
       }
 
       const tokenData: TokenData = await tokenResponse.json();
+      setTenantId(tokenData.tenantId);
+      
+      // Save tenantId to localStorage for API service to use (critical for private tabs)
+      localStorage.setItem('tenantId', tokenData.tenantId);
 
       // Load assessment matrix details
-      const matrixResponse = await fetch(`/api/assessmentmatrices/${tokenData.assessmentMatrixId}`);
+      const matrixResponse = await fetch(
+        `/api/assessmentmatrices/${tokenData.assessmentMatrixId}`,
+      );
       if (matrixResponse.ok) {
         const matrix = await matrixResponse.json();
         setAssessmentMatrix(matrix);
       }
 
-      // Try to get the employee email from localStorage
-      const savedEmail = localStorage.getItem(`assessment-email-${token}`);
+      // Try multiple sources for email: URL params, localStorage, sessionStorage
+      let savedEmail = searchParams.get('email'); // From URL parameter
+      
       if (!savedEmail) {
-        // Redirect back to invitation page if no saved email
+        savedEmail = localStorage.getItem(`assessment-email-${token}`);
+      }
+      
+      if (!savedEmail) {
+        savedEmail = sessionStorage.getItem(`assessment-email-${token}`);
+      }
+      
+      if (!savedEmail) {
+        // Redirect to invitation page for email collection
         router.push(`/invitation/${token}`);
         return;
       }
 
-      // Validate the employee with the saved email
-      const validationResponse = await fetch('/api/employeeassessments/validate', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: savedEmail,
-          assessmentMatrixId: tokenData.assessmentMatrixId,
-          tenantId: tokenData.tenantId
-        })
-      });
-
-      if (!validationResponse.ok) {
-        throw new Error('Failed to validate employee for assessment');
+      // Save email to both storages if it came from URL parameter
+      if (searchParams.get('email')) {
+        localStorage.setItem(`assessment-email-${token}`, savedEmail);
+        sessionStorage.setItem(`assessment-email-${token}`, savedEmail);
       }
 
-      const validationResult: EmployeeValidationResponse = await validationResponse.json();
+      // Continue with employee validation if we have a saved email
+      await validateEmployee(savedEmail, tokenData);
 
-      if (validationResult.status !== 'SUCCESS' && validationResult.status !== 'INFO') {
-        throw new Error(validationResult.message || 'Validation failed');
+    } catch (err) {
+      // If token validation or matrix loading fails, show error
+      const errorMessage =
+        err instanceof Error ? err.message : t("assessment.errors.loadFailed");
+      setError(errorMessage);
+      setIsValidating(false);
+    }
+  };
+
+  const validateEmployee = async (email: string, tokenData: TokenData) => {
+    try {
+
+      // Validate the employee with the saved email
+      const validationResponse = await fetch(
+        "/api/employeeassessments/validate",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            assessmentMatrixId: tokenData.assessmentMatrixId,
+            tenantId: tokenData.tenantId,
+          }),
+        },
+      );
+
+      if (!validationResponse.ok) {
+        throw new Error(t("assessment.errors.employeeValidationFailed"));
+      }
+
+      const validationResult: EmployeeValidationResponse =
+        await validationResponse.json();
+
+      if (
+        validationResult.status !== "SUCCESS" &&
+        validationResult.status !== "INFO"
+      ) {
+        throw new Error(validationResult.message || t("assessment.errors.validationFailed"));
       }
 
       if (!validationResult.employeeAssessmentId) {
-        throw new Error('No assessment found for this employee');
+        throw new Error(t("assessment.errors.noAssessmentFound"));
       }
 
       // Check if assessment is already completed
-      if (validationResult.assessmentStatus === 'COMPLETED') {
+      if (validationResult.assessmentStatus === "COMPLETED") {
         setEmployeeName(validationResult.name || null);
         setIsComplete(true);
       } else {
         setEmployeeAssessmentId(validationResult.employeeAssessmentId);
         setEmployeeName(validationResult.name || null);
       }
-
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to load assessment';
+      const errorMessage =
+        err instanceof Error ? err.message : t("assessment.errors.loadFailed");
       setError(errorMessage);
     } finally {
       setIsValidating(false);
@@ -129,14 +179,24 @@ const AssessmentPage: React.FC = () => {
   };
 
 
+  // Wait for i18n to be ready
+  if (!ready) {
+    return null;
+  }
+
   if (isValidating) {
     return (
       <div className="min-vh-100 d-flex align-items-center justify-content-center bg-light">
-        <div className="card shadow" style={{ maxWidth: '500px', width: '100%' }}>
+        <div
+          className="card shadow"
+          style={{ maxWidth: "500px", width: "100%" }}
+        >
           <div className="card-body text-center py-5">
             <i className="fas fa-spinner fa-spin fa-3x text-primary mb-4"></i>
-            <h4>Loading Assessment</h4>
-            <p className="text-muted">Please wait while we prepare your assessment...</p>
+            <h4>{t("assessment.taking.loading")}</h4>
+            <p className="text-muted">
+              {t("assessment.taking.loadingMessage")}
+            </p>
           </div>
         </div>
       </div>
@@ -146,18 +206,21 @@ const AssessmentPage: React.FC = () => {
   if (error) {
     return (
       <div className="min-vh-100 d-flex align-items-center justify-content-center bg-light">
-        <div className="card shadow" style={{ maxWidth: '500px', width: '100%' }}>
+        <div
+          className="card shadow"
+          style={{ maxWidth: "500px", width: "100%" }}
+        >
           <div className="card-body text-center py-5">
             <i className="fas fa-exclamation-triangle fa-3x text-danger mb-4"></i>
-            <h4>Error Loading Assessment</h4>
+            <h4>{t("assessment.taking.error")}</h4>
             <p className="text-muted mb-4">{error}</p>
             <div className="d-flex justify-content-center gap-2">
-              <button 
+              <button
                 onClick={validateAndLoadAssessment}
                 className="btn btn-primary"
               >
                 <i className="fas fa-redo mr-2"></i>
-                Try Again
+                {t("assessment.taking.buttons.tryAgain")}
               </button>
             </div>
           </div>
@@ -165,6 +228,7 @@ const AssessmentPage: React.FC = () => {
       </div>
     );
   }
+
 
   if (isComplete) {
     return (
@@ -175,10 +239,11 @@ const AssessmentPage: React.FC = () => {
     );
   }
 
-  if (employeeAssessmentId) {
+  if (employeeAssessmentId && tenantId) {
     return (
       <AssessmentTaking
         employeeAssessmentId={employeeAssessmentId}
+        tenantId={tenantId}
         onComplete={handleAssessmentComplete}
         onError={handleAssessmentError}
       />
@@ -188,17 +253,19 @@ const AssessmentPage: React.FC = () => {
   // This shouldn't happen, but just in case
   return (
     <div className="min-vh-100 d-flex align-items-center justify-content-center bg-light">
-      <div className="card shadow" style={{ maxWidth: '500px', width: '100%' }}>
+      <div className="card shadow" style={{ maxWidth: "500px", width: "100%" }}>
         <div className="card-body text-center py-5">
           <i className="fas fa-question-circle fa-3x text-warning mb-4"></i>
-          <h4>Assessment Not Ready</h4>
-          <p className="text-muted mb-4">We couldn&apos;t prepare your assessment. Please try again.</p>
-          <button 
-            onClick={() => window.location.href = `/invitation/${token}`}
+          <h4>{t("assessment.errors.notReady")}</h4>
+          <p className="text-muted mb-4">
+            {t("assessment.errors.notReadyMessage")}
+          </p>
+          <button
+            onClick={() => (window.location.href = `/invitation/${token}`)}
             className="btn btn-primary"
           >
             <i className="fas fa-arrow-left mr-2"></i>
-            Return to Invitation
+            {t("assessment.errors.returnToInvitation")}
           </button>
         </div>
       </div>

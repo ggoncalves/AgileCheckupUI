@@ -879,5 +879,120 @@
         "description": "Nenhum dado de análise está disponível para esta combinação de equipe e matriz de avaliação."
       }
     }
+  },
+  "assessment": {
+    "invitation": {
+      "title": "Convite para Avaliação de Funcionário",
+      "validation": {
+        "validating": "Validando Convite",
+        "validatingMessage": "Aguarde enquanto validamos seu link de convite...",
+        "invalid": "Convite Inválido",
+        "invalidMessage": "Link de convite inválido ou expirado",
+        "contactHR": "Entre em contato com seu departamento de RH para um novo link de convite.",
+        "error": "Falha ao validar link de convite",
+        "failedToLoadMatrix": "Falha ao carregar detalhes da avaliação",
+        "employeeNotFound": "Não conseguimos encontrar seu convite de avaliação. Verifique se está usando o mesmo endereço de e-mail que o RH usou para convidá-lo, ou entre em contato com seu departamento de RH para assistência.",
+        "validationFailed": "Falha ao validar e-mail"
+      },
+      "form": {
+        "title": "Avaliação: {{matrixName}}",
+        "description": "{{matrixDescription}}",
+        "emailLabel": "Digite seu endereço de email para acessar sua avaliação:",
+        "emailPlaceholder": "seu.email@empresa.com",
+        "emailRequired": "Email é obrigatório",
+        "emailInvalid": "Endereço de email inválido",
+        "emailNotFound": "Não conseguimos encontrar seu convite de avaliação. Verifique se está usando o mesmo endereço de email que o RH usou para convidá-lo, ou entre em contato com seu departamento de RH para assistência.",
+        "validationFailed": "Falha ao validar email",
+        "helpText": "Use o mesmo endereço de email que o RH usou para enviar este convite.",
+        "needHelp": "Precisa de ajuda? Entre em contato com seu departamento de RH."
+      },
+      "welcome": {
+        "title": "Bem-vindo à Sua Avaliação",
+        "greeting": "Olá, {{name}}!",
+        "message": "{{message}}",
+        "startMessage": "Você pode começar sua avaliação agora. Reserve tempo adequado para completá-la de forma reflexiva.",
+        "continueMessage": "Bem-vindo de volta! Você pode continuar sua avaliação de onde parou.",
+        "beforeYouBegin": "Antes de Começar",
+        "instructions": {
+          "time": "Reserve tempo adequado para completar a avaliação",
+          "honesty": "Responda todas as perguntas de forma honesta e reflexiva",
+          "save": "Você pode salvar e retornar para completar mais tarde se necessário"
+        },
+        "assessmentStatus": "Status da Avaliação",
+        "needHelp": "Precisa de ajuda? Entre em contato com seu departamento de RH."
+      },
+      "buttons": {
+        "accessAssessment": "Acessar Minha Avaliação",
+        "validating": "Validando...",
+        "startAssessment": "Iniciar Avaliação",
+        "continueAssessment": "Continuar Avaliação"
+      }
+    },
+    "taking": {
+      "loading": "Carregando Avaliação",
+      "loadingMessage": "Aguarde enquanto carregamos sua avaliação...",
+      "error": "Erro ao Carregar Avaliação",
+      "errorMessage": "Falha ao carregar avaliação",
+      "progress": {
+        "title": "Progresso da Avaliação",
+        "current": "{{current}} de {{total}}",
+        "percentage": "{{percentage}}% Completo"
+      },
+      "question": {
+        "number": "Pergunta {{number}}",
+        "category": "Categoria",
+        "pillar": "Pilar",
+        "required": "Por favor, forneça uma resposta antes de continuar.",
+        "notes": "Observações Adicionais (Opcional)",
+        "notesPlaceholder": "Adicione comentários ou contexto adicional...",
+        "selectRating": "Selecione a avaliação",
+        "starRatingHint": "Clique nas estrelas para avaliar de 1 a {{maxStars}}"
+      },
+      "buttons": {
+        "tryAgain": "Tentar Novamente",
+        "next": "Próxima Pergunta",
+        "complete": "Finalizar Avaliação",
+        "saving": "Salvando..."
+      }
+    },
+    "complete": {
+      "title": "Avaliação Concluída!",
+      "congratulations": "Parabéns{{name}}!",
+      "congratulationsWithName": "Parabéns, {{name}}!",
+      "message": "Você concluiu com sucesso sua avaliação{{assessmentName}}.",
+      "messageWithAssessment": "Você concluiu com sucesso sua avaliação para {{assessmentName}}.",
+      "whatsNext": {
+        "title": "O Que Acontece Agora?",
+        "saved": "Suas respostas foram salvas com segurança",
+        "review": "Sua equipe de RH revisará os resultados",
+        "contact": "Você pode ser contatado para discussões de acompanhamento",
+        "thanks": "Obrigado por suas respostas honestas e reflexivas"
+      },
+      "feedback": "Seu feedback é valioso e ajuda a melhorar as práticas ágeis de nossa organização.",
+      "buttons": {
+        "closeWindow": "Fechar Janela"
+      },
+      "footer": "Dúvidas ou preocupações? Entre em contato com seu departamento de RH para assistência."
+    },
+    "status": {
+      "invited": "Convidado",
+      "confirmed": "Confirmado",
+      "in_progress": "Em Progresso",
+      "inProgress": "Em Progresso",
+      "completed": "Concluído"
+    },
+    "errors": {
+      "loadFailed": "Falha ao carregar avaliação",
+      "saveFailed": "Falha ao salvar resposta",
+      "networkError": "Erro de rede. Verifique sua conexão.",
+      "sessionExpired": "Sua sessão expirou. Atualize a página.",
+      "notReady": "Avaliação Não Está Pronta",
+      "notReadyMessage": "Não conseguimos preparar sua avaliação. Tente novamente.",
+      "returnToInvitation": "Retornar ao Convite",
+      "invalidInvitation": "Link de convite inválido ou expirado",
+      "employeeValidationFailed": "Falha ao validar funcionário para avaliação",
+      "noAssessmentFound": "Nenhuma avaliação encontrada para este funcionário",
+      "validationFailed": "Falha na validação"
+    }
   }
 }

@@ -1,27 +1,31 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { Question } from '../../services/questionService';
-import assessmentService, { 
-  EmployeeAssessment, 
-  SaveAnswerRequest 
-} from '../../services/assessmentService';
-import QuestionRenderer from './QuestionRenderer';
+import React, { useState, useEffect } from "react";
+import { useSSRTranslation } from "@/hooks/useSSRTranslation";
+import { Question } from "../../services/questionService";
+import assessmentService, {
+  EmployeeAssessment,
+  SaveAnswerRequest,
+} from "../../services/assessmentService";
+import QuestionRenderer from "./QuestionRenderer";
 
 interface AssessmentTakingProps {
   employeeAssessmentId: string;
+  tenantId: string;
   onComplete: () => void;
   onError: (error: string) => void;
 }
 
 const AssessmentTaking: React.FC<AssessmentTakingProps> = ({
   employeeAssessmentId,
+  tenantId,
   onComplete,
-  onError
+  onError,
 }) => {
+  const { t } = useSSRTranslation();
   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null);
-  const [currentAnswer, setCurrentAnswer] = useState<string>('');
-  const [currentNotes, setCurrentNotes] = useState<string>('');
+  const [currentAnswer, setCurrentAnswer] = useState<string>("");
+  const [currentNotes, setCurrentNotes] = useState<string>("");
   const [progress, setProgress] = useState({ current: 0, total: 0 });
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
@@ -38,28 +42,31 @@ const AssessmentTaking: React.FC<AssessmentTakingProps> = ({
       setError(null);
 
       // Load assessment details
-      const assessmentData = await assessmentService.getEmployeeAssessment(employeeAssessmentId);
+      const assessmentData =
+        await assessmentService.getEmployeeAssessment(employeeAssessmentId);
       setAssessment(assessmentData);
 
       // Load the first/next question
-      const questionData = await assessmentService.getNextQuestion(employeeAssessmentId);
-      
+      const questionData =
+        await assessmentService.getNextQuestion(employeeAssessmentId, tenantId);
+
       if (questionData.question) {
         setCurrentQuestion(questionData.question);
         setProgress({
           current: questionData.currentProgress,
-          total: questionData.totalQuestions
+          total: questionData.totalQuestions,
         });
         // Reset form state
-        setCurrentAnswer('');
-        setCurrentNotes('');
+        setCurrentAnswer("");
+        setCurrentNotes("");
       } else {
         // Assessment is complete
         onComplete();
         return;
       }
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to load assessment';
+      const errorMessage =
+        err instanceof Error ? err.message : t("assessment.errors.loadFailed");
       setError(errorMessage);
       onError(errorMessage);
     } finally {
@@ -77,7 +84,7 @@ const AssessmentTaking: React.FC<AssessmentTakingProps> = ({
 
   const handleNext = async () => {
     if (!currentQuestion || !currentAnswer.trim()) {
-      setError('Please provide an answer before continuing.');
+      setError(t("assessment.taking.question.required"));
       return;
     }
 
@@ -91,27 +98,29 @@ const AssessmentTaking: React.FC<AssessmentTakingProps> = ({
         answeredAt: new Date().toISOString(),
         value: currentAnswer.trim(),
         tenantId: currentQuestion.tenantId,
-        notes: currentNotes.trim() || undefined
+        notes: currentNotes.trim() || undefined,
       };
 
-      const response = await assessmentService.saveAnswerAndGetNext(saveRequest);
+      const response =
+        await assessmentService.saveAnswerAndGetNext(saveRequest);
 
       if (response.question) {
         // More questions to answer
         setCurrentQuestion(response.question);
         setProgress({
           current: response.currentProgress,
-          total: response.totalQuestions
+          total: response.totalQuestions,
         });
         // Reset form state
-        setCurrentAnswer('');
-        setCurrentNotes('');
+        setCurrentAnswer("");
+        setCurrentNotes("");
       } else {
         // Assessment is complete
         onComplete();
       }
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to save answer';
+      const errorMessage =
+        err instanceof Error ? err.message : t("assessment.errors.saveFailed");
       setError(errorMessage);
     } finally {
       setIsSaving(false);
@@ -126,11 +135,16 @@ const AssessmentTaking: React.FC<AssessmentTakingProps> = ({
   if (isLoading) {
     return (
       <div className="min-vh-100 d-flex align-items-center justify-content-center bg-light">
-        <div className="card shadow" style={{ maxWidth: '600px', width: '100%' }}>
+        <div
+          className="card shadow"
+          style={{ maxWidth: "600px", width: "100%" }}
+        >
           <div className="card-body text-center py-5">
             <i className="fas fa-spinner fa-spin fa-3x text-primary mb-4"></i>
-            <h4>Loading Assessment</h4>
-            <p className="text-muted">Please wait while we load your assessment...</p>
+            <h4>{t("assessment.taking.loading")}</h4>
+            <p className="text-muted">
+              {t("assessment.taking.loadingMessage")}
+            </p>
           </div>
         </div>
       </div>
@@ -140,17 +154,17 @@ const AssessmentTaking: React.FC<AssessmentTakingProps> = ({
   if (error && !currentQuestion) {
     return (
       <div className="min-vh-100 d-flex align-items-center justify-content-center bg-light">
-        <div className="card shadow" style={{ maxWidth: '600px', width: '100%' }}>
+        <div
+          className="card shadow"
+          style={{ maxWidth: "600px", width: "100%" }}
+        >
           <div className="card-body text-center py-5">
             <i className="fas fa-exclamation-triangle fa-3x text-danger mb-4"></i>
-            <h4>Error Loading Assessment</h4>
+            <h4>{t("assessment.taking.error")}</h4>
             <p className="text-muted mb-4">{error}</p>
-            <button 
-              onClick={loadAssessment}
-              className="btn btn-primary"
-            >
+            <button onClick={loadAssessment} className="btn btn-primary">
               <i className="fas fa-redo mr-2"></i>
-              Try Again
+              {t("assessment.taking.buttons.tryAgain")}
             </button>
           </div>
         </div>
@@ -169,23 +183,25 @@ const AssessmentTaking: React.FC<AssessmentTakingProps> = ({
                 <div className="d-flex justify-content-between align-items-center mb-3">
                   <h5 className="mb-0">
                     <i className="fas fa-clipboard-check text-primary mr-2"></i>
-                    Assessment Progress
+                    {t("assessment.taking.progress.title")}
                   </h5>
                   <span className="badge badge-primary">
-                    {progress.current} of {progress.total}
+                    {t("assessment.taking.progress.current", { current: progress.current, total: progress.total })}
                   </span>
                 </div>
-                <div className="progress mb-2" style={{ height: '8px' }}>
-                  <div 
-                    className="progress-bar bg-success" 
-                    role="progressbar" 
+                <div className="progress mb-2" style={{ height: "8px" }}>
+                  <div
+                    className="progress-bar bg-success"
+                    role="progressbar"
                     style={{ width: `${getProgressPercentage()}%` }}
-                    aria-valuenow={getProgressPercentage()} 
-                    aria-valuemin={0} 
+                    aria-valuenow={getProgressPercentage()}
+                    aria-valuemin={0}
                     aria-valuemax={100}
                   ></div>
                 </div>
-                <small className="text-muted">{getProgressPercentage()}% Complete</small>
+                <small className="text-muted">
+                  {t("assessment.taking.progress.percentage", { percentage: getProgressPercentage() })}
+                </small>
               </div>
             </div>
 
@@ -195,7 +211,7 @@ const AssessmentTaking: React.FC<AssessmentTakingProps> = ({
                 <div className="card-header bg-primary text-white">
                   <h6 className="mb-0">
                     <i className="fas fa-question-circle mr-2"></i>
-                    Question {progress.current + 1}
+                    {t("assessment.taking.question.number", { number: progress.current + 1 })}
                   </h6>
                 </div>
                 <div className="card-body">
@@ -208,19 +224,23 @@ const AssessmentTaking: React.FC<AssessmentTakingProps> = ({
 
                   {/* Question Content */}
                   <div className="mb-4">
-                    <h5 className="question-text mb-3">{currentQuestion.question}</h5>
+                    <h5 className="question-text mb-3">
+                      {currentQuestion.question}
+                    </h5>
                     {currentQuestion.extraDescription && (
                       <p className="text-muted small mb-3">
                         <i className="fas fa-info-circle mr-1"></i>
                         {currentQuestion.extraDescription}
                       </p>
                     )}
-                    
+
                     {/* Category and Pillar Info */}
                     <div className="mb-3">
                       <small className="text-muted">
-                        <strong>Category:</strong> {currentQuestion.categoryName} | 
-                        <strong className="ml-2">Pillar:</strong> {currentQuestion.pillarName}
+                        <strong>{t("assessment.taking.question.category")}:</strong>{" "}
+                        {currentQuestion.categoryName} |
+                        <strong className="ml-2">{t("assessment.taking.question.pillar")}:</strong>{" "}
+                        {currentQuestion.pillarName}
                       </small>
                     </div>
                   </div>
@@ -236,7 +256,7 @@ const AssessmentTaking: React.FC<AssessmentTakingProps> = ({
                   <div className="form-group mt-4">
                     <label htmlFor="notes" className="form-label">
                       <i className="fas fa-sticky-note mr-2"></i>
-                      Additional Notes (Optional)
+                      {t("assessment.taking.question.notes")}
                     </label>
                     <textarea
                       id="notes"
@@ -244,7 +264,7 @@ const AssessmentTaking: React.FC<AssessmentTakingProps> = ({
                       rows={3}
                       value={currentNotes}
                       onChange={(e) => handleNotesChange(e.target.value)}
-                      placeholder="Add any additional comments or context..."
+                      placeholder={t("assessment.taking.question.notesPlaceholder")}
                       disabled={isSaving}
                     />
                   </div>
@@ -259,12 +279,14 @@ const AssessmentTaking: React.FC<AssessmentTakingProps> = ({
                       {isSaving ? (
                         <>
                           <i className="fas fa-spinner fa-spin mr-2"></i>
-                          Saving...
+                          {t("assessment.taking.buttons.saving")}
                         </>
                       ) : (
                         <>
                           <i className="fas fa-arrow-right mr-2"></i>
-                          {progress.current + 1 === progress.total ? 'Complete Assessment' : 'Next Question'}
+                          {progress.current + 1 === progress.total
+                            ? t("assessment.taking.buttons.complete")
+                            : t("assessment.taking.buttons.next")}
                         </>
                       )}
                     </button>

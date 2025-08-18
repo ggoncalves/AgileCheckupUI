@@ -15,10 +15,12 @@ i18n
     debug: false,
     
     detection: {
-      order: ['localStorage', 'navigator'],
+      order: ['localStorage'],
       caches: ['localStorage'],
       lookupLocalStorage: STORAGE_KEY,
     },
+    
+    lng: 'pt-BR', // Force pt-BR as initial language
 
     interpolation: {
       escapeValue: false,
