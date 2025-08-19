@@ -1,0 +1,665 @@
+Key,Context,en-US,pt-BR
+assessment.complete.buttons.closeWindow,assessment.complete.buttons,Close Window,Fechar Janela
+assessment.complete.congratulations,assessment.complete,Congratulations{{name}}!,Parabéns{{name}}!
+assessment.complete.congratulationsWithName,assessment.complete,"Congratulations, {{name}}!","Parabéns, {{name}}!"
+assessment.complete.feedback,assessment.complete,Your feedback is valuable and helps improve our organization's agile practices.,Seu feedback é valioso e ajuda a melhorar as práticas ágeis de nossa organização.
+assessment.complete.footer,assessment.complete,Questions or concerns? Contact your HR department for assistance.,Dúvidas ou preocupações? Entre em contato com seu departamento de RH para assistência.
+assessment.complete.message,assessment.complete,You have successfully completed your assessment{{assessmentName}}.,Você concluiu com sucesso sua avaliação{{assessmentName}}.
+assessment.complete.messageWithAssessment,assessment.complete,You have successfully completed your assessment for {{assessmentName}}.,Você concluiu com sucesso sua avaliação para {{assessmentName}}.
+assessment.complete.title,assessment.complete,Assessment Complete!,Avaliação Concluída!
+assessment.complete.whatsNext.contact,assessment.complete.whatsNext,You may be contacted for follow-up discussions,Você pode ser contatado para discussões de acompanhamento
+assessment.complete.whatsNext.review,assessment.complete.whatsNext,Your HR team will review the results,Sua equipe de RH revisará os resultados
+assessment.complete.whatsNext.saved,assessment.complete.whatsNext,Your responses have been securely saved,Suas respostas foram salvas com segurança
+assessment.complete.whatsNext.thanks,assessment.complete.whatsNext,Thank you for your honest and thoughtful responses,Obrigado por suas respostas honestas e reflexivas
+assessment.complete.whatsNext.title,assessment.complete.whatsNext,What's Next?,O Que Acontece Agora?
+assessment.errors.employeeValidationFailed,assessment.errors,Failed to validate employee for assessment,Falha ao validar funcionário para avaliação
+assessment.errors.invalidInvitation,assessment.errors,Invalid or expired invitation link,Link de convite inválido ou expirado
+assessment.errors.loadFailed,assessment.errors,Failed to load assessment,Falha ao carregar avaliação
+assessment.errors.networkError,assessment.errors,Network error. Please check your connection.,Erro de rede. Verifique sua conexão.
+assessment.errors.noAssessmentFound,assessment.errors,No assessment found for this employee,Nenhuma avaliação encontrada para este funcionário
+assessment.errors.notReady,assessment.errors,Assessment Not Ready,Avaliação Não Está Pronta
+assessment.errors.notReadyMessage,assessment.errors,We couldn't prepare your assessment. Please try again.,Não conseguimos preparar sua avaliação. Tente novamente.
+assessment.errors.returnToInvitation,assessment.errors,Return to Invitation,Retornar ao Convite
+assessment.errors.saveFailed,assessment.errors,Failed to save answer,Falha ao salvar resposta
+assessment.errors.sessionExpired,assessment.errors,Your session has expired. Please refresh the page.,Sua sessão expirou. Atualize a página.
+assessment.errors.validationFailed,assessment.errors,Validation failed,Falha na validação
+assessment.invitation.buttons.accessAssessment,assessment.invitation.buttons,Access My Assessment,Acessar Minha Avaliação
+assessment.invitation.buttons.continueAssessment,assessment.invitation.buttons,Continue Assessment,Continuar Avaliação
+assessment.invitation.buttons.startAssessment,assessment.invitation.buttons,Start Assessment,Iniciar Avaliação
+assessment.invitation.buttons.validating,assessment.invitation.buttons,Validating...,Validando...
+assessment.invitation.form.description,assessment.invitation.form,{{matrixDescription}},{{matrixDescription}}
+assessment.invitation.form.emailInvalid,assessment.invitation.form,Invalid email address,Endereço de email inválido
+assessment.invitation.form.emailLabel,assessment.invitation.form,Enter your email address to access your assessment:,Digite seu endereço de email para acessar sua avaliação:
+assessment.invitation.form.emailNotFound,assessment.invitation.form,"We couldn't find your assessment invitation. Please check that you're using the same email address that HR used to invite you, or contact your HR department for assistance.","Não conseguimos encontrar seu convite de avaliação. Verifique se está usando o mesmo endereço de email que o RH usou para convidá-lo, ou entre em contato com seu departamento de RH para assistência."
+assessment.invitation.form.emailPlaceholder,assessment.invitation.form,your.email@company.com,seu.email@empresa.com
+assessment.invitation.form.emailRequired,assessment.invitation.form,Email is required,Email é obrigatório
+assessment.invitation.form.helpText,assessment.invitation.form,Use the same email address that HR used to send you this invitation.,Use o mesmo endereço de email que o RH usou para enviar este convite.
+assessment.invitation.form.needHelp,assessment.invitation.form,Need help? Contact your HR department.,Precisa de ajuda? Entre em contato com seu departamento de RH.
+assessment.invitation.form.title,assessment.invitation.form,Assessment: {{matrixName}},Avaliação: {{matrixName}}
+assessment.invitation.form.validationFailed,assessment.invitation.form,Failed to validate email,Falha ao validar email
+assessment.invitation.title,assessment.invitation,Employee Assessment Invitation,Convite para Avaliação de Funcionário
+assessment.invitation.validation.contactHR,assessment.invitation.validation,Please contact your HR department for a new invitation link.,Entre em contato com seu departamento de RH para um novo link de convite.
+assessment.invitation.validation.employeeNotFound,assessment.invitation.validation,"We couldn't find your assessment invitation. Please check that you're using the same email address that HR used to invite you, or contact your HR department for assistance.","Não conseguimos encontrar seu convite de avaliação. Verifique se está usando o mesmo endereço de e-mail que o RH usou para convidá-lo, ou entre em contato com seu departamento de RH para assistência."
+assessment.invitation.validation.error,assessment.invitation.validation,Failed to validate invitation link,Falha ao validar link de convite
+assessment.invitation.validation.failedToLoadMatrix,assessment.invitation.validation,Failed to load assessment details,Falha ao carregar detalhes da avaliação
+assessment.invitation.validation.invalid,assessment.invitation.validation,Invalid Invitation,Convite Inválido
+assessment.invitation.validation.invalidMessage,assessment.invitation.validation,Invalid or expired invitation link,Link de convite inválido ou expirado
+assessment.invitation.validation.validating,assessment.invitation.validation,Validating Invitation,Validando Convite
+assessment.invitation.validation.validatingMessage,assessment.invitation.validation,Please wait while we validate your invitation link...,Aguarde enquanto validamos seu link de convite...
+assessment.invitation.validation.validationFailed,assessment.invitation.validation,Failed to validate email,Falha ao validar e-mail
+assessment.invitation.welcome.assessmentStatus,assessment.invitation.welcome,Assessment Status,Status da Avaliação
+assessment.invitation.welcome.beforeYouBegin,assessment.invitation.welcome,Before You Begin,Antes de Começar
+assessment.invitation.welcome.continueMessage,assessment.invitation.welcome,Welcome back! You can continue your assessment where you left off.,Bem-vindo de volta! Você pode continuar sua avaliação de onde parou.
+assessment.invitation.welcome.greeting,assessment.invitation.welcome,"Hello, {{name}}!","Olá, {{name}}!"
+assessment.invitation.welcome.instructions.honesty,assessment.invitation.welcome.instructions,Answer all questions honestly and thoughtfully,Responda todas as perguntas de forma honesta e reflexiva
+assessment.invitation.welcome.instructions.save,assessment.invitation.welcome.instructions,You can save and return to complete it later if needed,Você pode salvar e retornar para completar mais tarde se necessário
+assessment.invitation.welcome.instructions.time,assessment.invitation.welcome.instructions,Set aside adequate time to complete the assessment,Reserve tempo adequado para completar a avaliação
+assessment.invitation.welcome.message,assessment.invitation.welcome,{{message}},{{message}}
+assessment.invitation.welcome.needHelp,assessment.invitation.welcome,Need help? Contact your HR department.,Precisa de ajuda? Entre em contato com seu departamento de RH.
+assessment.invitation.welcome.startMessage,assessment.invitation.welcome,You can now begin your assessment. Please set aside adequate time to complete it thoughtfully.,Você pode começar sua avaliação agora. Reserve tempo adequado para completá-la de forma reflexiva.
+assessment.invitation.welcome.title,assessment.invitation.welcome,Welcome to Your Assessment,Bem-vindo à Sua Avaliação
+assessment.status.completed,assessment.status,Completed,Concluído
+assessment.status.confirmed,assessment.status,Confirmed,Confirmado
+assessment.status.inProgress,assessment.status,In Progress,Em Progresso
+assessment.status.in_progress,assessment.status,In Progress,Em Progresso
+assessment.status.invited,assessment.status,Invited,Convidado
+assessment.taking.buttons.complete,assessment.taking.buttons,Complete Assessment,Finalizar Avaliação
+assessment.taking.buttons.next,assessment.taking.buttons,Next Question,Próxima Pergunta
+assessment.taking.buttons.saving,assessment.taking.buttons,Saving...,Salvando...
+assessment.taking.buttons.tryAgain,assessment.taking.buttons,Try Again,Tentar Novamente
+assessment.taking.error,assessment.taking,Error Loading Assessment,Erro ao Carregar Avaliação
+assessment.taking.errorMessage,assessment.taking,Failed to load assessment,Falha ao carregar avaliação
+assessment.taking.loading,assessment.taking,Loading Assessment,Carregando Avaliação
+assessment.taking.loadingMessage,assessment.taking,Please wait while we load your assessment...,Aguarde enquanto carregamos sua avaliação...
+assessment.taking.progress.current,assessment.taking.progress,{{current}} of {{total}},{{current}} de {{total}}
+assessment.taking.progress.percentage,assessment.taking.progress,{{percentage}}% Complete,{{percentage}}% Completo
+assessment.taking.progress.title,assessment.taking.progress,Assessment Progress,Progresso da Avaliação
+assessment.taking.question.category,assessment.taking.question,Category,Categoria
+assessment.taking.question.notes,assessment.taking.question,Additional Notes (Optional),Observações Adicionais (Opcional)
+assessment.taking.question.notesPlaceholder,assessment.taking.question,Add any additional comments or context...,Adicione comentários ou contexto adicional...
+assessment.taking.question.number,assessment.taking.question,Question {{number}},Pergunta {{number}}
+assessment.taking.question.pillar,assessment.taking.question,Pillar,Pilar
+assessment.taking.question.required,assessment.taking.question,Please provide an answer before continuing.,"Por favor, forneça uma resposta antes de continuar."
+assessment.taking.question.selectRating,assessment.taking.question,Select rating,Selecione a avaliação
+assessment.taking.question.starRatingHint,assessment.taking.question,Click on the stars to rate from 1 to {{maxStars}},Clique nas estrelas para avaliar de 1 a {{maxStars}}
+assessmentMatrix.actions.closeDashboard,assessmentMatrix.actions,Close Dashboard,Fechar Dashboard
+assessmentMatrix.actions.viewDashboard,assessmentMatrix.actions,View assessment dashboard,Ver dashboard de avaliação
+assessmentMatrix.actions.viewStructure,assessmentMatrix.actions,View structure details,Ver detalhes da estrutura
+assessmentMatrix.columns.description,assessmentMatrix.columns,Description,Descrição
+assessmentMatrix.columns.name,assessmentMatrix.columns,Name,Nome
+assessmentMatrix.columns.performanceCycle,assessmentMatrix.columns,Performance Cycle,Ciclo de Performance
+assessmentMatrix.columns.questions,assessmentMatrix.columns,Questions,Perguntas
+assessmentMatrix.columns.structure,assessmentMatrix.columns,Structure,Estrutura
+assessmentMatrix.dashboard.assignedToAssessment,assessmentMatrix.dashboard,Assigned to assessment,Atribuídos para avaliação
+assessmentMatrix.dashboard.columns.actions,assessmentMatrix.dashboard.columns,Actions,Ações
+assessmentMatrix.dashboard.columns.completed,assessmentMatrix.dashboard.columns,Completed,Concluído
+assessmentMatrix.dashboard.columns.inProgress,assessmentMatrix.dashboard.columns,In Progress,Em Andamento
+assessmentMatrix.dashboard.columns.progress,assessmentMatrix.dashboard.columns,Progress,Progresso
+assessmentMatrix.dashboard.columns.team,assessmentMatrix.dashboard.columns,Team,Equipe
+assessmentMatrix.dashboard.columns.totalEmployees,assessmentMatrix.dashboard.columns,Total Employees,Total de Funcionários
+assessmentMatrix.dashboard.completed,assessmentMatrix.dashboard,Completed,Concluído
+assessmentMatrix.dashboard.completionRate,assessmentMatrix.dashboard,Completion rate: {{rate}}%,Taxa de conclusão: {{rate}}%
+assessmentMatrix.dashboard.inProgress,assessmentMatrix.dashboard,In Progress,Em Andamento
+assessmentMatrix.dashboard.loading,assessmentMatrix.dashboard,Loading Assessment Dashboard,Carregando Dashboard de Avaliação
+assessmentMatrix.dashboard.loadingMessage,assessmentMatrix.dashboard,"Please wait while we fetch the data for ""{{matrixName}}""...","Aguarde enquanto buscamos os dados para ""{{matrixName}}""..."
+assessmentMatrix.dashboard.loadingTeamData,assessmentMatrix.dashboard,Loading team data...,Carregando dados das equipes...
+assessmentMatrix.dashboard.noTeamData,assessmentMatrix.dashboard,No team data available,Nenhum dado de equipe disponível
+assessmentMatrix.dashboard.refresh,assessmentMatrix.dashboard,Refresh,Atualizar
+assessmentMatrix.dashboard.refreshTitle,assessmentMatrix.dashboard,Refresh dashboard data,Atualizar dados do dashboard
+assessmentMatrix.dashboard.refreshing,assessmentMatrix.dashboard,Refreshing...,Atualizando...
+assessmentMatrix.dashboard.remaining,assessmentMatrix.dashboard,Remaining: {{percentage}}%,Restante: {{percentage}}%
+assessmentMatrix.dashboard.teams,assessmentMatrix.dashboard,Teams,Equipes
+assessmentMatrix.dashboard.title,assessmentMatrix.dashboard,Assessment Dashboard,Dashboard de Avaliação
+assessmentMatrix.dashboard.totalEmployees,assessmentMatrix.dashboard,Total Employees,Total de Funcionários
+assessmentMatrix.dashboard.withAssignedEmployees,assessmentMatrix.dashboard,With assigned employees,Com funcionários atribuídos
+assessmentMatrix.employeeStatus.columns.employee,assessmentMatrix.employeeStatus.columns,Employee,Funcionário
+assessmentMatrix.employeeStatus.columns.lastActivity,assessmentMatrix.employeeStatus.columns,Last Activity,Última Atividade
+assessmentMatrix.employeeStatus.columns.progress,assessmentMatrix.employeeStatus.columns,Progress,Progresso
+assessmentMatrix.employeeStatus.columns.status,assessmentMatrix.employeeStatus.columns,Status,Status
+assessmentMatrix.employeeStatus.lastActivity.dayAgo,assessmentMatrix.employeeStatus.lastActivity,1 day ago,1 dia atrás
+assessmentMatrix.employeeStatus.lastActivity.daysAgo,assessmentMatrix.employeeStatus.lastActivity,{{days}} days ago,{{days}} dias atrás
+assessmentMatrix.employeeStatus.lastActivity.hoursAgo,assessmentMatrix.employeeStatus.lastActivity,"{{hours}} hour{{hours, plural, one {} other {s}}} ago","{{hours}} hora{{hours, plural, one {} other {s}}} atrás"
+assessmentMatrix.employeeStatus.lastActivity.lessThanHour,assessmentMatrix.employeeStatus.lastActivity,Less than 1 hour ago,Menos de 1 hora atrás
+assessmentMatrix.employeeStatus.lastActivity.never,assessmentMatrix.employeeStatus.lastActivity,Never,Nunca
+assessmentMatrix.employeeStatus.lastActivity.unknown,assessmentMatrix.employeeStatus.lastActivity,Unknown,Desconhecido
+assessmentMatrix.employeeStatus.loadingData,assessmentMatrix.employeeStatus,Loading employee data...,Carregando dados dos funcionários...
+assessmentMatrix.employeeStatus.noEmployees,assessmentMatrix.employeeStatus,No employees found for {{teamName}} team,Nenhum funcionário encontrado para a equipe {{teamName}}
+assessmentMatrix.employeeStatus.pagination.showing,assessmentMatrix.employeeStatus.pagination,Showing {{startIndex}} to {{endIndex}} of {{totalCount}} employees,Mostrando {{startIndex}} a {{endIndex}} de {{totalCount}} funcionários
+assessmentMatrix.employeeStatus.questionsAnswered,assessmentMatrix.employeeStatus,"{{count}} question{{count, plural, one {} other {s}}} answered","{{count}} pergunta{{count, plural, one {} other {s}}} respondida{{count, plural, one {} other {s}}}"
+assessmentMatrix.employeeStatus.refresh,assessmentMatrix.employeeStatus,Refresh,Atualizar
+assessmentMatrix.employeeStatus.refreshTitle,assessmentMatrix.employeeStatus,Refresh employee data,Atualizar dados dos funcionários
+assessmentMatrix.employeeStatus.refreshing,assessmentMatrix.employeeStatus,Refreshing...,Atualizando...
+assessmentMatrix.employeeStatus.title,assessmentMatrix.employeeStatus,Employee Status Details - {{teamName}} Team,Detalhes do Status dos Funcionários - Equipe {{teamName}}
+assessmentMatrix.errors.dashboardLoadFailed,assessmentMatrix.errors,Failed to load dashboard data. Please try again.,"Falha ao carregar dados do dashboard. Por favor, tente novamente."
+assessmentMatrix.errors.deleteFailed,assessmentMatrix.errors,Failed to delete assessment matrix. Please try again.,"Falha ao excluir matriz de avaliação. Por favor, tente novamente."
+assessmentMatrix.errors.loadFailed,assessmentMatrix.errors,Failed to load assessment matrices. Please try again.,"Falha ao carregar matrizes de avaliação. Por favor, tente novamente."
+assessmentMatrix.filters.allCycles,assessmentMatrix.filters,All Performance Cycles,Todos os Ciclos de Performance
+assessmentMatrix.form.buttons.addCategory,assessmentMatrix.form.buttons,Add Category,Adicionar Categoria
+assessmentMatrix.form.buttons.addPillar,assessmentMatrix.form.buttons,Add Pillar,Adicionar Pilar
+assessmentMatrix.form.buttons.deleteCategory,assessmentMatrix.form.buttons,Delete Category,Excluir Categoria
+assessmentMatrix.form.buttons.save,assessmentMatrix.form.buttons,Save,Salvar
+assessmentMatrix.form.buttons.saving,assessmentMatrix.form.buttons,Saving...,Salvando...
+assessmentMatrix.form.createTitle,assessmentMatrix.form,Create New Assessment Matrix,Criar Nova Matriz de Avaliação
+assessmentMatrix.form.dialogs.deleteCategory.message,assessmentMatrix.form.dialogs.deleteCategory,"Are you sure you want to delete the category ""{{categoryName}}""?","Tem certeza que deseja excluir a categoria ""{{categoryName}}""?"
+assessmentMatrix.form.dialogs.deleteCategory.title,assessmentMatrix.form.dialogs.deleteCategory,Delete Category,Excluir Categoria
+assessmentMatrix.form.dialogs.deletePillar.message,assessmentMatrix.form.dialogs.deletePillar,"Are you sure you want to delete the pillar ""{{pillarName}}"" and all its categories?","Tem certeza que deseja excluir o pilar ""{{pillarName}}"" e todas as suas categorias?"
+assessmentMatrix.form.dialogs.deletePillar.title,assessmentMatrix.form.dialogs.deletePillar,Delete Pillar,Excluir Pilar
+assessmentMatrix.form.editTitle,assessmentMatrix.form,Edit Assessment Matrix,Editar Matriz de Avaliação
+assessmentMatrix.form.fields.description,assessmentMatrix.form.fields,Description,Descrição
+assessmentMatrix.form.fields.name,assessmentMatrix.form.fields,Name,Nome
+assessmentMatrix.form.fields.performanceCycle,assessmentMatrix.form.fields,Performance Cycle,Ciclo de Performance
+assessmentMatrix.form.help.preselectedFromFilter,assessmentMatrix.form.help,Pre-selected from filter,Pré-selecionado do filtro
+assessmentMatrix.form.placeholders.categoryDescription,assessmentMatrix.form.placeholders,Category Description (optional),Descrição da Categoria (opcional)
+assessmentMatrix.form.placeholders.categoryName,assessmentMatrix.form.placeholders,Category Name,Nome da Categoria
+assessmentMatrix.form.placeholders.pillarDescription,assessmentMatrix.form.placeholders,Pillar Description (optional),Descrição do Pilar (opcional)
+assessmentMatrix.form.placeholders.pillarName,assessmentMatrix.form.placeholders,Pillar Name,Nome do Pilar
+assessmentMatrix.form.placeholders.selectPerformanceCycle,assessmentMatrix.form.placeholders,Select Performance Cycle,Selecionar Ciclo de Performance
+assessmentMatrix.form.sections.categories,assessmentMatrix.form.sections,Categories,Categorias
+assessmentMatrix.form.sections.pillarsAndCategories,assessmentMatrix.form.sections,Pillars and Categories,Pilares e Categorias
+assessmentMatrix.form.validation.categoryNameRequired,assessmentMatrix.form.validation,Category name is required,O nome da categoria é obrigatório
+assessmentMatrix.form.validation.pillarNameRequired,assessmentMatrix.form.validation,Pillar name is required,O nome do pilar é obrigatório
+assessmentMatrix.form.validation.pillarNeedsCategory,assessmentMatrix.form.validation,Each pillar must have at least one category,Cada pilar deve ter pelo menos uma categoria
+assessmentMatrix.messages.noMatricesFound,assessmentMatrix.messages,No assessment matrices found,Nenhuma matriz de avaliação encontrada
+assessmentMatrix.messages.noPillarsDefined,assessmentMatrix.messages,No pillars defined,Nenhum pilar definido
+assessmentMatrix.plural,assessmentMatrix,Assessment Matrices,Matrizes de Avaliação
+assessmentMatrix.search.placeholder,assessmentMatrix.search,Search Assessment Matrices...,Buscar Matrizes de Avaliação...
+assessmentMatrix.singular,assessmentMatrix,Assessment Matrix,Matriz de Avaliação
+assessmentMatrix.structure.categories,assessmentMatrix.structure,Categories,Categorias
+assessmentMatrix.structure.categoriesCount,assessmentMatrix.structure,"{{count}} categor{{count, plural, one {y} other {ies}}}","{{count}} categoria{{count, plural, one {} other {s}}}"
+assessmentMatrix.structure.noCategoriesMessage,assessmentMatrix.structure,No categories defined,Nenhuma categoria definida
+assessmentMatrix.structure.noPillarsMessage,assessmentMatrix.structure,This matrix doesn't have any pillars defined yet. Use the edit form to add pillars and categories.,Esta matriz ainda não possui pilares definidos. Use o formulário de edição para adicionar pilares e categorias.
+assessmentMatrix.structure.pillars,assessmentMatrix.structure,Pillars,Pilares
+assessmentMatrix.structure.summary,assessmentMatrix.structure,"{{pillarCount}} pillar{{pillarCount, plural, one {} other {s}}}, {{categoryCount}} categor{{categoryCount, plural, one {y} other {ies}}}","{{pillarCount}} pilar{{pillarCount, plural, one {} other {es}}}, {{categoryCount}} categoria{{categoryCount, plural, one {} other {s}}}"
+assessmentMatrix.structure.title,assessmentMatrix.structure,Matrix Structure,Estrutura da Matriz
+assessmentMatrix.title,assessmentMatrix,Assessment Matrices,Matrizes de Avaliação
+common.actions.add,common.actions,Add,Adicionar
+common.actions.addNew,common.actions,Add New,Adicionar Novo
+common.actions.back,common.actions,Back,Voltar
+common.actions.cancel,common.actions,Cancel,Cancelar
+common.actions.clear,common.actions,Clear,Limpar
+common.actions.close,common.actions,Close,Fechar
+common.actions.confirm,common.actions,Confirm,Confirmar
+common.actions.copy,common.actions,Copy,Copiar
+common.actions.delete,common.actions,Delete,Excluir
+common.actions.edit,common.actions,Edit,Editar
+common.actions.next,common.actions,Next,Próximo
+common.actions.previous,common.actions,Previous,Anterior
+common.actions.save,common.actions,Save,Salvar
+common.actions.search,common.actions,Search,Buscar
+common.labels.actions,common.labels,Options,Opções
+common.labels.list,common.labels,List,Lista de
+common.messages.confirmDelete,common.messages,Are you sure you want to delete this item?,Tem certeza que deseja excluir este item?
+common.messages.deleteSuccess,common.messages,Item deleted successfully,Item excluído com sucesso
+common.messages.errorOccurred,common.messages,An error occurred,Ocorreu um erro
+common.messages.saveSuccess,common.messages,Item saved successfully,Item salvo com sucesso
+common.pagination.next,common.pagination,Next,Próximo
+common.pagination.previous,common.pagination,Previous,Anterior
+common.status.deleting,common.status,Deleting...,Excluindo...
+common.status.error,common.status,Error,Erro
+common.status.loading,common.status,Loading...,Carregando...
+common.status.saving,common.status,Saving...,Salvando...
+common.status.success,common.status,Success,Sucesso
+company.columns.city,company.columns,City,Cidade
+company.columns.created,company.columns,Created,Criado em
+company.columns.document,company.columns,Document,Documento
+company.columns.email,company.columns,Email,E-mail
+company.columns.industry,company.columns,Industry,Setor
+company.columns.name,company.columns,Company Name,Nome da Empresa
+company.columns.size,company.columns,Size,Porte
+company.columns.website,company.columns,Website,Website
+company.form.buttons.cancel,company.form.buttons,Cancel,Cancelar
+company.form.buttons.create,company.form.buttons,Create Company,Criar Empresa
+company.form.buttons.creating,company.form.buttons,Creating...,Criando...
+company.form.buttons.regenerateTenantId,company.form.buttons,Generate new Tenant ID based on company name,Gerar novo ID de Inquilino baseado no nome da empresa
+company.form.buttons.update,company.form.buttons,Update Company,Atualizar Empresa
+company.form.buttons.updating,company.form.buttons,Updating...,Atualizando...
+company.form.errors.generic,company.form.errors,An error occurred. Please try again.,"Ocorreu um erro. Por favor, tente novamente."
+company.form.fields.city,company.form.fields,City,Cidade
+company.form.fields.cnpj,company.form.fields,CNPJ,CNPJ
+company.form.fields.companyEmail,company.form.fields,Company Email,E-mail da Empresa
+company.form.fields.companyName,company.form.fields,Company Name,Nome da Empresa
+company.form.fields.companyPhone,company.form.fields,Company Phone,Telefone da Empresa
+company.form.fields.companySize,company.form.fields,Company Size,Porte da Empresa
+company.form.fields.country,company.form.fields,Country,País
+company.form.fields.cpf,company.form.fields,CPF,CPF
+company.form.fields.description,company.form.fields,Description,Descrição
+company.form.fields.email,company.form.fields,Email,E-mail
+company.form.fields.gender,company.form.fields,Gender,Gênero
+company.form.fields.industry,company.form.fields,Industry,Setor
+company.form.fields.legalName,company.form.fields,Legal Name,Razão Social
+company.form.fields.name,company.form.fields,Name,Nome
+company.form.fields.phone,company.form.fields,Phone,Telefone
+company.form.fields.pronouns,company.form.fields,Pronouns,Pronomes
+company.form.fields.state,company.form.fields,State,Estado
+company.form.fields.street,company.form.fields,Street,Rua
+company.form.fields.tenantId,company.form.fields,Tenant ID,ID do Tenant
+company.form.fields.website,company.form.fields,Website,Website
+company.form.fields.zipCode,company.form.fields,ZIP Code,CEP
+company.form.help.tenantIdCannotChange,company.form.help,Tenant ID cannot be changed after company creation,ID do Inquilino não pode ser alterado após a criação da empresa
+company.form.help.tenantIdFormat,company.form.help,"Format: lowercase letters, numbers, and hyphens only","Formato: apenas letras minúsculas, números e hífens"
+company.form.placeholders.cnpj,company.form.placeholders,00.000.000/0000-00,00.000.000/0000-00
+company.form.placeholders.cpf,company.form.placeholders,000.000.000-00,000.000.000-00
+company.form.placeholders.description,company.form.placeholders,Brief description of the company and its activities,Breve descrição da empresa e suas atividades
+company.form.placeholders.email,company.form.placeholders,company@example.com,empresa@exemplo.com
+company.form.placeholders.legalName,company.form.placeholders,Legal company name (if different from display name),Razão social (se diferente do nome de exibição)
+company.form.placeholders.phone,company.form.placeholders,+55 11 1234-5678,+55 11 1234-5678
+company.form.placeholders.phoneContact,company.form.placeholders,+55 11 98765-4321,+55 11 98765-4321
+company.form.placeholders.selectGender,company.form.placeholders,Select gender...,Selecione o gênero...
+company.form.placeholders.selectIndustry,company.form.placeholders,Select an industry...,Selecione um setor...
+company.form.placeholders.selectPronouns,company.form.placeholders,Select pronouns...,Selecione os pronomes...
+company.form.placeholders.selectSize,company.form.placeholders,Select a size...,Selecione um porte...
+company.form.placeholders.state,company.form.placeholders,SP,SP
+company.form.placeholders.street,company.form.placeholders,Street name and number,Nome da rua e número
+company.form.placeholders.tenantId,company.form.placeholders,acme-corporation-x7k2m,acme-corporation-x7k2m
+company.form.placeholders.website,company.form.placeholders,https://www.company.com,https://www.empresa.com
+company.form.placeholders.zipCode,company.form.placeholders,00000-000,00000-000
+company.form.sections.address,company.form.sections,Address,Endereço
+company.form.sections.basicInfo,company.form.sections,Basic Information,Informações Básicas
+company.form.sections.contactInfo,company.form.sections,Contact Information,Informações de Contato
+company.form.sections.contactPerson,company.form.sections,Contact Person,Pessoa de Contato
+company.form.validation.cnpjInvalid,company.form.validation,Invalid CNPJ format (XX.XXX.XXX/XXXX-XX or 14 digits),Formato de CNPJ inválido (XX.XXX.XXX/XXXX-XX ou 14 dígitos)
+company.form.validation.cnpjRequired,company.form.validation,CNPJ is required,CNPJ é obrigatório
+company.form.validation.companyNameRequired,company.form.validation,Company name is required,Nome da empresa é obrigatório
+company.form.validation.contactCpfRequired,company.form.validation,Contact person CPF is required,CPF da pessoa de contato é obrigatório
+company.form.validation.contactEmailRequired,company.form.validation,Contact person email is required,E-mail da pessoa de contato é obrigatório
+company.form.validation.contactNameRequired,company.form.validation,Contact person name is required,Nome da pessoa de contato é obrigatório
+company.form.validation.cpfInvalid,company.form.validation,Invalid CPF format (XXX.XXX.XXX-XX or 11 digits),Formato de CPF inválido (XXX.XXX.XXX-XX ou 11 dígitos)
+company.form.validation.descriptionMinLength,company.form.validation,Description must be at least 10 characters,Descrição deve ter pelo menos 10 caracteres
+company.form.validation.descriptionRequired,company.form.validation,Company description is required,Descrição da empresa é obrigatória
+company.form.validation.emailInvalid,company.form.validation,Invalid email address,Endereço de e-mail inválido
+company.form.validation.emailRequired,company.form.validation,Email is required,E-mail é obrigatório
+company.form.validation.industryRequired,company.form.validation,Industry is required,Setor é obrigatório
+company.form.validation.nameMinLength,company.form.validation,Name must be at least 3 characters,Nome deve ter pelo menos 3 caracteres
+company.form.validation.phoneInvalid,company.form.validation,Invalid phone number format,Formato de telefone inválido
+company.form.validation.required,company.form.validation,is required,é obrigatório
+company.form.validation.sizeRequired,company.form.validation,Company size is required,Porte da empresa é obrigatório
+company.form.validation.tenantIdConsecutiveHyphens,company.form.validation,Tenant ID cannot contain consecutive hyphens,ID do Tenant não pode conter hífens consecutivos
+company.form.validation.tenantIdInvalidChars,company.form.validation,"Tenant ID must contain only lowercase letters, numbers, and hyphens","ID do Tenant deve conter apenas letras minúsculas, números e hífens"
+company.form.validation.tenantIdInvalidHyphenEnd,company.form.validation,Tenant ID cannot end with a hyphen,ID do Tenant não pode terminar com hífen
+company.form.validation.tenantIdInvalidHyphenStart,company.form.validation,Tenant ID cannot start with a hyphen,ID do Tenant não pode começar com hífen
+company.form.validation.tenantIdMinLength,company.form.validation,Tenant ID must be at least 9 characters,ID do Tenant deve ter pelo menos 9 caracteres
+company.form.validation.tenantIdPattern,company.form.validation,Tenant ID must be lowercase alphanumeric with hyphens only,"ID do Tenant deve conter apenas letras minúsculas, números e hífens"
+company.form.validation.tenantIdRequired,company.form.validation,Tenant ID is required,ID do Tenant é obrigatório
+company.form.validation.tenantIdTooShort,company.form.validation,Tenant ID must be at least 9 characters long,ID do Tenant deve ter pelo menos 9 caracteres
+company.form.validation.urlInvalid,company.form.validation,Invalid URL format,Formato de URL inválido
+company.form.validation.zipCodeInvalid,company.form.validation,Invalid ZIP code format (XXXXX-XXX),Formato de CEP inválido (XXXXX-XXX)
+company.plural,company,Companies,Empresas
+company.singular,company,Company,Empresa
+company.title,company,Company Management,Gerenciamento de Empresas
+dashboard.buttons.retry,dashboard.buttons,Retry,Tentar Novamente
+dashboard.buttons.viewTeamAnalytics,dashboard.buttons,View Team Analytics,Ver Análises da Equipe
+dashboard.dates.endDate,dashboard.dates,End Date,Data de Término
+dashboard.dates.notSet,dashboard.dates,Not set,Não definido
+dashboard.dates.startDate,dashboard.dates,Start Date,Data de Início
+dashboard.description,dashboard,Performance analytics dashboard for all active assessment cycles.,Painel de análise de desempenho para todos os ciclos de avaliação ativos.
+dashboard.emptyState.noCycles.button,dashboard.emptyState.noCycles,Create Performance Cycle,Criar Ciclo de Performance
+dashboard.emptyState.noCycles.description,dashboard.emptyState.noCycles,There are no active performance cycles found for {{companyName}}. Create a performance cycle to start tracking team analytics.,Não há ciclos de performance ativos encontrados para {{companyName}}. Crie um ciclo de performance para começar a rastrear análises de equipe.
+dashboard.emptyState.noCycles.title,dashboard.emptyState.noCycles,No Active Performance Cycles,Nenhum Ciclo de Performance Ativo
+dashboard.emptyState.noMatrices.button,dashboard.emptyState.noMatrices,Create Assessment Matrix,Criar Matriz de Avaliação
+dashboard.emptyState.noMatrices.description,dashboard.emptyState.noMatrices,"You have {{count}} active performance cycle{{count, plural, one {} other {s}}}, but no assessment matrices have been created yet. Create assessment matrices to start tracking team performance.","Você tem {{count}} ciclo{{count, plural, one {} other {s}}} de performance ativo{{count, plural, one {} other {s}}}, mas nenhuma matriz de avaliação foi criada ainda. Crie matrizes de avaliação para começar a rastrear o desempenho da equipe."
+dashboard.emptyState.noMatrices.title,dashboard.emptyState.noMatrices,No Assessment Matrices Found,Nenhuma Matriz de Avaliação Encontrada
+dashboard.errors.loadCyclesFailed,dashboard.errors,Failed to load performance cycles. Please try again.,"Falha ao carregar ciclos de performance. Por favor, tente novamente."
+dashboard.errors.loadMatricesFailed,dashboard.errors,Failed to load assessment matrices. Please try again.,"Falha ao carregar matrizes de avaliação. Por favor, tente novamente."
+dashboard.loading.assessmentMatrices,dashboard.loading,Loading Assessment Matrices...,Carregando Matrizes de Avaliação...
+dashboard.loading.completionData,dashboard.loading,Loading completion data...,Carregando dados de conclusão...
+dashboard.loading.performanceCycles,dashboard.loading,Loading Performance Cycles...,Carregando Ciclos de Performance...
+dashboard.matrix.count,dashboard.matrix,"{{count}} Assessment Matri{{count, plural, one {x} other {ces}}}","{{count}} Matriz{{count, plural, one {} other {es}}} de Avaliação"
+dashboard.messages.assessmentNotStarted,dashboard.messages,Assessment may not have started yet,A avaliação pode não ter começado ainda
+dashboard.messages.noCompletionData,dashboard.messages,No completion data available,Nenhum dado de conclusão disponível
+dashboard.overview.assessmentProgress,dashboard.overview,Assessment Progress,Progresso da Avaliação
+dashboard.overview.breadcrumb,dashboard.overview,Team Comparison,Comparação de Equipes
+dashboard.overview.buttons.viewDetails,dashboard.overview.buttons,View Details,Ver Detalhes
+dashboard.overview.defaultMatrixName,dashboard.overview,Assessment Matrix,Matriz de Avaliação
+dashboard.overview.errors.loadFailed,dashboard.overview.errors,Failed to load team comparison data. Please try again.,"Falha ao carregar dados de comparação de equipes. Por favor, tente novamente."
+dashboard.overview.loading.subtitle,dashboard.overview.loading,Preparing radar graphs for all teams...,Preparando gráficos radar para todas as equipes...
+dashboard.overview.loading.title,dashboard.overview.loading,Loading Team Comparison,Carregando Comparação de Equipes
+dashboard.overview.noData.description,dashboard.overview.noData,No data is available for this assessment matrix.,Nenhum dado está disponível para esta matriz de avaliação.
+dashboard.overview.noData.title,dashboard.overview.noData,No Data Available,Nenhum Dado Disponível
+dashboard.overview.noPillarAnalysis,dashboard.overview,No pillar analysis available,Nenhuma análise de pilares disponível
+dashboard.overview.noPillarData,dashboard.overview,No pillar data structure found,Nenhuma estrutura de dados de pilar encontrada
+dashboard.overview.noTeams.description,dashboard.overview.noTeams,No teams have been assigned to this assessment matrix yet.,Nenhuma equipe foi atribuída a esta matriz de avaliação ainda.
+dashboard.overview.noTeams.title,dashboard.overview.noTeams,No Teams Found,Nenhuma Equipe Encontrada
+dashboard.overview.performanceCycle,dashboard.overview,Performance Cycle,Ciclo de Performance
+dashboard.overview.pillarsFound,dashboard.overview,"Found {{count}} pillar{{count, plural, one {} other {s}}}","Encontrado {{count}} pilar{{count, plural, one {} other {es}}}"
+dashboard.overview.stats.completion,dashboard.overview.stats,Completion,Conclusão
+dashboard.overview.stats.employees,dashboard.overview.stats,Employees,Funcionários
+dashboard.overview.stats.score,dashboard.overview.stats,Score,Pontuação
+dashboard.overview.teamComparisonTitle,dashboard.overview,Team Comparison Overview,Visão Geral da Comparação de Equipes
+dashboard.overview.title,dashboard.overview,Team Performance Overview,Visão Geral de Desempenho da Equipe
+dashboard.progress.completionProgress,dashboard.progress,Completion Progress,Progresso de Conclusão
+dashboard.progress.employeesCompleted,dashboard.progress,{{completed}} of {{total}} employees completed,{{completed}} de {{total}} funcionários concluíram
+dashboard.status.active,dashboard.status,Active,Ativo
+dashboard.status.completed,dashboard.status,Completed,Concluído
+dashboard.status.goodProgress,dashboard.status,Good Progress,Bom Progresso
+dashboard.status.inactive,dashboard.status,Inactive,Inativo
+dashboard.status.needsAttention,dashboard.status,Needs Attention,Precisa de Atenção
+dashboard.status.notStarted,dashboard.status,Not Started,Não Iniciado
+dashboard.status.warning,dashboard.status,Warning,Aviso
+dashboard.summary.notAvailable,dashboard.summary,N/A,N/A
+dashboard.summary.questions,dashboard.summary,Questions,Perguntas
+dashboard.summary.teams,dashboard.summary,Teams,Equipes
+dashboard.team.errors.loadFailed,dashboard.team.errors,Failed to load team analytics. Please try again.,"Falha ao carregar análises da equipe. Por favor, tente novamente."
+dashboard.team.loading.subtitle,dashboard.team.loading,Preparing detailed performance analysis...,Preparando análise detalhada de desempenho...
+dashboard.team.loading.title,dashboard.team.loading,Loading Team Analytics,Carregando Análises da Equipe
+dashboard.team.noData.description,dashboard.team.noData,No analytics data is available for this team and assessment matrix combination.,Nenhum dado de análise está disponível para esta combinação de equipe e matriz de avaliação.
+dashboard.team.noData.title,dashboard.team.noData,No Data Available,Nenhum Dado Disponível
+dashboard.team.noPillarData.description,dashboard.team.noPillarData,This team hasn't completed enough assessments to generate pillar analysis.,Esta equipe não completou avaliações suficientes para gerar análise de pilares.
+dashboard.team.noPillarData.title,dashboard.team.noPillarData,No Pillar Data Available,Nenhum Dado de Pilar Disponível
+dashboard.team.pillar.actual,dashboard.team.pillar,Actual,Real
+dashboard.team.pillar.categories,dashboard.team.pillar,Categories,Categorias
+dashboard.team.pillar.gapFromPotential,dashboard.team.pillar,Gap from potential: {{gap}}%,Diferença do potencial: {{gap}}%
+dashboard.team.pillar.noCategoryData,dashboard.team.pillar,No category data available,Nenhum dado de categoria disponível
+dashboard.team.pillar.potential,dashboard.team.pillar,Potential,Potencial
+dashboard.team.stats.completion,dashboard.team.stats,Completion,Conclusão
+dashboard.team.stats.overallScore,dashboard.team.stats,Overall Score,Pontuação Geral
+dashboard.team.stats.pillars,dashboard.team.stats,Pillars,Pilares
+dashboard.team.stats.teamMembers,dashboard.team.stats,Team Members,Membros da Equipe
+dashboard.team.teamComparison,dashboard.team,Team Comparison,Comparação de Equipes
+dashboard.team.teamDefault,dashboard.team,Team {{teamId}},Equipe {{teamId}}
+dashboard.team.title,dashboard.team,Team Performance Detail,Detalhes de Desempenho da Equipe
+dashboard.team.wordCloud.generatedFrom,dashboard.team.wordCloud,"Generated from {{count}} feedback response{{count, plural, one {} other {s}}}","Gerado a partir de {{count}} resposta{{count, plural, one {} other {s}}} de feedback"
+dashboard.team.wordCloud.noData.description,dashboard.team.wordCloud.noData,No text feedback has been collected for this team yet.,Nenhum feedback textual foi coletado para esta equipe ainda.
+dashboard.team.wordCloud.noData.title,dashboard.team.wordCloud.noData,No Feedback Data Available,Nenhum Dado de Feedback Disponível
+dashboard.team.wordCloud.title,dashboard.team.wordCloud,Team Feedback Word Cloud,Nuvem de Palavras do Feedback da Equipe
+dashboard.title,dashboard,Dashboard,Dashboard
+department.columns.company,department.columns,Company,Empresa
+department.columns.description,department.columns,Description,Descrição
+department.columns.name,department.columns,Department Name,Nome do Departamento
+department.errors.generic,department.errors,An error occurred. Please try again.,"Ocorreu um erro. Por favor, tente novamente."
+department.errors.loadCompaniesFailed,department.errors,Failed to load companies. Please try again.,"Falha ao carregar empresas. Por favor, tente novamente."
+department.form.buttons.create,department.form.buttons,Create Department,Criar Departamento
+department.form.buttons.creating,department.form.buttons,Creating...,Criando...
+department.form.buttons.update,department.form.buttons,Update Department,Atualizar Departamento
+department.form.buttons.updating,department.form.buttons,Updating...,Atualizando...
+department.form.fields.description,department.form.fields,Description,Descrição
+department.form.fields.name,department.form.fields,Name,Nome
+department.form.validation.descriptionMinLength,department.form.validation,Description must be at least 3 characters,Descrição deve ter pelo menos 3 caracteres
+department.form.validation.descriptionRequired,department.form.validation,Department description is required,Descrição do departamento é obrigatória
+department.form.validation.nameMinLength,department.form.validation,Name must be at least 3 characters,Nome deve ter pelo menos 3 caracteres
+department.form.validation.nameRequired,department.form.validation,Department name is required,Nome do departamento é obrigatório
+department.plural,department,Departments,Departamentos
+department.singular,department,Department,Departamento
+department.title,department,Department Management,Gerenciamento de Departamentos
+employeeAssessment.columns.answeredQuestions,employeeAssessment.columns,Answered Questions,Perguntas Respondidas
+employeeAssessment.columns.email,employeeAssessment.columns,Email,E-mail
+employeeAssessment.columns.name,employeeAssessment.columns,Name,Nome
+employeeAssessment.columns.status,employeeAssessment.columns,Status,Status
+employeeAssessment.columns.team,employeeAssessment.columns,Team,Equipe
+employeeAssessment.context.employeeCount,employeeAssessment.context,"{{count}} employee{{count, plural, one {} other {s}}} in this assessment","{{count}} funcionário{{count, plural, one {} other {s}}} nesta avaliação"
+employeeAssessment.context.filteredByTeam,employeeAssessment.context,Filtered by team,Filtrado por equipe
+employeeAssessment.filters.allDepartments,employeeAssessment.filters,All Departments,Todos os Departamentos
+employeeAssessment.filters.allTeams,employeeAssessment.filters,All Teams,Todas as Equipes
+employeeAssessment.filters.assessmentMatrix,employeeAssessment.filters,Assessment Matrix,Matriz de Avaliação
+employeeAssessment.filters.department,employeeAssessment.filters,Department,Departamento
+employeeAssessment.filters.performanceCycle,employeeAssessment.filters,Performance Cycle,Ciclo de Performance
+employeeAssessment.filters.selectAssessmentMatrix,employeeAssessment.filters,Select Assessment Matrix,Selecionar Matriz de Avaliação
+employeeAssessment.filters.selectPerformanceCycle,employeeAssessment.filters,Select Performance Cycle,Selecionar Ciclo de Performance
+employeeAssessment.filters.team,employeeAssessment.filters,Team,Equipe
+employeeAssessment.filters.title,employeeAssessment.filters,Filters,Filtros
+employeeAssessment.form.buttons.create,employeeAssessment.form.buttons,Create,Criar
+employeeAssessment.form.buttons.creating,employeeAssessment.form.buttons,Creating...,Criando...
+employeeAssessment.form.buttons.update,employeeAssessment.form.buttons,Update Assessment,Atualizar Avaliação
+employeeAssessment.form.buttons.updating,employeeAssessment.form.buttons,Updating...,Atualizando...
+employeeAssessment.form.error.generic,employeeAssessment.form.error,An error occurred,Ocorreu um erro
+employeeAssessment.form.fields.department,employeeAssessment.form.fields,Department,Departamento
+employeeAssessment.form.fields.email,employeeAssessment.form.fields,Email,E-mail
+employeeAssessment.form.fields.employeeName,employeeAssessment.form.fields,Employee Name,Nome do Funcionário
+employeeAssessment.form.fields.team,employeeAssessment.form.fields,Team,Equipe
+employeeAssessment.form.placeholders.allDepartments,employeeAssessment.form.placeholders,All Departments,Todos os Departamentos
+employeeAssessment.form.placeholders.email,employeeAssessment.form.placeholders,employee@company.com,funcionario@empresa.com
+employeeAssessment.form.placeholders.employeeName,employeeAssessment.form.placeholders,Enter employee full name,Digite o nome completo do funcionário
+employeeAssessment.form.placeholders.selectTeam,employeeAssessment.form.placeholders,Select Team (Optional),Selecionar Equipe (Opcional)
+employeeAssessment.form.sections.departmentTeam,employeeAssessment.form.sections,Department & Team Selection,Seleção de Departamento e Equipe
+employeeAssessment.form.sections.employeeInfo,employeeAssessment.form.sections,Employee Information,Informações do Funcionário
+employeeAssessment.form.success.employeeAdded,employeeAssessment.form.success,"Employee ""{{name}}"" was successfully added to the assessment!","Funcionário ""{{name}}"" foi adicionado com sucesso à avaliação!"
+employeeAssessment.form.validation.emailExists,employeeAssessment.form.validation,"Employee with email ""{{email}}"" already exists in this assessment matrix","Funcionário com e-mail ""{{email}}"" já existe nesta matriz de avaliação"
+employeeAssessment.form.validation.emailExistsShort,employeeAssessment.form.validation,This email already exists in the assessment matrix,Este e-mail já existe na matriz de avaliação
+employeeAssessment.form.validation.emailRequired,employeeAssessment.form.validation,Employee email is required,E-mail do funcionário é obrigatório
+employeeAssessment.form.validation.nameRequired,employeeAssessment.form.validation,Employee name is required,Nome do funcionário é obrigatório
+employeeAssessment.invitation.copied,employeeAssessment.invitation,Copied!,Copiado!
+employeeAssessment.invitation.copyLink,employeeAssessment.invitation,Copy Invitation Link,Copiar Link do Convite
+employeeAssessment.invitation.fullLink,employeeAssessment.invitation,Full Invitation Link:,Link Completo do Convite:
+employeeAssessment.invitation.generateInstruction,employeeAssessment.invitation,"Click ""Copy Invitation Link"" to generate secure link","Clique em ""Copiar Link do Convite"" para gerar link seguro"
+employeeAssessment.invitation.generating,employeeAssessment.invitation,Generating...,Gerando...
+employeeAssessment.invitation.instructions,employeeAssessment.invitation,Employees will enter their email address on this page to access their assessment,Funcionários irão inserir seu endereço de e-mail nesta página para acessar sua avaliação
+employeeAssessment.invitation.linkFor,employeeAssessment.invitation,Invitation Link for {{matrixName}},Link do Convite para {{matrixName}}
+employeeAssessment.invitation.linkGenerated,employeeAssessment.invitation,Link Generated,Link Gerado
+employeeAssessment.invitation.sendToEmployees,employeeAssessment.invitation,Send this link to all employees:,Envie este link para todos os funcionários:
+employeeAssessment.invitation.shareInstruction,employeeAssessment.invitation,Share this link with all employees who need to complete the assessment. They will enter their email address to access their specific assessment.,Compartilhe este link com todos os funcionários que precisam completar a avaliação. Eles irão inserir seu endereço de e-mail para acessar sua avaliação específica.
+employeeAssessment.invitation.viewFullLink,employeeAssessment.invitation,View full invitation link,Ver link completo do convite
+employeeAssessment.messages.selectFilters,employeeAssessment.messages,Please select a Performance Cycle and Assessment Matrix to manage employee assessments.,"Por favor, selecione um Ciclo de Performance e uma Matriz de Avaliação para gerenciar avaliações de funcionários."
+employeeAssessment.plural,employeeAssessment,Employee Assessments,Avaliações de Funcionários
+employeeAssessment.singular,employeeAssessment,Employee Assessment,Avaliação de Funcionário
+employeeAssessment.status.completed,employeeAssessment.status,Completed,Concluído
+employeeAssessment.status.confirmed,employeeAssessment.status,Confirmed,Confirmado
+employeeAssessment.status.inProgress,employeeAssessment.status,In Progress,Em Andamento
+employeeAssessment.status.invited,employeeAssessment.status,Invited,Convidado
+employeeAssessment.title,employeeAssessment,Employee Assessments,Avaliações de Funcionários
+footer.copyright,footer,All rights reserved,Todos os direitos reservados
+footer.version,footer,Version,Versão
+genders.FEMALE,genders,Female,Feminino
+genders.GENDERQUEER,genders,Genderqueer,Genderqueer
+genders.INTERSEX,genders,Intersex,Intersexo
+genders.MALE,genders,Male,Masculino
+genders.NON_BINARY,genders,Non-Binary,Não-Binário
+genders.OTHER,genders,Other,Outro
+genders.PREFER_NOT_TO_SAY,genders,Prefer not to say,Prefiro não dizer
+genders.TRANSGENDER,genders,Transgender,Transgênero
+industries.EDUCATION,industries,Education,Educação
+industries.FINANCE,industries,Finance,Finanças
+industries.HEALTHCARE,industries,Healthcare,Saúde
+industries.MANUFACTURING,industries,Manufacturing,Manufatura
+industries.OTHER,industries,Other,Outro
+industries.RETAIL,industries,Retail,Varejo
+industries.SERVICES,industries,Services,Serviços
+industries.TECHNOLOGY,industries,Technology,Tecnologia
+language.current,language,English,Português
+language.switch,language,Switch language,Mudar idioma
+navigation.assessmentMatrices,navigation,Assessment Matrices,Matrizes de Avaliação
+navigation.companies,navigation,Companies,Empresas
+navigation.dashboard,navigation,Dashboard,Painel
+navigation.departments,navigation,Departments,Departamentos
+navigation.employeeAssessments,navigation,Employee Assessments,Avaliações de Funcionários
+navigation.home,navigation,Home,Início
+navigation.performanceCycles,navigation,Performance Cycles,Ciclos de Performance
+navigation.questions,navigation,Questions,Perguntas
+navigation.settings,navigation,Settings,Configurações
+navigation.teams,navigation,Teams,Times
+performanceCycle.columns.description,performanceCycle.columns,Description,Descrição
+performanceCycle.columns.endDate,performanceCycle.columns,End Date,Data de Término
+performanceCycle.columns.name,performanceCycle.columns,Cycle Name,Nome do Ciclo
+performanceCycle.columns.startDate,performanceCycle.columns,Start Date,Data de Início
+performanceCycle.columns.status,performanceCycle.columns,Status,Status
+performanceCycle.columns.type,performanceCycle.columns,Type,Tipo
+performanceCycle.errors.deleteFailed,performanceCycle.errors,Failed to delete performance cycle. Please try again.,"Falha ao excluir ciclo de performance. Por favor, tente novamente."
+performanceCycle.errors.loadFailed,performanceCycle.errors,Failed to load performance cycles. Please try again.,"Falha ao carregar ciclos de performance. Por favor, tente novamente."
+performanceCycle.filters.activeOnly,performanceCycle.filters,Active Only,Apenas Ativos
+performanceCycle.filters.allCycles,performanceCycle.filters,All Cycles,Todos os Ciclos
+performanceCycle.filters.inactiveOnly,performanceCycle.filters,Inactive Only,Apenas Inativos
+performanceCycle.form.buttons.create,performanceCycle.form.buttons,Create,Criar
+performanceCycle.form.buttons.creating,performanceCycle.form.buttons,Creating...,Criando...
+performanceCycle.form.buttons.update,performanceCycle.form.buttons,Update,Atualizar
+performanceCycle.form.buttons.updating,performanceCycle.form.buttons,Updating...,Atualizando...
+performanceCycle.form.editTitle,performanceCycle.form,Edit Performance Cycle,Editar Ciclo de Performance
+performanceCycle.form.fields.active,performanceCycle.form.fields,Active,Ativo
+performanceCycle.form.fields.description,performanceCycle.form.fields,Description,Descrição
+performanceCycle.form.fields.endDate,performanceCycle.form.fields,End Date,Data de Término
+performanceCycle.form.fields.name,performanceCycle.form.fields,Cycle Name,Nome do Ciclo
+performanceCycle.form.fields.startDate,performanceCycle.form.fields,Start Date,Data de Início
+performanceCycle.form.fields.status,performanceCycle.form.fields,Status,Status
+performanceCycle.form.help.activeHelp,performanceCycle.form.help,Active cycles can be used for assessments,Ciclos ativos podem ser usados para avaliações
+performanceCycle.form.help.endDateHelp,performanceCycle.form.help,Leave empty for ongoing cycles,Deixe vazio para ciclos contínuos
+performanceCycle.form.help.startDateHelp,performanceCycle.form.help,When this performance cycle begins,Quando este ciclo de performance inicia
+performanceCycle.form.help.timeSensitiveInfo,performanceCycle.form.help,This cycle is time-sensitive because an end date is specified.,Este ciclo é sensível ao tempo porque uma data de término foi especificada.
+performanceCycle.form.newTitle,performanceCycle.form,New Performance Cycle,Novo Ciclo de Performance
+performanceCycle.form.placeholders.description,performanceCycle.form.placeholders,Enter cycle description (optional),Digite a descrição do ciclo (opcional)
+performanceCycle.form.placeholders.name,performanceCycle.form.placeholders,"e.g., Q1 2024, Annual Review","ex: Q1 2024, Avaliação Anual"
+performanceCycle.form.validation.endDateAfterStart,performanceCycle.form.validation,End date must be after start date,Data de término deve ser posterior à data de início
+performanceCycle.form.validation.nameRequired,performanceCycle.form.validation,Cycle name is required,Nome do ciclo é obrigatório
+performanceCycle.messages.noCyclesFound,performanceCycle.messages,No performance cycles found,Nenhum ciclo de performance encontrado
+performanceCycle.messages.noDescription,performanceCycle.messages,No description,Sem descrição
+performanceCycle.plural,performanceCycle,Performance Cycles,Ciclos de Performance
+performanceCycle.search.placeholder,performanceCycle.search,Search cycles...,Buscar ciclos...
+performanceCycle.singular,performanceCycle,Cycle,Ciclo
+performanceCycle.status.active,performanceCycle.status,Active,Ativo
+performanceCycle.status.inactive,performanceCycle.status,Inactive,Inativo
+performanceCycle.title,performanceCycle,Performance Cycle Management,Gerenciamento de Ciclos de Performance
+performanceCycle.types.ongoing,performanceCycle.types,Ongoing,Contínuo
+performanceCycle.types.timeSensitive,performanceCycle.types,Time-sensitive,Sensível ao tempo
+pronouns.HE,pronouns,He/Him,Ele/Dele
+pronouns.HE_HIM,pronouns,He/Him,Ele/Dele
+pronouns.OTHER,pronouns,Other,Outro
+pronouns.SHE,pronouns,She/Her,Ela/Dela
+pronouns.SHE_HER,pronouns,She/Her,Ela/Dela
+pronouns.THEY_THEM,pronouns,They/Them,Eles/Deles
+question.buttons.addCustom,question.buttons,Add Custom Question,Adicionar Pergunta Personalizada
+question.buttons.addOption,question.buttons,Add Option,Adicionar Opção
+question.buttons.addStandard,question.buttons,Add Standard Question,Adicionar Pergunta Padrão
+question.buttons.create,question.buttons,Create,Criar
+question.buttons.createAndClose,question.buttons,Create and Close,Criar e Fechar
+question.buttons.hidePoints,question.buttons,Hide Points,Ocultar Pontos
+question.buttons.preview,question.buttons,Preview,Visualizar
+question.buttons.removeOption,question.buttons,Remove option,Remover opção
+question.buttons.saving,question.buttons,Saving...,Salvando...
+question.buttons.showPoints,question.buttons,Show Points,Mostrar Pontos
+question.buttons.update,question.buttons,Update,Atualizar
+question.details.options,question.details,"{{count}} option{{count, plural, one {} other {s}}}","{{count}} opção{{count, plural, one {} other {ões}}}"
+question.details.points,question.details,{{points}} points,{{points}} pontos
+question.dialogs.deleteMessage,question.dialogs,"Are you sure you want to delete the question ""{{question}}""?","Tem certeza que deseja excluir a pergunta ""{{question}}""?"
+question.dialogs.deleteTitle,question.dialogs,Delete Question,Excluir Pergunta
+question.filters.allCategories,question.filters,All Categories,Todas as Categorias
+question.filters.allPillars,question.filters,All Pillars,Todos os Pilares
+question.filters.assessmentMatrix,question.filters,Assessment Matrix,Matriz de Avaliação
+question.filters.category,question.filters,Category,Categoria
+question.filters.performanceCycle,question.filters,Performance Cycle,Ciclo de Performance
+question.filters.pillar,question.filters,Pillar,Pilar
+question.filters.selectAssessmentMatrix,question.filters,Select Assessment Matrix,Selecionar Matriz de Avaliação
+question.filters.selectPerformanceCycle,question.filters,Select Performance Cycle,Selecionar Ciclo de Performance
+question.filters.title,question.filters,Filters,Filtros
+question.form.buttons.addOption,question.form.buttons,Add Option,Adicionar Opção
+question.form.buttons.create,question.form.buttons,Create,Criar
+question.form.buttons.createAndClose,question.form.buttons,Create and Close,Criar e Fechar
+question.form.buttons.removeOption,question.form.buttons,Remove option,Remover opção
+question.form.buttons.saving,question.form.buttons,Saving...,Salvando...
+question.form.buttons.update,question.form.buttons,Update,Atualizar
+question.form.createTitle,question.form,Create,Criar
+question.form.customType,question.form,Custom Question,Pergunta Personalizada
+question.form.editTitle,question.form,Edit,Editar
+question.form.fields.allowMultiple,question.form.fields,Allow Multiple Selection,Permitir Seleção Múltipla
+question.form.fields.category,question.form.fields,Category,Categoria
+question.form.fields.extraDescription,question.form.fields,Extra Description,Descrição Extra
+question.form.fields.pillar,question.form.fields,Pillar,Pilar
+question.form.fields.points,question.form.fields,Points,Pontos
+question.form.fields.questionText,question.form.fields,Question Text,Texto da Pergunta
+question.form.fields.questionType,question.form.fields,Question Type,Tipo de Pergunta
+question.form.fields.showFlushed,question.form.fields,Show Flushed Layout,Mostrar Layout Alinhado
+question.form.help.extraDescription,question.form.help,Use this field to provide additional context or clarification for the question,Use este campo para fornecer contexto adicional ou esclarecimentos para a pergunta
+question.form.help.options,question.form.help,Each option must have text and points value. Points determine scoring for this option.,Cada opção deve ter texto e valor de pontos. Os pontos determinam a pontuação para esta opção.
+question.form.messages.createSuccess,question.form.messages,"Question ""{{question}}"" created successfully!","Pergunta ""{{question}}"" criada com sucesso!"
+question.form.messages.updateSuccess,question.form.messages,"Question ""{{question}}"" updated successfully!","Pergunta ""{{question}}"" atualizada com sucesso!"
+question.form.placeholders.extraDescription,question.form.placeholders,Add clarification or context for this question (optional)...,Adicione esclarecimentos ou contexto para esta pergunta (opcional)...
+question.form.placeholders.optionPoints,question.form.placeholders,Points*,Pontos*
+question.form.placeholders.optionText,question.form.placeholders,Option text,Texto da opção
+question.form.placeholders.points,question.form.placeholders,Points for this question,Pontos para esta pergunta
+question.form.placeholders.questionText,question.form.placeholders,Enter your question here...,Digite sua pergunta aqui...
+question.form.placeholders.selectCategory,question.form.placeholders,Select Category,Selecionar Categoria
+question.form.placeholders.selectPillar,question.form.placeholders,Select Pillar,Selecionar Pilar
+question.form.sections.customOptions,question.form.sections,Custom Question Options,Opções de Pergunta Personalizada
+question.form.standardType,question.form,Standard Question,Pergunta Padrão
+question.form.table.action,question.form.table,Action,Ação
+question.form.table.number,question.form.table,#,#
+question.form.table.optionText,question.form.table,Option Text,Texto da Opção
+question.form.table.points,question.form.table,Points,Pontos
+question.form.types.customized,question.form.types,Custom Question,Pergunta Personalizada
+question.form.types.good_bad,question.form.types,Good/Bad,Bom/Ruim
+question.form.types.one_to_ten,question.form.types,1-10 Scale,Escala 1-10
+question.form.types.open_answer,question.form.types,Open Answer,Resposta Aberta
+question.form.types.star_five,question.form.types,5-Star Rating,Avaliação 5 Estrelas
+question.form.types.star_three,question.form.types,3-Star Rating,Avaliação 3 Estrelas
+question.form.types.yes_no,question.form.types,Yes/No,Sim/Não
+question.form.validation.categoryRequired,question.form.validation,Category is required,Categoria é obrigatória
+question.form.validation.missingFields,question.form.validation,Missing required fields,Campos obrigatórios ausentes
+question.form.validation.optionTextRequired,question.form.validation,Option text is required,Texto da opção é obrigatório
+question.form.validation.optionsMaximum,question.form.validation,Maximum 64 options allowed,Máximo de 64 opções permitidas
+question.form.validation.optionsMinimum,question.form.validation,At least 2 options with text are required,Pelo menos 2 opções com texto são obrigatórias
+question.form.validation.pillarRequired,question.form.validation,Pillar is required,Pilar é obrigatório
+question.form.validation.pointsMinimum,question.form.validation,Points must be 0 or greater,Pontos devem ser 0 ou maior
+question.form.validation.pointsRequired,question.form.validation,Points value is required,Valor de pontos é obrigatório
+question.form.validation.questionRequired,question.form.validation,Question text is required,Texto da pergunta é obrigatório
+question.messages.deleteFailed,question.messages,Failed to delete question. Please try again.,"Falha ao excluir pergunta. Por favor, tente novamente."
+question.messages.deleteSuccess,question.messages,"Question ""{{question}}"" deleted successfully!","Pergunta ""{{question}}"" excluída com sucesso!"
+question.messages.noQuestions,question.messages,No questions found. Add your first question!,Nenhuma pergunta encontrada. Adicione sua primeira pergunta!
+question.messages.selectFilters,question.messages,Please select a Performance Cycle and Assessment Matrix to manage questions,"Por favor, selecione um Ciclo de Performance e uma Matriz de Avaliação para gerenciar perguntas"
+question.preview.answers.bad,question.preview.answers,Bad,Ruim
+question.preview.answers.good,question.preview.answers,Good,Bom
+question.preview.answers.no,question.preview.answers,No,Não
+question.preview.answers.yes,question.preview.answers,Yes,Sim
+question.preview.buttons.hidePoints,question.preview.buttons,Hide Points,Ocultar Pontos
+question.preview.buttons.showPoints,question.preview.buttons,Show Points,Mostrar Pontos
+question.preview.context.category,question.preview.context,Category,Categoria
+question.preview.context.pillar,question.preview.context,Pillar,Pilar
+question.preview.details.multiSelect,question.preview.details,multi-select,seleção múltipla
+question.preview.details.notApplicable,question.preview.details,N/A,N/A
+question.preview.details.options,question.preview.details,Options,Opções
+question.preview.details.optionsCount,question.preview.details,"{{count}} option{{count, plural, one {} other {s}}}","{{count}} opção{{count, plural, one {} other {ões}}}"
+question.preview.details.points,question.preview.details,Points,Pontos
+question.preview.details.questionId,question.preview.details,Question ID,ID da Pergunta
+question.preview.details.type,question.preview.details,Type,Tipo
+question.preview.help.pointsVisibility,question.preview.help,Shows point values for each option. This is only visible to administrators for verification purposes. Users will not see these point values.,Mostra valores de pontos para cada opção. Isso é visível apenas para administradores para fins de verificação. Os usuários não verão esses valores de pontos.
+question.preview.howItAppears,question.preview,How this question will appear to users:,Como esta pergunta aparecerá para os usuários:
+question.preview.placeholders.openAnswer,question.preview.placeholders,Type your answer here...,Digite sua resposta aqui...
+question.preview.pointsValue,question.preview,{{points}} points,{{points}} pontos
+question.preview.table.option,question.preview.table,Option,Opção
+question.preview.table.points,question.preview.table,Points,Pontos
+question.preview.technicalDetails,question.preview,Technical Details,Detalhes Técnicos
+question.preview.title,question.preview,Question Preview,Visualização da Pergunta
+question.preview.types.customized,question.preview.types,Custom Options,Opções Personalizadas
+question.preview.types.goodBad,question.preview.types,Good/Bad Choice,Escolha Bom/Ruim
+question.preview.types.oneToTen,question.preview.types,1-10 Scale,Escala 1-10
+question.preview.types.openAnswer,question.preview.types,Open Text Answer,Resposta de Texto Aberta
+question.preview.types.star3,question.preview.types,3-Star Rating,Avaliação 3 Estrelas
+question.preview.types.star5,question.preview.types,5-Star Rating,Avaliação 5 Estrelas
+question.preview.types.yesNo,question.preview.types,Yes/No Question,Pergunta Sim/Não
+question.preview.unknownType,question.preview,Unknown question type,Tipo de pergunta desconhecido
+question.stats.questionCount,question.stats,"{{count}} question{{count, plural, one {} other {s}}}","{{count}} pergunta{{count, plural, one {} other {s}}}"
+question.stats.totalQuestions,question.stats,Total Questions,Total de Perguntas
+question.title,question,Questions Management,Gerenciamento de Perguntas
+question.types.customized,question.types,Custom,Personalizada
+question.types.goodBad,question.types,Good/Bad,Bom/Ruim
+question.types.oneToTen,question.types,1-10,1-10
+question.types.openAnswer,question.types,Open,Aberta
+question.types.star3,question.types,★★★,★★★
+question.types.star5,question.types,★★★★★,★★★★★
+question.types.yesNo,question.types,Yes/No,Sim/Não
+sizes.ENTERPRISE,sizes,Enterprise,Grande Porte
+sizes.LARGE,sizes,Large,Grande
+sizes.MEDIUM,sizes,Medium,Média
+sizes.MICRO,sizes,Micro,Microempresa
+sizes.SMALL,sizes,Small,Pequena
+team.columns.department,team.columns,Department,Departamento
+team.columns.description,team.columns,Description,Descrição
+team.columns.name,team.columns,Team Name,Nome do Time
+team.errors.deleteFailed,team.errors,Failed to delete team. Please try again.,"Falha ao excluir time. Por favor, tente novamente."
+team.errors.loadFailed,team.errors,Failed to load teams. Please try again.,"Falha ao carregar times. Por favor, tente novamente."
+team.filters.allDepartments,team.filters,All Departments,Todos os Departamentos
+team.form.buttons.create,team.form.buttons,Create,Criar
+team.form.buttons.creating,team.form.buttons,Creating...,Criando...
+team.form.buttons.update,team.form.buttons,Update,Atualizar
+team.form.buttons.updating,team.form.buttons,Updating...,Atualizando...
+team.form.editTitle,team.form,Edit Team,Editar Time
+team.form.fields.department,team.form.fields,Department,Departamento
+team.form.fields.description,team.form.fields,Description,Descrição
+team.form.fields.name,team.form.fields,Team Name,Nome do Time
+team.form.newTitle,team.form,New Team,Novo Time
+team.form.placeholders.description,team.form.placeholders,Enter team description (optional),Digite a descrição do time (opcional)
+team.form.placeholders.selectDepartment,team.form.placeholders,Select a department...,Selecione um departamento...
+team.form.placeholders.teamName,team.form.placeholders,Enter team name,Digite o nome do time
+team.form.validation.departmentRequired,team.form.validation,Department is required,Departamento é obrigatório
+team.form.validation.nameRequired,team.form.validation,Team name is required,Nome do time é obrigatório
+team.messages.noDepartment,team.messages,No Department,Sem Departamento
+team.messages.noDescription,team.messages,No description,Sem descrição
+team.messages.noTeamsFound,team.messages,No teams found,Nenhum time encontrado
+team.plural,team,Teams,Times
+team.search.placeholder,team.search,Search teams...,Buscar times...
+team.singular,team,Team,Time
+team.title,team,Team Management,Gerenciamento de Times
