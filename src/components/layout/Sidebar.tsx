@@ -37,8 +37,8 @@ const Sidebar: React.FC = () => {
         {/* Sidebar Menu */}
         <nav className="mt-2">
           <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            {/* Home */}
-            <li className="nav-item">
+            {/* Home - Using d-none temporary while there are no configuration options */}
+            <li className="nav-item d-none">
               <Link href="/home" className={`nav-link ${isActive('/home')}`}>
                 <i className="nav-icon fas fa-home"></i>
                 <p>{t('navigation.home')}</p>

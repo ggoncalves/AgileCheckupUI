@@ -15,8 +15,9 @@ export default function Home() {
     // Once tenant is loaded, check if it exists
     if (isLoaded) {
       if (tenantId && !forceSelect) {
-        // If tenant is selected, go to home
-        router.push('/home');
+        // If tenant is selected, go to companies (TODO must be /home)
+        // router.push('/home');
+        router.push('/admin/companies');
       } else {
         // If no tenant is selected, go to select company page
         router.push('/select-company');

@@ -56,8 +56,9 @@ const CompanySelector: React.FC = () => {
       // Update tenant context
       setTenant(selectedCompany.tenantId, selectedCompany.name, selectedCompany.id);
 
-      // Redirect to the dashboard
-      router.push('/dashboard');
+      // Redirect to the companies page (TODO: Must be /home)
+      // router.push('/home');
+      router.push('/admin/companies');
     }
   };
 
