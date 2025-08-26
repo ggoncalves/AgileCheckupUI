@@ -827,7 +827,22 @@
         "completion": "Completion"
       },
       "buttons": {
-        "viewDetails": "View Details"
+        "viewDetails": "View Details",
+        "recreateDashboard": "Recreate Dashboard",
+        "recreatingDashboard": "Recreating Dashboard..."
+      },
+      "recreateDashboard": {
+        "title": "Recreate Dashboard Analytics",
+        "warning": "Warning: This action will recalculate all analytics data for this assessment matrix.",
+        "timeWarning": "This process may take several minutes depending on the amount of data.",
+        "confirmMessage": "Are you sure you want to recreate the dashboard analytics?",
+        "confirm": "Yes, Recreate",
+        "cancel": "Cancel",
+        "processingTitle": "Processing Dashboard Analytics",
+        "processingMessage": "Please wait while we recalculate all analytics data. This may take a few minutes...",
+        "doNotClose": "Please do not close this window during the process.",
+        "success": "Dashboard analytics recreated successfully! The page will refresh now.",
+        "error": "Failed to recreate dashboard analytics. Please try again."
       },
       "noTeams": {
         "title": "No Teams Found",

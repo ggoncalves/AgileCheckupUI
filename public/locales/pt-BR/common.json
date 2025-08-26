@@ -827,7 +827,22 @@
         "completion": "Conclusão"
       },
       "buttons": {
-        "viewDetails": "Ver Detalhes"
+        "viewDetails": "Ver Detalhes",
+        "recreateDashboard": "Recriar Painel",
+        "recreatingDashboard": "Recriando Painel..."
+      },
+      "recreateDashboard": {
+        "title": "Recriar Análises do Painel",
+        "warning": "Aviso: Esta ação recalculará todos os dados de análise para esta matriz de avaliação.",
+        "timeWarning": "Este processo pode levar vários minutos dependendo da quantidade de dados.",
+        "confirmMessage": "Tem certeza de que deseja recriar as análises do painel?",
+        "confirm": "Sim, Recriar",
+        "cancel": "Cancelar",
+        "processingTitle": "Processando Análises do Painel",
+        "processingMessage": "Por favor, aguarde enquanto recalculamos todos os dados de análise. Isso pode levar alguns minutos...",
+        "doNotClose": "Por favor, não feche esta janela durante o processo.",
+        "success": "Análises do painel recriadas com sucesso! A página será atualizada agora.",
+        "error": "Falha ao recriar análises do painel. Por favor, tente novamente."
       },
       "noTeams": {
         "title": "Nenhuma Equipe Encontrada",
