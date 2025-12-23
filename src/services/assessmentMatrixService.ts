@@ -18,12 +18,20 @@ export interface AssessmentMatrix extends CrudItem {
   tenantId: string;
   name: string;
   description?: string;
-  performanceCycleId: string;
+  performanceCycleId?: string;
   pillarMap: { [key: string]: Pillar };
   questionCount?: number;
   potentialScore?: unknown;
   createdDate?: string;
   lastUpdatedDate?: string;
+  // Template fields
+  isTemplate?: boolean;
+  sourceTemplateId?: string;
+  sourceTemplateName?: string;
+  sourceTemplateVersion?: string;
+  instrumentName?: string;
+  instrumentVersion?: string;
+  validationReference?: string;
 }
 
 // Dashboard Types
@@ -95,4 +103,21 @@ export const getDashboard = async (matrixId: string, page: number = 1, pageSize:
     page: page.toString(),
     pageSize: pageSize.toString()
   });
+};
+
+// Template API
+export interface CopyFromTemplateDto {
+  templateId: string;
+  tenantId: string;
+  performanceCycleId?: string;
+  name: string;
+  description?: string;
+}
+
+export const getTemplates = async (tenantId: string): Promise<AssessmentMatrix[]> => {
+  return await apiService.get<AssessmentMatrix[]>('/assessmentmatrices/templates', { tenantId });
+};
+
+export const copyFromTemplate = async (data: CopyFromTemplateDto): Promise<AssessmentMatrix> => {
+  return await apiService.post<AssessmentMatrix>('/assessmentmatrices/from-template', data);
 };
