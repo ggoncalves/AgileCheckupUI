@@ -288,10 +288,12 @@
       "fields": {
         "name": "Name",
         "description": "Description",
-        "performanceCycle": "Performance Cycle"
+        "performanceCycle": "Performance Cycle",
+        "template": "Use Template"
       },
       "placeholders": {
         "selectPerformanceCycle": "Select Performance Cycle",
+        "selectTemplate": "Create from scratch (no template)",
         "pillarName": "Pillar Name",
         "pillarDescription": "Pillar Description (optional)",
         "categoryName": "Category Name",
@@ -324,8 +326,15 @@
         }
       },
       "help": {
-        "preselectedFromFilter": "Pre-selected from filter"
+        "preselectedFromFilter": "Pre-selected from filter",
+        "templateSelection": "Selecting a template will pre-fill the matrix with validated pillars, categories, and questions."
+      },
+      "errors": {
+        "templateCopyFailed": "Failed to create matrix from template. Please try again."
       }
+    },
+    "badges": {
+      "templateSource": "Created from template: {{templateName}}"
     },
     "actions": {
       "viewStructure": "View structure details",

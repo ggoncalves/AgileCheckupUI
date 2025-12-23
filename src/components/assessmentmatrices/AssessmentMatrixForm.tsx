@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { AssessmentMatrix, AssessmentMatrixCreateDto, Pillar, Category } from '@/services/assessmentMatrixService';
+import { AssessmentMatrix, AssessmentMatrixCreateDto, Pillar, Category, getTemplates, copyFromTemplate } from '@/services/assessmentMatrixService';
 import { performanceCycleService, PerformanceCycle } from '@/services/performanceCycleService';
 import { useTenant } from '@/infrastructure/auth';
 import ConfirmationDialog from '@/components/common/ConfirmationDialog';
@@ -13,6 +13,7 @@ interface AssessmentMatrixFormProps {
   onCancel: () => void;
   selectedPerformanceCycleId?: string;
   isModal?: boolean;
+  onTemplateCreated?: (matrix: AssessmentMatrix) => void;
 }
 
 const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
@@ -20,7 +21,8 @@ const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
   onSubmit,
   onCancel,
   selectedPerformanceCycleId,
-  isModal = false
+  isModal = false,
+  onTemplateCreated
 }) => {
   const { t } = useTranslation();
   const { tenantId } = useTenant();
@@ -33,6 +35,9 @@ const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
   });
   const [performanceCycles, setPerformanceCycles] = useState<PerformanceCycle[]>([]);
   const [loading, setLoading] = useState(false);
+  const [templates, setTemplates] = useState<AssessmentMatrix[]>([]);
+  const [selectedTemplateId, setSelectedTemplateId] = useState<string>('');
+  const isCreating = !item;
   const [confirmDialog, setConfirmDialog] = useState<{
     isOpen: boolean;
     title: string;
@@ -94,16 +99,51 @@ const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
     fetchPerformanceCycles();
   }, []);
 
+  useEffect(() => {
+    const fetchTemplates = async () => {
+      if (!isCreating || !tenantId) return;
+      try {
+        const templateList = await getTemplates(tenantId);
+        setTemplates(templateList);
+      } catch (error) {
+        console.error('Error fetching templates:', error);
+      }
+    };
+
+    fetchTemplates();
+  }, [isCreating, tenantId]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Validate pillars and categories have names
+
+    // If creating from template, use copyFromTemplate
+    if (selectedTemplateId && tenantId) {
+      setLoading(true);
+      try {
+        const newMatrix = await copyFromTemplate({
+          templateId: selectedTemplateId,
+          tenantId,
+          performanceCycleId: formData.performanceCycleId || undefined,
+          name: formData.name,
+          description: formData.description
+        });
+        onTemplateCreated?.(newMatrix);
+      } catch (error) {
+        console.error('Error copying from template:', error);
+        alert(t('assessmentMatrix.form.errors.templateCopyFailed'));
+      } finally {
+        setLoading(false);
+      }
+      return;
+    }
+
+    // Validate pillars and categories have names (only for non-template create)
     for (const pillar of Object.values(formData.pillarMap)) {
       if (!pillar.name || pillar.name.trim() === '') {
         alert(t('assessmentMatrix.form.validation.pillarNameRequired'));
         return;
       }
-      
+
       for (const category of Object.values(pillar.categoryMap)) {
         if (!category.name || category.name.trim() === '') {
           alert(t('assessmentMatrix.form.validation.categoryNameRequired'));
@@ -111,7 +151,7 @@ const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
         }
       }
     }
-    
+
     setLoading(true);
     try {
       // Ensure all descriptions are at least empty strings
@@ -330,17 +370,40 @@ const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
             />
           </div>
 
-          <div className="form-group">
-            <div className="d-flex justify-content-between align-items-center mb-3">
-              <label>{t('assessmentMatrix.form.sections.pillarsAndCategories')}</label>
-              <button
-                type="button"
-                className="btn btn-sm btn-success"
-                onClick={addPillar}
+          {isCreating && templates.length > 0 && (
+            <div className="form-group">
+              <label htmlFor="template">{t('assessmentMatrix.form.fields.template')}</label>
+              <select
+                className="form-control"
+                id="template"
+                value={selectedTemplateId}
+                onChange={(e) => setSelectedTemplateId(e.target.value)}
               >
-                <i className="fas fa-plus"></i> {t('assessmentMatrix.form.buttons.addPillar')}
-              </button>
+                <option value="">{t('assessmentMatrix.form.placeholders.selectTemplate')}</option>
+                {templates.map(template => (
+                  <option key={template.id} value={template.id}>
+                    {template.name} {template.instrumentName ? `(${template.instrumentName})` : ''}
+                  </option>
+                ))}
+              </select>
+              <small className="form-text text-muted">
+                {t('assessmentMatrix.form.help.templateSelection')}
+              </small>
             </div>
+          )}
+
+          {!selectedTemplateId && (
+            <div className="form-group">
+              <div className="d-flex justify-content-between align-items-center mb-3">
+                <label>{t('assessmentMatrix.form.sections.pillarsAndCategories')}</label>
+                <button
+                  type="button"
+                  className="btn btn-sm btn-success"
+                  onClick={addPillar}
+                >
+                  <i className="fas fa-plus"></i> {t('assessmentMatrix.form.buttons.addPillar')}
+                </button>
+              </div>
             
             {Object.entries(formData.pillarMap).map(([pillarId, pillar]) => (
               <div key={pillarId} className="card mb-3">
@@ -426,8 +489,9 @@ const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
               </div>
             ))}
           </div>
+          )}
         </div>
-        
+
         <div className={`${isModal ? 'modal-footer border-top-0 bg-transparent px-0' : 'card-footer'}`}>
           {!isModal && (
             <button

@@ -74,7 +74,28 @@ const AssessmentMatrixPage: React.FC = () => {
 
   // Define columns for assessment matrix table
   const columns: CrudColumn<AssessmentMatrix>[] = [
-    { key: 'name', label: t('assessmentMatrix.columns.name'), sortable: true, className: 'col-md-2' },
+    {
+      key: 'name',
+      label: t('assessmentMatrix.columns.name'),
+      sortable: true,
+      className: 'col-md-2',
+      render: (matrix) => (
+        <div>
+          <span>{matrix.name}</span>
+          {matrix.sourceTemplateName && (
+            <div className="mt-1">
+              <span
+                className="badge badge-info"
+                title={t('assessmentMatrix.badges.templateSource', { templateName: matrix.sourceTemplateName })}
+              >
+                <i className="fas fa-file-alt mr-1"></i>
+                {matrix.sourceTemplateName}
+              </span>
+            </div>
+          )}
+        </div>
+      )
+    },
     { key: 'description', label: t('assessmentMatrix.columns.description'), sortable: true, className: 'col-md-2' },
     {
       key: 'performanceCycleId',

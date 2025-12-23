@@ -288,10 +288,12 @@
       "fields": {
         "name": "Nome",
         "description": "Descrição",
-        "performanceCycle": "Ciclo de Performance"
+        "performanceCycle": "Ciclo de Performance",
+        "template": "Usar Modelo"
       },
       "placeholders": {
         "selectPerformanceCycle": "Selecionar Ciclo de Performance",
+        "selectTemplate": "Criar do zero (sem modelo)",
         "pillarName": "Nome do Pilar",
         "pillarDescription": "Descrição do Pilar (opcional)",
         "categoryName": "Nome da Categoria",
@@ -324,8 +326,15 @@
         }
       },
       "help": {
-        "preselectedFromFilter": "Pré-selecionado do filtro"
+        "preselectedFromFilter": "Pré-selecionado do filtro",
+        "templateSelection": "Selecionar um modelo preencherá a matriz com pilares, categorias e perguntas validados."
+      },
+      "errors": {
+        "templateCopyFailed": "Falha ao criar matriz a partir do modelo. Por favor, tente novamente."
       }
+    },
+    "badges": {
+      "templateSource": "Criado a partir do modelo: {{templateName}}"
     },
     "actions": {
       "viewStructure": "Ver detalhes da estrutura",
