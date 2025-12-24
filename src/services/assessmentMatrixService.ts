@@ -106,7 +106,7 @@ export const getDashboard = async (matrixId: string, page: number = 1, pageSize:
 };
 
 // Template API
-export interface CopyFromTemplateDto {
+export interface MatrixFromTemplateDto {
   templateId: string;
   tenantId: string;
   performanceCycleId?: string;
@@ -118,6 +118,6 @@ export const getTemplates = async (tenantId: string): Promise<AssessmentMatrix[]
   return await apiService.get<AssessmentMatrix[]>('/assessmentmatrices/templates', { tenantId });
 };
 
-export const copyFromTemplate = async (data: CopyFromTemplateDto): Promise<AssessmentMatrix> => {
+export const copyFromTemplate = async (data: MatrixFromTemplateDto): Promise<AssessmentMatrix> => {
   return await apiService.post<AssessmentMatrix>('/assessmentmatrices/from-template', data);
 };
