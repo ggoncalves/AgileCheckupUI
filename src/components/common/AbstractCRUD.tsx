@@ -36,6 +36,7 @@ interface AbstractCRUDProps<T extends CrudItem> {
     onCancel: () => void;
     existingItems?: T[];
     isModal?: boolean;
+    onFormSuccess?: (message?: string) => void;
   }>;
   itemName: string;
   canEdit?: (item: T) => boolean;
@@ -67,6 +68,9 @@ function AbstractCRUD<T extends CrudItem>({
   const [itemsPerPage] = useState(10);
   const [sortField, setSortField] = useState<keyof T | "">("");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastType, setToastType] = useState<"success" | "error">("success");
 
   const loadItems = useCallback(async () => {
     setIsLoading(true);
@@ -145,6 +149,18 @@ function AbstractCRUD<T extends CrudItem>({
     }, 150); // Shorter delay for closing
   };
 
+  const handleFormSuccess = useCallback((message?: string) => {
+    loadItems();
+    setShowForm(false);
+    setEditingItem(undefined);
+    if (message) {
+      setToastMessage(message);
+      setToastType("success");
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 4500);
+    }
+  }, [loadItems]);
+
   // Filter items based on search term
   const filterItems = (items: T[]) => {
     if (!searchTerm) return items;
@@ -208,6 +224,22 @@ function AbstractCRUD<T extends CrudItem>({
 
   return (
     <div>
+      {/* Toast Notification */}
+      {showToast && (
+        <div className="toast show position-fixed" style={{ top: '20px', right: '20px', zIndex: 9999 }}>
+          <div className={`toast-header bg-${toastType} text-white`}>
+            <i className={`fas fa-${toastType === 'success' ? 'check-circle' : 'exclamation-circle'} mr-2`}></i>
+            <strong className="mr-auto">{toastType === 'success' ? t('common.status.success') : t('common.status.error')}</strong>
+            <button type="button" className="ml-2 mb-1 close text-white" onClick={() => setShowToast(false)}>
+              <span>&times;</span>
+            </button>
+          </div>
+          <div className="toast-body">
+            {toastMessage}
+          </div>
+        </div>
+      )}
+
       <div className="content-header">
         <div className="container-fluid">
           <div className="row mb-2">
@@ -425,6 +457,7 @@ function AbstractCRUD<T extends CrudItem>({
               onCancel={handleFormCancel}
               existingItems={items}
               isModal={true}
+              onFormSuccess={handleFormSuccess}
             />
           </Modal>
         </div>

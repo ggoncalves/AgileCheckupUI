@@ -330,7 +330,13 @@
         "templateSelection": "Selecionar um modelo preencherá a matriz com pilares, categorias e perguntas validados."
       },
       "errors": {
-        "templateCopyFailed": "Falha ao criar matriz a partir do modelo. Por favor, tente novamente."
+        "templateCopyFailed": "Falha ao criar matriz a partir do modelo. Por favor, tente novamente.",
+        "saveFailed": "Falha ao salvar matriz de avaliação. Por favor, tente novamente."
+      },
+      "messages": {
+        "templateCopySuccess": "Matriz de avaliação criada com sucesso a partir do template!",
+        "createSuccess": "Matriz de avaliação criada com sucesso!",
+        "updateSuccess": "Matriz de avaliação atualizada com sucesso!"
       }
     },
     "badges": {

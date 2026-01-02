@@ -330,7 +330,13 @@
         "templateSelection": "Selecting a template will pre-fill the matrix with validated pillars, categories, and questions."
       },
       "errors": {
-        "templateCopyFailed": "Failed to create matrix from template. Please try again."
+        "templateCopyFailed": "Failed to create matrix from template. Please try again.",
+        "saveFailed": "Failed to save assessment matrix. Please try again."
+      },
+      "messages": {
+        "templateCopySuccess": "Assessment matrix created successfully from template!",
+        "createSuccess": "Assessment matrix created successfully!",
+        "updateSuccess": "Assessment matrix updated successfully!"
       }
     },
     "badges": {

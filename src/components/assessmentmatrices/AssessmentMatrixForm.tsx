@@ -14,6 +14,7 @@ interface AssessmentMatrixFormProps {
   selectedPerformanceCycleId?: string;
   isModal?: boolean;
   onTemplateCreated?: (matrix: AssessmentMatrix) => void;
+  onFormSuccess?: (message?: string) => void;
 }
 
 const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
@@ -22,7 +23,8 @@ const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
   onCancel,
   selectedPerformanceCycleId,
   isModal = false,
-  onTemplateCreated
+  onTemplateCreated,
+  onFormSuccess
 }) => {
   const { t } = useTranslation();
   const { tenantId } = useTenant();
@@ -128,9 +130,11 @@ const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
           description: formData.description
         });
         onTemplateCreated?.(newMatrix);
+        const successMsg = t('assessmentMatrix.form.messages.templateCopySuccess') || 'Assessment matrix created successfully from template!';
+        onFormSuccess?.(successMsg);
       } catch (error) {
         console.error('Error copying from template:', error);
-        alert(t('assessmentMatrix.form.errors.templateCopyFailed'));
+        alert(t('assessmentMatrix.form.errors.templateCopyFailed') || 'Failed to create matrix from template. Please try again.');
       } finally {
         setLoading(false);
       }
@@ -174,6 +178,13 @@ const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
         }), {})
       };
       await onSubmit(sanitizedData);
+      const successMsg = item
+        ? (t('assessmentMatrix.form.messages.updateSuccess') || 'Assessment matrix updated successfully!')
+        : (t('assessmentMatrix.form.messages.createSuccess') || 'Assessment matrix created successfully!');
+      onFormSuccess?.(successMsg);
+    } catch (error) {
+      console.error('Error saving assessment matrix:', error);
+      alert(t('assessmentMatrix.form.errors.saveFailed') || 'Failed to save assessment matrix. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -530,6 +541,7 @@ const AssessmentMatrixForm: React.FC<AssessmentMatrixFormProps> = ({
         confirmText={t('common.actions.delete')}
         type="danger"
       />
+
     </form>
   );
 };
